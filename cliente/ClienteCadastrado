@@ -1,0 +1,11 @@
+public class ClienteCadastrado extends Cliente{
+    
+    //construtor
+    public ClienteCadastrado(String nomeCliente, String numeroCpf) {
+        super(nomeCliente, numeroCpf);
+    }
+    
+    
+    
+   
+}

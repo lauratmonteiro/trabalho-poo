@@ -1,0 +1,37 @@
+public abstract class Cliente {
+    //Atributos
+    private String nome;
+    protected String cpf;
+    
+    //Construtor
+    public Cliente(String nomeCliente, String numeroCpf){
+        this.nome = nomeCliente;
+        this.cpf = numeroCpf;
+    }
+    
+    //getters e setters
+    //fazer setters com validação depois
+    public String getNome() {
+        return nome;
+    }
+    
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+    
+    //Métodos
+    public void mostrarDadosCliente(){
+        System.out.println("Nome: "+getNome());
+        System.out.println("CPF: "+getCpf());
+    }
+    
+
+}
