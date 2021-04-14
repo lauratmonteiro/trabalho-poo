@@ -1,17 +1,23 @@
+import java.util.ArrayList;
+
 public class Livro {
+    
     private String titulo;
     private String idGenero;
-    private int numPaginas;
+    private Integer numPaginas;
     private String sinopse;
     private String idAutor;
     private String idEditora;
     private String dataPublicacao;
-    private int anoPublicacao;
+    private Integer anoPublicacao;
     private String edicao;
+    private Double avaliacao;
+    private ArrayList<Integer> avaliacoes = new ArrayList<Integer>();
 
+    /* Construtor */
 
-    public Livro(String titulo, String idGenero, int numPaginas, String sinopse, String idAutor, String idEditora,
-                 String dataPublicacao, int anoPublicacao, String edicao) {
+    public Livro(String titulo, String idGenero, Integer numPaginas, String sinopse, String idAutor, String idEditora,
+                 String dataPublicacao, Integer anoPublicacao, String edicao) {
         this.titulo = titulo;
         this.idGenero = idGenero;
         this.numPaginas = numPaginas;
@@ -23,6 +29,8 @@ public class Livro {
         this.edicao = edicao;
     }
 
+    /* Setters e getters */
+
     public String getTitulo(){
         return this.titulo;
     }
@@ -31,7 +39,7 @@ public class Livro {
         return this.idGenero;
     }
 
-    public int getNumPaginas() {
+    public Integer getNumPaginas() {
         return this.numPaginas;
     }
 
@@ -51,7 +59,7 @@ public class Livro {
         return this.dataPublicacao;
     }
 
-    public int getAnoPublicacao() {
+    public Integer getAnoPublicacao() {
         return this.anoPublicacao;
     }
 
@@ -59,9 +67,28 @@ public class Livro {
         return this.edicao;
     }
 
+    public void setAvaliacao(Integer avaliacao) {
+        // Adiciona a avaliação à lista de avaliações
+        avaliacoes.add(avaliacao);
+        // Calcula a nova avaliação média
+        Integer soma = 0;
+        for (Integer i : avaliacoes) {
+            soma += i;
+        }
+        // Define a nova avaliação média
+        avaliacao = (soma/avaliacoes.size());
+        //TODO: atribuir a nota ao autor também
+    }
+
+    public Double getAvaliacao() {
+        return avaliacao;
+    }
+
+    /* Outros métodos */
+
     @Override
     public String toString() {
-        return "Titulo: " + this.titulo + '\n' +
+        return  "Titulo: " + this.titulo + '\n' +
                 "Numero de paginas: " + this.numPaginas + '\n' +
                 "Sinopse: " + this.sinopse + '\n' +
                 "Ano de publicacao: " + this.anoPublicacao + '\n' +

@@ -1,20 +1,22 @@
-public class ClienteNovo extends Cliente{
-    Scanner teclado = new Scanner (System.in);
-    
-    //construtor
+import java.util.Scanner;
+
+public class ClienteNovo extends Cliente {
+
+    /* Construtor */
+
     public ClienteNovo(String nomeCliente, String numeroCpf) {
         super(nomeCliente, numeroCpf);
     }
     
-    //método
+    /* Outros métodos */
+    
     public void cadastrarCliente(){
+        Scanner teclado = new Scanner (System.in);
         System.out.println("Digite o nome do novo cliente: ");
-        this.nome = teclado.next();
+        super.setNome(teclado.next());
         System.out.println("Digite o cpf do novo cliente: ");
-        this.cpf = teclado.next();
+        super.setCpf(teclado.next());
+        teclado.close();
     }
-    
-
-    
     
 }  
