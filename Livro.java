@@ -1,35 +1,40 @@
 import java.util.ArrayList;
 
-public class Livro {
+public class Livro implements Comparable<Livro> {
     
     private String titulo;
+    private Integer idLivro;
     private String idGenero;
     private Integer numPaginas;
     private String sinopse;
     private String idAutor;
     private String idEditora;
-    private String dataPublicacao;
     private Integer anoPublicacao;
     private String edicao;
-    private Double avaliacao;
+    private Integer qtdExemplares;
+    private Integer qtdAlugados;
+    private Double avaliacao; // media das avaliações dos leitores armazenadas em avaliacoes
     private ArrayList<Integer> avaliacoes = new ArrayList<Integer>();
 
     /* Construtor */
 
     public Livro(String titulo, String idGenero, Integer numPaginas, String sinopse, String idAutor, String idEditora,
-                 String dataPublicacao, Integer anoPublicacao, String edicao) {
+                 Integer anoPublicacao, String edicao) {
         this.titulo = titulo;
         this.idGenero = idGenero;
         this.numPaginas = numPaginas;
         this.sinopse = sinopse;
         this.idAutor = idAutor;
         this.idEditora = idEditora;
-        this.dataPublicacao = dataPublicacao;
         this.anoPublicacao = anoPublicacao;
         this.edicao = edicao;
     }
 
     /* Setters e getters */
+
+    public Integer getIdLivro() {
+        return idLivro;
+    }
 
     public String getTitulo(){
         return this.titulo;
@@ -55,16 +60,28 @@ public class Livro {
         return this.idEditora;
     }
 
-    public String getDataPublicacao() {
-        return this.dataPublicacao;
-    }
-
     public Integer getAnoPublicacao() {
         return this.anoPublicacao;
     }
 
     public String getEdicao() {
         return this.edicao;
+    }
+
+    public void setQtdExemplares(Integer qtdExemplares) {
+        this.qtdExemplares = qtdExemplares;
+    }
+
+    public Integer getQtdExemplares() {
+        return qtdExemplares;
+    }
+
+    public void setQtdAlugados(Integer qtdAlugados) {
+        this.qtdAlugados = qtdAlugados;
+    }
+
+    public Integer getQtdAlugados() {
+        return qtdAlugados;
     }
 
     public void setAvaliacao(Integer avaliacao) {
@@ -86,12 +103,25 @@ public class Livro {
 
     /* Outros métodos */
 
+    // verifica se ainda ha exemplares desse livro disponiveis para alugar
+    public int verificaDisponibilidade() {
+        if (this.qtdExemplares > this.qtdAlugados) 
+            return 1;
+        return 0;
+    }
+
     @Override
     public String toString() {
-        return  "Titulo: " + this.titulo + '\n' +
+        return  "Titulo: " + this.titulo + " - " + this.idLivro + '\n' +
                 "Numero de paginas: " + this.numPaginas + '\n' +
                 "Sinopse: " + this.sinopse + '\n' +
                 "Ano de publicacao: " + this.anoPublicacao + '\n' +
                 "Edicao" + this.edicao + '\n';
     }
+
+    @Override
+    public int compareTo(Livro outroLivro) {
+        return this.titulo.compareTo(outroLivro.titulo);
+    } // função pra ordenar os livros alfabeticamente
+
 }

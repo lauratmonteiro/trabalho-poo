@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Autor {
+public class Autor implements Comparable<Autor> {
 
     private String id;
     private String nome;
@@ -63,4 +63,9 @@ public class Autor {
                 "Ano de nascimento: " + this.anoNascimento + '\n' +
                 "Quantidade de livros publicados: " + this.publicados + '\n';
     }
+
+    @Override
+    public int compareTo(Autor outroAutor) {
+        return this.nome.compareTo(outroAutor.nome);
+    } // função pra ordenar os autores alfabeticamente
 }

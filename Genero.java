@@ -1,4 +1,4 @@
-public class Genero {
+public class Genero implements Comparable<Genero> {
     
     private String nomeGenero;
 
@@ -20,5 +20,10 @@ public class Genero {
     public String toString() {
         return "Gênero do livro: " + this.nomeGenero + ".\n";
     }
+
+    @Override
+    public int compareTo(Genero outroGenero) {
+        return this.nomeGenero.compareTo(outroGenero.nomeGenero);
+    } // função pra ordenar os generos alfabeticamente
 
 }

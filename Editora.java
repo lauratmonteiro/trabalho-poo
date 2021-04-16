@@ -1,4 +1,4 @@
-public class Editora {
+public class Editora implements Comparable<Editora> {
     
     private String id;
     private String nome;
@@ -33,4 +33,10 @@ public class Editora {
         return  "Nome: " + this.nome + '\n' +
                 "CNPJ: " + this.cnpj + '\n';
     }
+
+    @Override
+    public int compareTo(Editora outraEditora) {
+        return this.nome.compareTo(outraEditora.nome);
+    } // função pra ordenar as editoras alfabeticamente
+    
 }

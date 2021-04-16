@@ -4,8 +4,8 @@ public class ClienteNovo extends Cliente {
 
     /* Construtor */
 
-    public ClienteNovo(String nomeCliente, String numeroCpf) {
-        super(nomeCliente, numeroCpf);
+    public ClienteNovo(String nomeCliente, String numeroCpf, Boolean assinante) {
+        super(nomeCliente, numeroCpf, assinante); 
     }
     
     /* Outros métodos */

@@ -2,13 +2,15 @@ public class Cliente implements Avaliacao { // Tem que implementar Avaliação, 
     
     private String nome;
     private String cpf;
-    // private Integer numCompras -> podemos fazer um sisteminha de a cada X compras o cliente ganha 20% de desconto
+    private Boolean assinante;
+    private Integer qtdLivrosAlugados;
 
     /* Construtor */
 
-    public Cliente (String nome, String cpf) {
+    public Cliente (String nome, String cpf, Boolean assinante) {
         this.nome = nome;
         this.cpf = cpf;
+        this.assinante = assinante;
     }
 
     /* Setters e getters */
@@ -30,7 +32,31 @@ public class Cliente implements Avaliacao { // Tem que implementar Avaliação, 
         return cpf;
     }
 
+    public void setAssinante(Boolean assinante) {
+        this.assinante = assinante;
+    }
+
+    public Boolean getAssinante() {
+        return assinante;
+    }
+
+    public void setQtdLivrosAlugados(Integer qtdLivrosAlugados) {
+        this.qtdLivrosAlugados = qtdLivrosAlugados;
+    }
+
+    public Integer getQtdLivrosAlugados() {
+        return qtdLivrosAlugados;
+    }
+
     /* Outros métodos */
+
+    public void comprarAssinatura() {
+        this.setAssinante(true);
+    }
+
+    public void cancelarAssinatura() {
+        this.setAssinante(false);
+    }
 
     @Override
     public void avaliar(Livro livro, Integer nota) {
