@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Autor implements Comparable<Autor> {
 
-    private String id;
+    private Integer id;
     private String nome;
     private String nacionalidade;
     private Integer anoNascimento;
@@ -12,8 +12,8 @@ public class Autor implements Comparable<Autor> {
 
     /* Construtor */
 
-    public Autor(String nome, String nacionalidade, Integer anoNascimento, Integer publicados) {
-        this.id = id; //TODO: implementar cálculo do id do autor
+    public Autor(Integer id, String nome, String nacionalidade, Integer anoNascimento, Integer publicados) {
+        this.id = id;
         this.nome = nome;
         this.nacionalidade = nacionalidade;
         this.anoNascimento = anoNascimento;
@@ -22,7 +22,7 @@ public class Autor implements Comparable<Autor> {
 
     /* Setters e getters */
 
-    public String getId(){
+    public Integer getId(){
         return this.id;
     }
 
@@ -44,14 +44,14 @@ public class Autor implements Comparable<Autor> {
 
     public void setAvaliacao(Integer avaliacao) {
         // Adiciona a avaliação à lista de avaliações
-        avaliacoes.add(avaliacao);
+        this.avaliacoes.add(avaliacao);
         // Calcula a nova avaliação média
         Integer soma = 0;
-        for (Integer i : avaliacoes) {
+        for (Integer i : this.avaliacoes) {
             soma += i;
         }
         // Define a nova avaliação média
-        avaliacao = (soma/avaliacoes.size());
+        avaliacao = (soma/this.avaliacoes.size());
     }
 
     /* Outros métodos */

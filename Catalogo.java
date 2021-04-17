@@ -13,6 +13,42 @@ public class Catalogo {
 
     /* Outros métodos*/
 
+    public void addLivro(Livro livro){
+        for (Livro l : this.livros){
+            if(livro.getTitulo() == l.getTitulo()){
+                return;
+            }
+        }
+        livros.add(livro);
+    }
+
+    public void addAutor(Autor autor){
+        for(Autor a : this.autores){
+            if(autor.getNome() == a.getNome()){
+                return;
+            }
+        }
+        autores.add(autor);
+    }
+
+    public void addEditora(Editora editora){
+        for(Editora e : this.editoras){
+            if(editora.getNome() == e.getNome()){
+                return;
+            }
+        }
+        editoras.add(editora);
+    }
+
+    public void addGenero(Genero genero){
+        for(Genero g : this.generos){
+            if(genero.getNomeGenero() == g.getNomeGenero()){
+                return;
+            }
+        }
+        generos.add(genero);
+    }
+
     // Mostra os livros em ordem alfabética
     public void listarLivros(){
         Collections.sort(livros);
@@ -65,7 +101,21 @@ public class Catalogo {
         //TODO: implementar
     }
     
-    public Livro buscaLivroPorId(int id){
+    public Livro buscaLivroPorId(Integer id){
+        for(Livro l : this.livros){
+            if(id == l.getId()){
+                return l;
+            }
+        }
+        return null;
+    }
+
+    public Autor buscaAutorPorId(Integer id){
+        for(Autor a : this.autores){
+            if(id == a.getId()){
+                return a;
+            }
+        }
         return null;
     }
 

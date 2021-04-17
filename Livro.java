@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Livro implements Comparable<Livro> {
     
     private String titulo;
-    private Integer idLivro;
+    private Integer id;
     private String idGenero;
     private Integer numPaginas;
     private String sinopse;
@@ -18,8 +18,9 @@ public class Livro implements Comparable<Livro> {
 
     /* Construtor */
 
-    public Livro(String titulo, String idGenero, Integer numPaginas, String sinopse, String idAutor, String idEditora,
+    public Livro(Integer id, String titulo, String idGenero, Integer numPaginas, String sinopse, String idAutor, String idEditora,
                  Integer anoPublicacao, String edicao) {
+        this.id = id;
         this.titulo = titulo;
         this.idGenero = idGenero;
         this.numPaginas = numPaginas;
@@ -32,8 +33,8 @@ public class Livro implements Comparable<Livro> {
 
     /* Setters e getters */
 
-    public Integer getIdLivro() {
-        return idLivro;
+    public Integer getId() {
+        return id;
     }
 
     public String getTitulo(){
@@ -81,7 +82,7 @@ public class Livro implements Comparable<Livro> {
     }
 
     public Integer getQtdAlugados() {
-        return qtdAlugados;
+        return this.qtdAlugados;
     }
 
     public void setAvaliacao(Integer avaliacao) {
@@ -89,16 +90,16 @@ public class Livro implements Comparable<Livro> {
         avaliacoes.add(avaliacao);
         // Calcula a nova avaliação média
         Integer soma = 0;
-        for (Integer i : avaliacoes) {
+        for (Integer i : this.avaliacoes) {
             soma += i;
         }
         // Define a nova avaliação média
-        avaliacao = (soma/avaliacoes.size());
+        avaliacao = (soma/this.avaliacoes.size());
         //TODO: atribuir a nota ao autor também
     }
 
     public Double getAvaliacao() {
-        return avaliacao;
+        return this.avaliacao;
     }
 
     /* Outros métodos */
@@ -112,7 +113,7 @@ public class Livro implements Comparable<Livro> {
 
     @Override
     public String toString() {
-        return  "Titulo: " + this.titulo + " - " + this.idLivro + '\n' +
+        return  "Titulo: " + this.titulo + " - " + this.id + '\n' +
                 "Numero de paginas: " + this.numPaginas + '\n' +
                 "Sinopse: " + this.sinopse + '\n' +
                 "Ano de publicacao: " + this.anoPublicacao + '\n' +
