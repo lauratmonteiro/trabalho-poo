@@ -65,14 +65,9 @@ public class Catalogo {
         //TODO: implementar
     }
     
-    /* // Encontra um livro a partir do seu id
-    public Livro encontraLivro(Integer id){
-        for (Livro li : livros) {
-            if (li.getIdLivro() == id) 
-                return li;
-        }
-        //TODO: terminar/consertar esse metodo
-    } */
+    public Livro buscaLivroPorId(int id){
+        return null;
+    }
 
     //TODO: implementar metodo pra mostrar o top3 livros de alguma categoria (autor, genero ou catalogo no geral)
 
