@@ -1,29 +1,20 @@
-public class Genero implements Comparable<Genero> {
+public enum Genero {
+    AUTOAJUDA,  
+    DRAMA, 
+    FICCAO, 
+    INFANTOJUVENIL,
+    JOVEM_ADULTO,
+    NAO_FICCAO, 
+    POLICIAL, 
+    QUADRINHOS, 
+    ROMANCE,  
+    SUSPENSE,
+    TERROR;
     
-    private String nomeGenero;
-
-    /* Construtor */
-
-    public Genero(String nomeGenero) {
-        this.nomeGenero = nomeGenero;
-    }
-
-    /* Setters e getters */
-
-    public String getNomeGenero() {
-        return nomeGenero;
-    }
-
-    /* Outros métodos */
-
-    @Override
-    public String toString() {
-        return "Gênero do livro: " + this.nomeGenero + ".\n";
-    }
-
-    @Override
-    public int compareTo(Genero outroGenero) {
-        return this.nomeGenero.compareTo(outroGenero.nomeGenero);
-    } // função pra ordenar os generos alfabeticamente
+/*  OBS1: os generos ja estão listados em ordem alfabetica
+    OBS2: se alterar os gêneros, alterar tambem:
+        * método listarGeneros() na classe Catalogo
+        * método getNomeGenero() na classe Livro
+*/
 
 }

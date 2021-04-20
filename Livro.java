@@ -4,10 +4,10 @@ public class Livro implements Comparable<Livro> {
     
     private String titulo;
     private Integer id;
-    private String idGenero;
+    private Genero nomeGenero;
     private Integer numPaginas;
     private String sinopse;
-    private String idAutor;
+    private Integer idAutor;
     private String idEditora;
     private Integer anoPublicacao;
     private String edicao;
@@ -18,11 +18,11 @@ public class Livro implements Comparable<Livro> {
 
     /* Construtor */
 
-    public Livro(Integer id, String titulo, String idGenero, Integer numPaginas, String sinopse, String idAutor, String idEditora,
+    public Livro(Integer id, String titulo, genero nomeGenero, Integer numPaginas, String sinopse, Integer idAutor, String idEditora,
                  Integer anoPublicacao, String edicao) {
         this.id = id;
         this.titulo = titulo;
-        this.idGenero = idGenero;
+        this.nomeGenero = nomeGenero;
         this.numPaginas = numPaginas;
         this.sinopse = sinopse;
         this.idAutor = idAutor;
@@ -41,8 +41,22 @@ public class Livro implements Comparable<Livro> {
         return this.titulo;
     }
 
-    public String getIdGenero() {
-        return this.idGenero;
+    public String getNomeGenero() {
+        //TODO: transforma os nomes em Strings bonitinhas pra imprimir
+        switch (this.nomeGenero) {
+            case AUTOAJUDA: return "Autoajuda";
+            case DRAMA: return "Drama"; 
+            case FICCAO: return "Ficção";
+            case INFANTOJUVENIL: return "Infantojuvenil";
+            case JOVEM_ADULTO: return "Jovem Adulto"; 
+            case NAO_FICCAO: return "Não-ficção";
+            case POLICIAL: return "Policial"; 
+            case QUADRINHOS: return "Quadrinhos";
+            case ROMANCE: return "Romance";
+            case SUSPENSE: return "Suspense";
+            case TERROR: return "Terror"; 
+        }
+        return null;
     }
 
     public Integer getNumPaginas() {
@@ -53,7 +67,7 @@ public class Livro implements Comparable<Livro> {
         return this.sinopse;
     }
 
-    public String getIdAutor() {
+    public Integer getIdAutor() {
         return this.idAutor;
     }
 
@@ -95,7 +109,7 @@ public class Livro implements Comparable<Livro> {
         }
         // Define a nova avaliação média
         avaliacao = (soma/this.avaliacoes.size());
-        //TODO: atribuir a nota ao autor também
+        buscaAutorPorId(this.idAutor).setAvaliacao(avaliacao);
     }
 
     public Double getAvaliacao() {
@@ -114,6 +128,7 @@ public class Livro implements Comparable<Livro> {
     @Override
     public String toString() {
         return  "Titulo: " + this.titulo + " - " + this.id + '\n' +
+                "Genero: " + this.getnomeGenero() + '\n' +
                 "Numero de paginas: " + this.numPaginas + '\n' +
                 "Sinopse: " + this.sinopse + '\n' +
                 "Ano de publicacao: " + this.anoPublicacao + '\n' +

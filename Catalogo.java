@@ -1,108 +1,55 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Catalogo {
+public static class Catalogo {
 
     /* Atributos */
 
-    public final int MAX_LIVROS = 5;
-    private ArrayList<Livro> livros = new ArrayList<Livro>();
-    private ArrayList<Editora> editoras = new ArrayList<Editora>();
-    private ArrayList<Autor> autores = new ArrayList<Autor>();
-    private ArrayList<Genero> generos = new ArrayList<Genero>();
+    public static final int MAX_LIVROS = 5;
+    private static ArrayList<Livro> livros = new ArrayList<Livro>();
+    private static ArrayList<Editora> editoras = new ArrayList<Editora>();
+    private static ArrayList<Autor> autores = new ArrayList<Autor>();
 
     /* Outros métodos*/
 
-    public void addLivro(Livro livro){
-        for (Livro l : this.livros){
-            if(livro.getTitulo() == l.getTitulo()){
-                return;
-            }
-        }
-        livros.add(livro);
-    }
-
-    public void addAutor(Autor autor){
-        for(Autor a : this.autores){
-            if(autor.getNome() == a.getNome()){
-                return;
-            }
-        }
-        autores.add(autor);
-    }
-
-    public void addEditora(Editora editora){
-        for(Editora e : this.editoras){
-            if(editora.getNome() == e.getNome()){
-                return;
-            }
-        }
-        editoras.add(editora);
-    }
-
-    public void addGenero(Genero genero){
-        for(Genero g : this.generos){
-            if(genero.getNomeGenero() == g.getNomeGenero()){
-                return;
-            }
-        }
-        generos.add(genero);
-    }
-
     // Mostra os livros em ordem alfabética
-    public void listarLivros(){
+    public static void listarLivros(){
         Collections.sort(livros);
         System.out.println(livros);
     }
 
     // Mostra os autores em ordem alfabética
-    public void listarAutores(){
+    public static void listarAutores(){
         Collections.sort(autores);
         System.out.println(livros);
     }
 
     // Mostra as editoras em ordem alfabética
-    public void listarEditoras(){
+    public static void listarEditoras(){
         Collections.sort(editoras);
         System.out.println(editoras);
     }
 
     // Mostra os generos em ordem alfabética
-    public void listarGeneros(){
-        Collections.sort(generos);
-        System.out.println(generos);
+    public static void listarGeneros(){
+        System.out.println( "Autoajuda\n" + 
+                            "Drama\n" +
+                            "Ficção\n" +
+                            "Infantojuvenil\n" +
+                            "Jovem adulto\n" + 
+                            "Não ficção\n" + 
+                            "Policial\n" + 
+                            "Quadrinhos\n" +
+                            "Romance\n" +
+                            "Suspense\n" + 
+                            "Terror\n" );
     }
 
-    // Aluga um livro
-    public void alugarLivro(Integer idLivro, String dataAluguel, Cliente cliente) {
-        if (!cliente.getAssinante()) {
-            System.out.println("Não é possível alugar o livro pois o cliente não é assinante do serviço.\n");
-            //TODO: fornecer opção de assinar ou nao ?
-            return;
-        }
-        if (cliente.getQtdLivrosAlugados() == MAX_LIVROS) {
-            System.out.println("Não é possível alugar o livro pois o cliente atingiu o limite de livros alugados simultaneamente.\n");
-            //TODO: fornecer opção de devolver ou nao ?
-            return;
-        }
-
-        /* Descomentar quando tiver o método pra encontrar o livro pelo id
-        Livro livro = livros.encontraLivro(idLivro);
-        if (!livro.verificaDisponibilidade) {
-            System.out.println("Não é possível alugar o livro pois não há exemplares disponíveis.\n");
-            return;
-        }
-        Aluguel novoAluguel = new Aluguel(livro, dataAluguel, cliente); // cria um obj da classe Aluguel com os dados
-        */
-    }
-
-    // Devolve um livro
-    public void devolverLivro(Aluguel aluguel) {
-        //TODO: implementar
-    }
+    //TODO: implementar busca (por título do livro, autor, gênero ou editora)
+    //TODO: implementar metodo pra mostrar o top3 livros
     
-    public Livro buscaLivroPorId(Integer id){
-        for(Livro l : this.livros){
+    public static Livro buscaLivroPorId(Integer id){
+        for(Livro l : livros){
             if(id == l.getId()){
                 return l;
             }
@@ -110,8 +57,8 @@ public class Catalogo {
         return null;
     }
 
-    public Autor buscaAutorPorId(Integer id){
-        for(Autor a : this.autores){
+    public static Autor buscaAutorPorId(Integer id){
+        for(Autor a : autores){
             if(id == a.getId()){
                 return a;
             }
@@ -119,6 +66,35 @@ public class Catalogo {
         return null;
     }
 
-    //TODO: implementar metodo pra mostrar o top3 livros de alguma categoria (autor, genero ou catalogo no geral)
+    /* Métodos para ler os dados de livros, autores e editoras disponíveis */
+
+    public static void addLivro(Livro livro){
+        for (Livro l : livros){
+            if(livro.getTitulo() == l.getTitulo()){
+                if (livro.getIdAutor() == l.getIdAutor) {
+                    return;
+                }
+            }
+        }
+        livros.add(livro);
+    } // TODO: metodo pra ler o livro do arquivo 
+
+    public static void addAutor(Autor autor){
+        for(Autor a : autores){
+            if(autor.getNome() == a.getNome()){
+                return;
+            }
+        }
+        autores.add(autor);
+    } //TODO: metodo pra ler o autor do arquivo
+
+    public static void addEditora(Editora editora){
+        for(Editora e : editoras){
+            if(editora.getNome() == e.getNome()){
+                return;
+            }
+        }
+        editoras.add(editora);
+    } //TODO: metodo pra ler a editora do arquivo
 
 }

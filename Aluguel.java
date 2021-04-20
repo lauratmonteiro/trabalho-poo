@@ -17,11 +17,11 @@ public class Aluguel{
     }
 
     /* getters e setters */
-    public Livro getIdLivro() {
+    public Livro getLivro() {
         return livro;
     }
 
-    public void setIdLivro(Livro livro) {
+    public void setLivro(Livro livro) {
         this.livro = livro;
     }
 
