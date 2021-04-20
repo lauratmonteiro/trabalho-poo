@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.Collections;
+import java.util.Comparator;
 
 public static class Livraria implements Avaliacao {
 
@@ -56,6 +58,46 @@ public static class Livraria implements Avaliacao {
                 break;
         }
         input.close();
+        System.out.println("Aqui estão algumas recomendações para você:\n");
+        topTres(aluguel.getLivro());
+    }
+
+    // T<Livro, Autor, Editora, Genero> 
+    public static void busca() {
+        System.out.println("Pelo que deseja buscar?\n");
+        Scanner input = new Scanner();
+        String resposta = input.nextLine();
+        switch (resposta) {
+            case "Livro": 
+                String str1 = input.nextLine();
+                Catalogo.buscaLivroPorTitulo(str1).toString(); // encontra e imprime os livros 
+                break;
+            case "Autor":
+                String str = input.nextLine();
+                Catalogo.buscarLivros(Catalogo.buscaAutorPorNome(str)); // encontra e imprime os livros
+                break;
+            case "Editora":
+                String str3 = input.nextLine();
+                Catalogo.buscarLivros(Catalogo.buscaEditoraPorNome(str3)); // encontra e imprime os livros
+                break;
+            case "Genero": 
+                String str4 = input.nextLine();
+                Catalogo.buscarLivros(str4); // encontra e imprime os livros
+                break;
+        }
+    }
+
+    public static void topTres(Livro livro) {
+        livros.sort(Comparator.comparing(Livro :: getAvaliacao)); // ordena de acordo com as avaliações (menor primeiro)
+        List livrosOrdenados = ImmutableList.copyOf(livros).reverse(); // cópia ordenada da maior pra menor avaliação
+        int top = 0;
+        for (Livro l : livrosOrdenados) {
+            if (l.getIdAutor() == livro.getIdAutor() || l.getGenero() == livro.getGenero()) { // se for do mesmo autor ou do mesmo genero
+                System.out.println(l);
+                top++;
+            }
+            if (top == 3) break;
+        }
     }
 
     @Override // Avalia um livro (e o autor)

@@ -2,15 +2,15 @@ import java.util.ArrayList;
 
 public class Livro implements Comparable<Livro> {
     
-    private String titulo;
     private Integer id;
-    private Genero nomeGenero;
-    private Integer numPaginas;
-    private String sinopse;
+    private String titulo;
     private Integer idAutor;
     private String idEditora;
+    private Genero genero;
     private Integer anoPublicacao;
     private String edicao;
+    private Integer numPaginas;
+    private String sinopse;
     private Integer qtdExemplares;
     private Integer qtdAlugados;
     private Double avaliacao; // media das avaliações dos leitores armazenadas em avaliacoes
@@ -18,17 +18,17 @@ public class Livro implements Comparable<Livro> {
 
     /* Construtor */
 
-    public Livro(Integer id, String titulo, genero nomeGenero, Integer numPaginas, String sinopse, Integer idAutor, String idEditora,
-                 Integer anoPublicacao, String edicao) {
+    public Livro(Integer id, String titulo, Integer idAutor, String idEditora, genero genero, Integer anoPublicacao, String edicao, Integer numPaginas, String sinopse, Double avaliacao) {
         this.id = id;
         this.titulo = titulo;
-        this.nomeGenero = nomeGenero;
-        this.numPaginas = numPaginas;
-        this.sinopse = sinopse;
         this.idAutor = idAutor;
         this.idEditora = idEditora;
+        this.genero = genero;
         this.anoPublicacao = anoPublicacao;
         this.edicao = edicao;
+        this.numPaginas = numPaginas;
+        this.sinopse = sinopse;
+        this.avaliacao = avaliacao; // Inicializada com a nota do Goodreads (a partir da primeira avaliação, passa a ser a média das avaliações dos clientes)
     }
 
     /* Setters e getters */
@@ -41,9 +41,13 @@ public class Livro implements Comparable<Livro> {
         return this.titulo;
     }
 
+    public Genero getGenero() {
+        return this.genero;
+    }
+
     public String getNomeGenero() {
-        //TODO: transforma os nomes em Strings bonitinhas pra imprimir
-        switch (this.nomeGenero) {
+        // Transforma os nomes em Strings bonitinhas pra imprimir
+        switch (this.genero) {
             case AUTOAJUDA: return "Autoajuda";
             case DRAMA: return "Drama"; 
             case FICCAO: return "Ficção";
@@ -128,11 +132,11 @@ public class Livro implements Comparable<Livro> {
     @Override
     public String toString() {
         return  "Titulo: " + this.titulo + " - " + this.id + '\n' +
-                "Genero: " + this.getnomeGenero() + '\n' +
+                "Genero: " + this.getNomeGenero() + '\n' +
                 "Numero de paginas: " + this.numPaginas + '\n' +
                 "Sinopse: " + this.sinopse + '\n' +
-                "Ano de publicacao: " + this.anoPublicacao + '\n' +
-                "Edicao" + this.edicao + '\n';
+                "Ano de publicacao: " + this.anoPublicacao + " - " + this.edicao + "ª Edição\n";
+                
     }
 
     @Override

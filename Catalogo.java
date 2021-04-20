@@ -12,7 +12,7 @@ public static class Catalogo {
 
     /* Outros métodos*/
 
-    // Mostra os livros em ordem alfabética
+    // Mostra todos os livros em ordem alfabética
     public static void listarLivros(){
         Collections.sort(livros);
         System.out.println(livros);
@@ -45,6 +45,36 @@ public static class Catalogo {
                             "Terror\n" );
     }
 
+    // Mostra os livros de um determinado autor em ordem alfabética
+    public static void buscarLivros(Autor autor){
+        Collections.sort(livros);
+        for (Livro l : livros) {
+            if (l.getIdAutor() == autor.getId()) {
+                System.out.println(l);
+            }
+        }   
+    }
+
+    // Mostra os livros de uma determinada editora em ordem alfabética
+    public static void buscarLivros(Editora editora){
+        Collections.sort(livros);
+        for (Livro l : livros) {
+            if (l.getIdEditora() == editora.getId()) {
+                System.out.println(l);
+            }
+        }   
+    }
+
+    // Mostra os livros de um determinado genero em ordem alfabética
+    public static void buscarLivros(String genero){
+        Collections.sort(livros);
+        for (Livro l : livros) {
+            if (l.getNomeGenero() == genero) {
+                System.out.println(l);
+            }
+        }
+    }
+
     //TODO: implementar busca (por título do livro, autor, gênero ou editora)
     //TODO: implementar metodo pra mostrar o top3 livros
     
@@ -57,10 +87,37 @@ public static class Catalogo {
         return null;
     }
 
+    public static Livro buscaLivroPorTitulo(String titulo){
+        for(Livro l : livros){
+            if(titulo.toLowerCase() == l.getTitulo().toLowerCase()){
+                return l;
+            }
+        }
+        return null;
+    }
+
     public static Autor buscaAutorPorId(Integer id){
         for(Autor a : autores){
             if(id == a.getId()){
                 return a;
+            }
+        }
+        return null;
+    }
+
+    public static Autor buscaAutorPorNome(String nome){
+        for(Autor a : autores){
+            if(nome.toLowerCase() == a.getNome().toLowerCase()){
+                return a;
+            }
+        }
+        return null;
+    }
+
+    public static Editora buscaEditoraPorNome(String nome){
+        for(Editora e : editoras){
+            if(nome.toLowerCase() == e.getNome().toLowerCase()){
+                return e;
             }
         }
         return null;
