@@ -15,37 +15,38 @@ public class Cliente implements Avaliacao { // Tem que implementar Avaliação, 
 
     /* Setters e getters */
     //TODO: fazer validação dos setters
-    public void setNome(String nome) {
-        this.nome = validacaoSet(nome);
+    public  void  setNome ( String  nome ) {
+        isso . nome = nome;
     }
- 
-    public String getNome() {
+
+    public  String  getNome () {
         return nome;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = validacaoSet(cpf);
+    public  void  setCpf ( String  cpf ) {
+        isso . cpf = cpf;
     }
 
-    public String getCpf() {
+    public  String  getCpf () {
         return cpf;
     }
 
-    public void setAssinante(Boolean assinante) {
-        this.assinante = assinante;
+    public  void  setAssinante ( Boolean  assinante ) {
+        isso . assinante = assinante;
     }
 
-    public Boolean getAssinante() {
-        return assinante;
+    public  Boolean  getAssinante () {
+        retorno assinante;
     }
 
-    public void setQtdLivrosAlugados(Integer qtdLivrosAlugados) {
-        this.qtdLivrosAlugados = qtdLivrosAlugados;
+    public  void  setQtdLivrosAlugados ( Integer  qtdLivrosAlugados ) {
+        isso . qtdLivrosAlugados = qtdLivrosAlugados;
     }
 
-    public Integer getQtdLivrosAlugados() {
+    public  Integer  getQtdLivrosAlugados () {
         return qtdLivrosAlugados;
     }
+
 
     /* Outros métodos */
 
