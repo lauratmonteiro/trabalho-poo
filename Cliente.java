@@ -15,17 +15,16 @@ public class Cliente implements Avaliacao { // Tem que implementar Avaliação, 
 
     /* Setters e getters */
     //TODO: fazer validação dos setters
-
     public void setNome(String nome) {
-        this.nome = nome;
+        this.nome = validacaoSet(nome);
     }
-
+ 
     public String getNome() {
         return nome;
     }
 
     public void setCpf(String cpf) {
-        this.cpf = cpf;
+        this.cpf = validacaoSet(cpf);
     }
 
     public String getCpf() {
