@@ -12,19 +12,33 @@ public class Cliente implements Avaliacao { // Tem que implementar Avaliação, 
         this.cpf = cpf;
         this.assinante = assinante;
     }
-
+    
     /* Setters e getters */
-    //TODO: fazer validação dos setters
-    public  void  setNome ( String  nome ) {
-        isso . nome = nome;
+
+    /* Validação necessária de alguns setters */
+    public String validacaoNome(String valor) throws IllegalArgumentException {        
+        if(valor == null || valor.equals("")) 
+            throw new IllegalArgumentException("Entrada inválida! Prencha o nome do Cliente corretamente.");
+        return valor;
+    }
+
+    public String validacaoCPF(String valor) throws IllegalArgumentException {        
+        if(valor == null || valor.equals("")) 
+            throw new IllegalArgumentException("Entrada inválida! Prencha o CPF do Cliente corretamente.");
+        return valor;
+    }
+
+    /* Essas exceções vão ser tratadas apenas por quem chamar esses setters */
+    public  void  setNome ( String  nome ) throws IllegalArgumentException {
+        this.nome = validacaoNome(nome);
     }
 
     public  String  getNome () {
         return nome;
     }
 
-    public  void  setCpf ( String  cpf ) {
-        isso . cpf = cpf;
+    public  void  setCpf ( String  cpf ) throws IllegalArgumentException {
+        this.cpf = cpf;
     }
 
     public  String  getCpf () {
@@ -32,7 +46,7 @@ public class Cliente implements Avaliacao { // Tem que implementar Avaliação, 
     }
 
     public  void  setAssinante ( Boolean  assinante ) {
-        isso . assinante = assinante;
+        this.assinante = assinante;
     }
 
     public  Boolean  getAssinante () {
@@ -40,7 +54,7 @@ public class Cliente implements Avaliacao { // Tem que implementar Avaliação, 
     }
 
     public  void  setQtdLivrosAlugados ( Integer  qtdLivrosAlugados ) {
-        isso . qtdLivrosAlugados = qtdLivrosAlugados;
+        this.qtdLivrosAlugados = qtdLivrosAlugados;
     }
 
     public  Integer  getQtdLivrosAlugados () {

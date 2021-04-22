@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class ClienteNovo extends Cliente {
 
     /* Construtor */
-
+    
     public ClienteNovo(String nomeCliente, String numeroCpf, Boolean assinante) {
         super(nomeCliente, numeroCpf, assinante); 
     }
@@ -13,9 +13,17 @@ public class ClienteNovo extends Cliente {
     public void cadastrarCliente(){
         Scanner teclado = new Scanner (System.in);
         System.out.println("Digite o nome do novo cliente: ");
-        super.setNome(teclado.next());
+        try{
+            super.setNome(teclado.next());
+        }catch(IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
         System.out.println("Digite o cpf do novo cliente: ");
-        super.setCpf(teclado.next());
+        try{
+            super.setCpf(teclado.next());
+        }catch(IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
         teclado.close();
     }
     

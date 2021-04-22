@@ -25,8 +25,16 @@ public class Aluguel{
         this.livro = livro;
     }
 
-    public void setDataAluguel(String dataAluguel) {
-        this.dataAluguel = dataAluguel;
+    /* Valicação necessária do setter da data de aluguel */
+    public String validacaoDataAluguel(String valor) throws IllegalArgumentException {        
+        if(valor == null || valor.equals("")) 
+            throw new IllegalArgumentException("Entrada inválida! Prencha a data de entrega corretamente.");
+        return valor;
+    }
+
+    /* Essa excessão vai ser tratada por quem chama a setDataAluguel */
+    public void setDataAluguel(String dataAluguel) throws IllegalArgumentException {
+        this.dataAluguel = validacaoDataAluguel(dataAluguel);
     }
 
     public String getDataAluguel() {
