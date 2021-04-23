@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Livro implements Comparable<Livro> {
+public class Livro implements Avaliacao, Comparable<Livro> {
     
     private Integer id;
     private String titulo;
@@ -18,7 +18,7 @@ public class Livro implements Comparable<Livro> {
 
     /* Construtor */
 
-    public Livro(Integer id, String titulo, Integer idAutor, String idEditora, genero genero, Integer anoPublicacao, String edicao, Integer numPaginas, String sinopse, Double avaliacao) {
+    public Livro(Integer id, String titulo, Integer idAutor, String idEditora, Genero genero, Integer anoPublicacao, String edicao, Integer numPaginas, String sinopse, Double avaliacao) {
         this.id = id;
         this.titulo = titulo;
         this.idAutor = idAutor;
@@ -113,7 +113,7 @@ public class Livro implements Comparable<Livro> {
         }
         // Define a nova avaliação média
         avaliacao = (soma/this.avaliacoes.size());
-        buscaAutorPorId(this.idAutor).setAvaliacao(avaliacao);
+        Catalogo.buscaAutorPorId(this.idAutor).avaliar(avaliacao);
     }
 
     public Double getAvaliacao() {
@@ -143,5 +143,10 @@ public class Livro implements Comparable<Livro> {
     public int compareTo(Livro outroLivro) {
         return this.titulo.compareTo(outroLivro.titulo);
     } // função pra ordenar os livros alfabeticamente
+
+    @Override
+    public void avaliar(Integer nota) {
+        this.setAvaliacao(nota);
+    }
 
 }

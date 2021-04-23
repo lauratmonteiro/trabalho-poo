@@ -1,14 +1,28 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Collections;
 
-public static class Catalogo {
+public class Catalogo {
 
     /* Atributos */
 
-    public static final int MAX_LIVROS = 5;
-    private static ArrayList<Livro> livros = new ArrayList<Livro>();
-    private static ArrayList<Editora> editoras = new ArrayList<Editora>();
-    private static ArrayList<Autor> autores = new ArrayList<Autor>();
+    private static List<Livro> livros = new ArrayList<Livro>();
+    private static List<Editora> editoras = new ArrayList<Editora>();
+    private static List<Autor> autores = new ArrayList<Autor>();
+
+    /* getters */
+
+    public static List<Livro> getLivros() {
+        return livros;
+    }
+
+    public static List<Autor> getAutores() {
+        return autores;
+    }
+
+    public static List<Editora> getEditoras() {
+        return editoras;
+    }
 
     /* Outros métodos*/
 
@@ -128,7 +142,7 @@ public static class Catalogo {
     public static void addLivro(Livro livro){
         for (Livro l : livros){
             if(livro.getTitulo() == l.getTitulo()){
-                if (livro.getIdAutor() == l.getIdAutor) {
+                if (livro.getIdAutor() == l.getIdAutor()) {
                     return;
                 }
             }

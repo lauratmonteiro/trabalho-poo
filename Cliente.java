@@ -1,28 +1,19 @@
-public class Cliente implements Avaliacao { // Tem que implementar Avaliação, mas não consegue por causa do package
+public class Cliente extends Pessoa{ // Tem que implementar Avaliação, mas não consegue por causa do package
     
-    private String nome;
     private String cpf;
     private Boolean assinante;
     private Integer qtdLivrosAlugados;
 
     /* Construtor */
 
-    public Cliente (String nome, String cpf, Boolean assinante) {
-        this.nome = nome;
+    public Cliente (String nome, String nacionalidade, Integer anoNascimento, String cpf, Boolean assinante) {
+        super(nome, nacionalidade, anoNascimento);
         this.cpf = cpf;
         this.assinante = assinante;
     }
 
     /* Setters e getters */
     //TODO: fazer validação dos setters
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getNome() {
-        return nome;
-    }
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
@@ -59,14 +50,9 @@ public class Cliente implements Avaliacao { // Tem que implementar Avaliação, 
     }
 
     @Override
-    public void avaliar(Livro livro, Integer nota) {
-        livro.setAvaliacao(nota);
-    }
-
-    @Override
     public String toString() {
-        return  "Nome do cliente: " + this.nome + "\n" +
-                "CPF do cliente: " + this.cpf + "\n";
+        return  "Nome do cliente: " + this.getNome() + "\n" +
+                "CPF do cliente: " + this.getCpf() + "\n";
     }
 
 }

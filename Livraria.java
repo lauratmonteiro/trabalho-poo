@@ -1,15 +1,20 @@
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
+import java.util.Scanner;
 
-public static class Livraria implements Avaliacao {
+public class Livraria {
+
+    public static final int MAX_LIVROS = 5;
 
     // Aluga um livro
     public static void alugarLivro(Integer idLivro, String dataAluguel, Cliente cliente) {
         if (!cliente.getAssinante()) { // Caso o cliente não seja assinante
             System.out.println("Não é possível alugar o livro pois o cliente não é assinante do serviço.\n");
             System.out.println("Gostaria de assinar nosso serviço?\n");
-            Scanner input = new Scanner();
+            Scanner input = new Scanner(System.in);
             String resposta = input.nextLine();
             switch (resposta) {
                 case "Sim": 
@@ -18,7 +23,7 @@ public static class Livraria implements Avaliacao {
                     break;
                 case "Não":
                     System.out.println("Obrigada por utilizar nosso serviço, volte sempre!\n"); 
-                    return; break;
+                    break;
             }
             input.close();
         }
@@ -28,9 +33,9 @@ public static class Livraria implements Avaliacao {
             return;
         }
 
-        Livro livro = livros.buscaLivroPorId(idLivro); // encontra o livro desejado
+        Livro livro = Catalogo.buscaLivroPorId(idLivro); // encontra o livro desejado
 
-        if (!livro.verificaDisponibilidade) { // Caso o livro nao esteja disponivel
+        if (livro.verificaDisponibilidade() == 0) { // Caso o livro nao esteja disponivel
             System.out.println("Não é possível alugar o livro pois não há exemplares disponíveis.\n");
             return;
         }
@@ -41,7 +46,7 @@ public static class Livraria implements Avaliacao {
 
     // Devolve um livro
     public static void devolverLivro(Aluguel aluguel) {
-        Scanner input = new Scanner();
+        Scanner input = new Scanner(System.in);
         int qtd = aluguel.getLivro().getQtdAlugados();
         aluguel.getLivro().setQtdAlugados(qtd-1);
 
@@ -51,7 +56,7 @@ public static class Livraria implements Avaliacao {
             case "Sim": 
                 System.out.println("Numa escala de 1 a 5, o quanto você gostou do livro?\n");
                 int nota = input.nextInt();
-                aluguel.getLivro().avaliar(aluguel.getLivro(), nota);
+                aluguel.getLivro().avaliar(nota);
                 break;
             case "Não":
                 System.out.println("Obrigada por utilizar nosso serviço, volte sempre!\n"); 
@@ -65,7 +70,7 @@ public static class Livraria implements Avaliacao {
     // T<Livro, Autor, Editora, Genero> 
     public static void busca() {
         System.out.println("Pelo que deseja buscar?\n");
-        Scanner input = new Scanner();
+        Scanner input = new Scanner(System.in);
         String resposta = input.nextLine();
         switch (resposta) {
             case "Livro": 
@@ -85,11 +90,13 @@ public static class Livraria implements Avaliacao {
                 Catalogo.buscarLivros(str4); // encontra e imprime os livros
                 break;
         }
+        input.close();
     }
 
     public static void topTres(Livro livro) {
-        livros.sort(Comparator.comparing(Livro :: getAvaliacao)); // ordena de acordo com as avaliações (menor primeiro)
-        List livrosOrdenados = ImmutableList.copyOf(livros).reverse(); // cópia ordenada da maior pra menor avaliação
+        List<Livro> livrosOrdenados = new ArrayList<Livro>();
+        livrosOrdenados = Collections.reverse(Catalogo.getLivros().sort(Comparator.comparing(Livro :: getAvaliacao))); //TODO: consertar isso aqui
+        
         int top = 0;
         for (Livro l : livrosOrdenados) {
             if (l.getIdAutor() == livro.getIdAutor() || l.getGenero() == livro.getGenero()) { // se for do mesmo autor ou do mesmo genero
@@ -100,8 +107,18 @@ public static class Livraria implements Avaliacao {
         }
     }
 
-    @Override // Avalia um livro (e o autor)
-    public void avaliar(Livro livro, Integer nota) {
-        livro.setAvaliacao(nota);
+    public static void cadastrarCliente(){
+        Scanner teclado = new Scanner (System.in);
+        System.out.println("Digite o nome do novo cliente: ");
+        String nome = teclado.next();
+        System.out.println("Digite a nacionalidade do novo cliente: ");
+        String nacionalidade = teclado.next();
+        System.out.println("Digite o ano de nascimento do novo cliente: ");
+        Integer ano = teclado.nextInt();
+        System.out.println("Digite o cpf do novo cliente: ");
+        String cpf = teclado.next();
+        Cliente clienteNovo = new Cliente(nome, nacionalidade, ano, cpf, true);
+        teclado.close();
     }
+
 }
