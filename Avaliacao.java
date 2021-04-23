@@ -1,5 +1,5 @@
 public interface Avaliacao {
 
-    public abstract void avaliar(Livro livro, Integer nota);
+    public abstract void avaliar(Integer nota);
 
 }

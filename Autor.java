@@ -1,45 +1,22 @@
 import java.util.ArrayList;
 
-public class Autor implements Comparable<Autor> {
+public class Autor extends Pessoa implements Avaliacao, Comparable<Autor> {
 
     private Integer id;
-    private String nome;
-    private String nacionalidade;
-    private Integer anoNascimento;
-    private Integer publicados;
     private Double avaliacao;
     private ArrayList<Integer> avaliacoes = new ArrayList<Integer>();
 
     /* Construtor */
 
-    public Autor(Integer id, String nome, String nacionalidade, Integer anoNascimento, Integer publicados) {
+    public Autor(String nome, String nacionalidade, Integer anoNascimento, Integer id) {
+        super(nome, nacionalidade, anoNascimento);
         this.id = id;
-        this.nome = nome;
-        this.nacionalidade = nacionalidade;
-        this.anoNascimento = anoNascimento;
-        this.publicados = publicados;
     }
 
     /* Setters e getters */
 
     public Integer getId(){
         return this.id;
-    }
-
-    public String getNome(){
-        return this.nome;
-    }
-
-    public String getNacionalidade(){
-        return this.nacionalidade;
-    }
-
-    public Integer getAnoNascimento() {
-        return this.anoNascimento;
-    }
-
-    public Integer getPublicados() {
-        return this.publicados;
     }
 
     public void setAvaliacao(Integer avaliacao) {
@@ -58,14 +35,19 @@ public class Autor implements Comparable<Autor> {
 
     @Override
     public String toString() {
-        return  "Nome: " + this.nome + '\n' +
-                "Nacionalidade: " + this.nacionalidade + '\n' +
-                "Ano de nascimento: " + this.anoNascimento + '\n' +
-                "Quantidade de livros publicados: " + this.publicados + '\n';
+        return  "Nome: " + this.getNome() + '\n' +
+                "Nacionalidade: " + this.getNacionalidade() + '\n' +
+                "Ano de nascimento: " + this.getAnoNascimento() + '\n';
     }
 
     @Override
     public int compareTo(Autor outroAutor) {
-        return this.nome.compareTo(outroAutor.nome);
+        return this.getNome().compareTo(outroAutor.getNome());
     } // função pra ordenar os autores alfabeticamente
+
+    @Override
+    public void avaliar(Integer nota) {
+        this.setAvaliacao(nota);
+    }
+    
 }

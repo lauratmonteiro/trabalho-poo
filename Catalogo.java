@@ -1,11 +1,10 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
-public static class Catalogo {
+public class Catalogo {
 
     /* Atributos */
 
-    public static final int MAX_LIVROS = 5;
     private static ArrayList<Livro> livros = new ArrayList<Livro>();
     private static ArrayList<Editora> editoras = new ArrayList<Editora>();
     private static ArrayList<Autor> autores = new ArrayList<Autor>();
@@ -71,7 +70,7 @@ public static class Catalogo {
     public static void addLivro(Livro livro){
         for (Livro l : livros){
             if(livro.getTitulo() == l.getTitulo()){
-                if (livro.getIdAutor() == l.getIdAutor) {
+                if (livro.getIdAutor() == l.getIdAutor()) {
                     return;
                 }
             }
