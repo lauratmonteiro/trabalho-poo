@@ -1,11 +1,18 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 import java.util.ArrayList;
 import java.util.Collections;
-
-public static class Catalogo {
+/**
+ *
+ * @author PC
+ */
+public class Catalogo {
 
     /* Atributos */
 
-    public static final int MAX_LIVROS = 5;
     private static ArrayList<Livro> livros = new ArrayList<Livro>();
     private static ArrayList<Editora> editoras = new ArrayList<Editora>();
     private static ArrayList<Autor> autores = new ArrayList<Autor>();
@@ -71,7 +78,7 @@ public static class Catalogo {
     public static void addLivro(Livro livro){
         for (Livro l : livros){
             if(livro.getTitulo() == l.getTitulo()){
-                if (livro.getIdAutor() == l.getIdAutor) {
+                if (livro.getIdAutor() == l.getIdAutor()) {
                     return;
                 }
             }

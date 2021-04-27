@@ -1,5 +1,14 @@
-public class Aluguel{
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
+/**
+ *
+ * @author PC
+ */
+public class Aluguel{
     /* Atributos */
     private Livro livro;
     private String dataAluguel;
@@ -25,16 +34,8 @@ public class Aluguel{
         this.livro = livro;
     }
 
-    /* Valicação necessária do setter da data de aluguel */
-    public String validacaoDataAluguel(String valor) throws IllegalArgumentException {        
-        if(valor == null || valor.equals("")) 
-            throw new IllegalArgumentException("Entrada inválida! Prencha a data de entrega corretamente.");
-        return valor;
-    }
-
-    /* Essa excessão vai ser tratada por quem chama a setDataAluguel */
-    public void setDataAluguel(String dataAluguel) throws IllegalArgumentException {
-        this.dataAluguel = validacaoDataAluguel(dataAluguel);
+    public void setDataAluguel(String dataAluguel) {
+        this.dataAluguel = dataAluguel;
     }
 
     public String getDataAluguel() {
@@ -50,5 +51,6 @@ public class Aluguel{
     }
 
     /* Outros métodos */
+
 
 }

@@ -1,6 +1,16 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ *
+ * @author PC
+ */
 import java.util.ArrayList;
 
-public class Livro implements Comparable<Livro> {
+public class Livro implements Avaliacao, Comparable<Livro> {
     
     private String titulo;
     private Integer id;
@@ -18,7 +28,7 @@ public class Livro implements Comparable<Livro> {
 
     /* Construtor */
 
-    public Livro(Integer id, String titulo, genero nomeGenero, Integer numPaginas, String sinopse, Integer idAutor, String idEditora,
+    public Livro(Integer id, String titulo, Genero nomeGenero, Integer numPaginas, String sinopse, Integer idAutor, String idEditora,
                  Integer anoPublicacao, String edicao) {
         this.id = id;
         this.titulo = titulo;
@@ -42,7 +52,7 @@ public class Livro implements Comparable<Livro> {
     }
 
     public String getNomeGenero() {
-        //TODO: transforma os nomes em Strings bonitinhas pra imprimir
+        // transforma os nomes em Strings bonitinhas pra imprimir
         switch (this.nomeGenero) {
             case AUTOAJUDA: return "Autoajuda";
             case DRAMA: return "Drama"; 
@@ -109,7 +119,7 @@ public class Livro implements Comparable<Livro> {
         }
         // Define a nova avaliação média
         avaliacao = (soma/this.avaliacoes.size());
-        buscaAutorPorId(this.idAutor).setAvaliacao(avaliacao);
+        Catalogo.buscaAutorPorId(this.idAutor).avaliar(avaliacao);
     }
 
     public Double getAvaliacao() {
@@ -128,7 +138,7 @@ public class Livro implements Comparable<Livro> {
     @Override
     public String toString() {
         return  "Titulo: " + this.titulo + " - " + this.id + '\n' +
-                "Genero: " + this.getnomeGenero() + '\n' +
+                "Genero: " + this.getNomeGenero() + '\n' +
                 "Numero de paginas: " + this.numPaginas + '\n' +
                 "Sinopse: " + this.sinopse + '\n' +
                 "Ano de publicacao: " + this.anoPublicacao + '\n' +
@@ -139,5 +149,10 @@ public class Livro implements Comparable<Livro> {
     public int compareTo(Livro outroLivro) {
         return this.titulo.compareTo(outroLivro.titulo);
     } // função pra ordenar os livros alfabeticamente
+
+    @Override
+    public void avaliar(Integer nota) {
+        this.setAvaliacao(nota);
+    }
 
 }
