@@ -1,12 +1,12 @@
 public class Editora implements Comparable<Editora> {
     
-    private String id;
+    private Integer id;
     private String nome;
     private String cnpj;
 
     /* Construtor */
 
-    public Editora(String id, String nome, String cnpj) {
+    public Editora(Integer id, String nome, String cnpj) {
         this.id = id;
         this.nome = nome;
         this.cnpj = cnpj;
@@ -14,7 +14,7 @@ public class Editora implements Comparable<Editora> {
 
     /* Setters e getters */
 
-    public String getId() {
+    public Integer getId() {
         return this.id;
     }
 
