@@ -1,13 +1,11 @@
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
 public class Livraria {
 
     public static final int MAX_LIVROS = 5;
+    private static ArrayList<Aluguel> alugueis = new ArrayList<Aluguel>();
 
     // Aluga um livro
     public static void alugarLivro(Integer idLivro, String dataAluguel, Cliente cliente) {
@@ -41,12 +39,14 @@ public class Livraria {
         }
 
         Aluguel novoAluguel = new Aluguel(livro, dataAluguel, cliente); // cria um obj da classe Aluguel com os dados
+        alugueis.add(novoAluguel);
         System.out.println("Livro alugado com sucesso!\n"); 
     }
 
     // Devolve um livro
     public static void devolverLivro(Aluguel aluguel) {
         Scanner input = new Scanner(System.in);
+        alugueis.remove(aluguel);
         int qtd = aluguel.getLivro().getQtdAlugados();
         aluguel.getLivro().setQtdAlugados(qtd-1);
 
@@ -63,48 +63,41 @@ public class Livraria {
                 break;
         }
         input.close();
-        System.out.println("Aqui estão algumas recomendações para você:\n");
-        topTres(aluguel.getLivro());
     }
 
-    // T<Livro, Autor, Editora, Genero> 
+    //TODO: mover para o menu
+    public static void recomendaLivros() {
+        //TODO: metodo pra mostrar o top 10
+        List<Livro> topDez = new ArrayList<Livro>();   
+    }
+
     public static void busca() {
         System.out.println("Pelo que deseja buscar?\n");
         Scanner input = new Scanner(System.in);
         String resposta = input.nextLine();
-        switch (resposta) {
-            case "Livro": 
+        switch (resposta.toLowerCase()) {
+            case "livro": 
+                System.out.println("Insira o título do livro: ");
                 String str1 = input.nextLine();
                 Catalogo.buscaLivroPorTitulo(str1).toString(); // encontra e imprime os livros 
                 break;
-            case "Autor":
+            case "autor":
+                System.out.println("Insira o nome do autor: \n");
                 String str = input.nextLine();
                 Catalogo.buscarLivros(Catalogo.buscaAutorPorNome(str)); // encontra e imprime os livros
                 break;
-            case "Editora":
+            case "editora":
+                System.out.println("Insira o nome da editora: ");
                 String str3 = input.nextLine();
                 Catalogo.buscarLivros(Catalogo.buscaEditoraPorNome(str3)); // encontra e imprime os livros
                 break;
-            case "Genero": 
+            case "genero": 
+                System.out.println("Insira o gênero: \n");    
                 String str4 = input.nextLine();
                 Catalogo.buscarLivros(str4); // encontra e imprime os livros
                 break;
         }
         input.close();
-    }
-
-    public static void topTres(Livro livro) {
-        List<Livro> livrosOrdenados = new ArrayList<Livro>();
-        livrosOrdenados = Collections.reverse(Catalogo.getLivros().sort(Comparator.comparing(Livro :: getAvaliacao))); //TODO: consertar isso aqui
-        
-        int top = 0;
-        for (Livro l : livrosOrdenados) {
-            if (l.getIdAutor() == livro.getIdAutor() || l.getGenero() == livro.getGenero()) { // se for do mesmo autor ou do mesmo genero
-                System.out.println(l);
-                top++;
-            }
-            if (top == 3) break;
-        }
     }
 
     public static void cadastrarCliente(){

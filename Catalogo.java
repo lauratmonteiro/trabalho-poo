@@ -13,14 +13,17 @@ public class Catalogo {
     /* getters */
 
     public static List<Livro> getLivros() {
+        Collections.sort(livros);
         return livros;
     }
 
     public static List<Autor> getAutores() {
+        Collections.sort(autores);
         return autores;
     }
 
     public static List<Editora> getEditoras() {
+        Collections.sort(editoras);
         return editoras;
     }
 
@@ -28,20 +31,17 @@ public class Catalogo {
 
     // Mostra todos os livros em ordem alfabética
     public static void listarLivros(){
-        Collections.sort(livros);
-        System.out.println(livros);
+        System.out.println(getLivros());
     }
 
     // Mostra os autores em ordem alfabética
     public static void listarAutores(){
-        Collections.sort(autores);
-        System.out.println(livros);
+        System.out.println(getAutores());
     }
 
     // Mostra as editoras em ordem alfabética
     public static void listarEditoras(){
-        Collections.sort(editoras);
-        System.out.println(editoras);
+        System.out.println(getEditoras());
     }
 
     // Mostra os generos em ordem alfabética
@@ -88,9 +88,6 @@ public class Catalogo {
             }
         }
     }
-
-    //TODO: implementar busca (por título do livro, autor, gênero ou editora)
-    //TODO: implementar metodo pra mostrar o top3 livros
     
     public static Livro buscaLivroPorId(Integer id){
         for(Livro l : livros){
