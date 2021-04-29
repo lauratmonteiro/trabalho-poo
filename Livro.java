@@ -131,12 +131,12 @@ public class Livro implements Avaliacao, Comparable<Livro> {
 
     @Override
     public String toString() {
-        return  "Titulo: " + this.titulo + " - " + this.id + '\n' +
+        return  "Titulo: " + this.titulo + " - ID: " + this.id + '\n' +
+                "Autor: " + Catalogo.buscaAutorPorId(this.getIdAutor()).getNome() + '\n' +
                 "Genero: " + this.getNomeGenero() + '\n' +
                 "Numero de paginas: " + this.numPaginas + '\n' +
                 "Sinopse: " + this.sinopse + '\n' +
                 "Ano de publicacao: " + this.anoPublicacao + " - " + this.edicao + "ª Edição\n";
-                
     }
 
     @Override

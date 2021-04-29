@@ -3,9 +3,38 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Livraria {
+    /* Controller */
 
     public static final int MAX_LIVROS = 5;
     private static ArrayList<Aluguel> alugueis = new ArrayList<Aluguel>();
+    private static ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+
+    /* getters */
+
+    public static ArrayList<Cliente> getClientes() {
+        return clientes;
+    }
+
+    public static ArrayList<Aluguel> getAlugueis() {
+        return alugueis;
+    }
+
+    /* Outros métodos */
+
+    // Mostra todos os livros em ordem alfabética
+    public static List<Livro> livrosCatalogo(){
+        return Catalogo.getLivros();
+    }
+
+    // Mostra os autores em ordem alfabética
+    public static List<Autor> autoresCatalogo(){
+        return Catalogo.getAutores();
+    }
+
+    // Mostra as editoras em ordem alfabética
+    public static List<Editora> editorasCatalogo(){
+        return Catalogo.getEditoras();
+    }
 
     // Aluga um livro
     public static void alugarLivro(Integer idLivro, String dataAluguel, Cliente cliente) {
@@ -100,18 +129,9 @@ public class Livraria {
         input.close();
     }
 
-    public static void cadastrarCliente(){
-        Scanner teclado = new Scanner (System.in);
-        System.out.println("Digite o nome do novo cliente: ");
-        String nome = teclado.next();
-        System.out.println("Digite a nacionalidade do novo cliente: ");
-        String nacionalidade = teclado.next();
-        System.out.println("Digite o ano de nascimento do novo cliente: ");
-        Integer ano = teclado.nextInt();
-        System.out.println("Digite o cpf do novo cliente: ");
-        String cpf = teclado.next();
-        Cliente clienteNovo = new Cliente(nome, nacionalidade, ano, cpf, true);
-        teclado.close();
+    public static void salvaCliente(String nome, String nacionalidade, Integer anoNascimento, String cpf){
+        Cliente clienteNovo = new Cliente(nome, nacionalidade, anoNascimento, cpf, true);
+        clientes.add(clienteNovo);
     }
 
 }

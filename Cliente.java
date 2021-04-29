@@ -13,7 +13,6 @@ public class Cliente extends Pessoa{ // Tem que implementar Avaliação, mas nã
     }
 
     /* Setters e getters */
-    //TODO: fazer validação dos setters
 
     public void setCpf(String cpf) {
         this.cpf = cpf;

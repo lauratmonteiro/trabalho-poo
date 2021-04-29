@@ -29,36 +29,6 @@ public class Catalogo {
 
     /* Outros métodos*/
 
-    // Mostra todos os livros em ordem alfabética
-    public static void listarLivros(){
-        System.out.println(getLivros());
-    }
-
-    // Mostra os autores em ordem alfabética
-    public static void listarAutores(){
-        System.out.println(getAutores());
-    }
-
-    // Mostra as editoras em ordem alfabética
-    public static void listarEditoras(){
-        System.out.println(getEditoras());
-    }
-
-    // Mostra os generos em ordem alfabética
-    public static void listarGeneros(){
-        System.out.println( "Autoajuda\n" + 
-                            "Drama\n" +
-                            "Ficção\n" +
-                            "Infantojuvenil\n" +
-                            "Jovem adulto\n" + 
-                            "Não ficção\n" + 
-                            "Policial\n" + 
-                            "Quadrinhos\n" +
-                            "Romance\n" +
-                            "Suspense\n" + 
-                            "Terror\n" );
-    }
-
     // Mostra os livros de um determinado autor em ordem alfabética
     public static void buscarLivros(Autor autor){
         Collections.sort(livros);
