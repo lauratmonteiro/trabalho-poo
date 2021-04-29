@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
-public class Menu {
-    /* Classe para interação com o usuário */
+public class Menu { // classe para interação com o usuário
 
     private void mostraMenu() {
         System.out.println("Escolha uma das opções abaixo: ");
@@ -92,6 +91,12 @@ public class Menu {
                             "11 - Terror" );
     }
 
+    public static void imprimeLista(List<T> lista) {
+        for(T elemento : lista){
+            System.out.println(elemento);
+        }
+    }
+
     public static void cadastrarCliente() {
         Scanner teclado = new Scanner (System.in);
 
@@ -109,8 +114,94 @@ public class Menu {
 
         //TODO: implementar validação
     }
-    
-    //TODO: mover pra ca os metodos de alugar e devolver livro e a busca
+
+    public static void busca() {
+        System.out.println("Pelo que deseja buscar?\n");
+        Scanner input = new Scanner(System.in);
+        String resposta = input.nextLine();
+        switch (resposta.toLowerCase()) {
+            case "livro": 
+                System.out.println("Insira o título do livro: ");
+                String str1 = input.nextLine();
+                Livraria.buscaLivro(str1).toString(); // encontra e imprime os livros 
+                break; // lançar exceção pra quando não encontrar
+            case "autor":
+                System.out.println("Insira o nome do autor: \n");
+                String str = input.nextLine();
+                imprimeLista(Catalogo.buscarLivros(Catalogo.buscaAutorPorNome(str))); // encontra e imprime os livros
+                break; // lançar exceção pra quando não encontrar
+            case "editora":
+                System.out.println("Insira o nome da editora: ");
+                String str3 = input.nextLine();
+                imprimeLista(Catalogo.buscarLivros(Catalogo.buscaEditoraPorNome(str3))); // encontra e imprime os livros
+                break; // lançar exceção pra quando não encontrar
+            case "genero": 
+                System.out.println("Insira o gênero: \n");    
+                String str4 = input.nextLine();
+                imprimeLista(Catalogo.buscarLivros(str4)); // encontra e imprime os livros
+                break; // lançar exceção pra quando não encontrar
+        }
+        input.close();
+    }
+
+    // Aluga um livro
+    public static void alugarLivro(Integer idLivro, String dataAluguel, Cliente cliente) {
+        if (!cliente.getAssinante()) { // Caso o cliente não seja assinante
+            System.out.println("Não é possível alugar o livro pois o cliente não é assinante do serviço.\n");
+            System.out.println("Gostaria de assinar nosso serviço?\n");
+            Scanner input = new Scanner(System.in);
+            String resposta = input.nextLine();
+            switch (resposta) {
+                case "Sim": 
+                    cliente.comprarAssinatura();
+                    System.out.println("Assinatura efetuada com sucesso!\n");
+                    input.close(); break;
+                case "Não":
+                    System.out.println("Obrigada por utilizar nosso serviço, volte sempre!\n"); 
+                    input.close(); return;
+            }
+        }
+
+        if (verificaLimite(cliente)) { // Caso o cliente ja tenha o numero maximo de livros alugados
+            System.out.println("Não é possível alugar o livro pois o cliente atingiu o limite de livros alugados simultaneamente.\n");
+            return;
+        }
+
+        Livro livro = Livraria.buscaLivro(idLivro); // encontra o livro desejado
+
+        if (!verificaDisponibilidade(livro)) { // Caso o livro nao esteja disponivel
+            System.out.println("Não é possível alugar o livro pois não há exemplares disponíveis.\n");
+            return;
+        }
+
+        salvaAluguel(livro, dataAluguel, cliente);
+        System.out.println("Livro alugado com sucesso!\n"); 
+    }
+
+    // Devolve um livro
+    public static void devolverLivro(Aluguel aluguel) {
+        Scanner input = new Scanner(System.in);
+        removeAluguel(aluguel);
+
+        System.out.println("Gostaria de avaliar o livro?\n");
+        String resposta = input.nextLine();
+        switch (resposta) {
+            case "Sim": 
+                System.out.println("Numa escala de 1 a 5, o quanto você gostou do livro?\n");
+                int nota = input.nextInt();
+                avaliarLivro(livro, nota);
+                break;
+            case "Não":
+                System.out.println("Obrigada por utilizar nosso serviço, volte sempre!\n"); 
+                break;
+        }
+        input.close();
+    }
+
+    public static void recomendaLivros() {
+        //TODO: metodo pra mostrar o top 10 
+    }
+
     public static void main(String[] args) {
 
     }

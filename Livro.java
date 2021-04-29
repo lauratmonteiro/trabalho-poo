@@ -113,7 +113,6 @@ public class Livro implements Avaliacao, Comparable<Livro> {
         }
         // Define a nova avaliação média
         avaliacao = (soma/this.avaliacoes.size());
-        Catalogo.buscaAutorPorId(this.idAutor).avaliar(avaliacao);
     }
 
     public Double getAvaliacao() {
@@ -121,13 +120,6 @@ public class Livro implements Avaliacao, Comparable<Livro> {
     }
 
     /* Outros métodos */
-
-    // verifica se ainda ha exemplares desse livro disponiveis para alugar
-    public int verificaDisponibilidade() {
-        if (this.qtdExemplares > this.qtdAlugados) 
-            return 1;
-        return 0;
-    }
 
     @Override
     public String toString() {
