@@ -1,117 +1,183 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
-public class Livraria {
+public class Livraria { // controller
 
     public static final int MAX_LIVROS = 5;
     private static ArrayList<Aluguel> alugueis = new ArrayList<Aluguel>();
+    private static ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 
-    // Aluga um livro
-    public static void alugarLivro(Integer idLivro, String dataAluguel, Cliente cliente) {
-        if (!cliente.getAssinante()) { // Caso o cliente não seja assinante
-            System.out.println("Não é possível alugar o livro pois o cliente não é assinante do serviço.\n");
-            System.out.println("Gostaria de assinar nosso serviço?\n");
-            Scanner input = new Scanner(System.in);
-            String resposta = input.nextLine();
-            switch (resposta) {
-                case "Sim": 
-                    cliente.comprarAssinatura();
-                    System.out.println("Assinatura efetuada com sucesso!\n");
-                    break;
-                case "Não":
-                    System.out.println("Obrigada por utilizar nosso serviço, volte sempre!\n"); 
-                    break;
-            }
-            input.close();
-        }
+    /* getters */
 
-        if (cliente.getQtdLivrosAlugados() == MAX_LIVROS) { // Caso o cliente ja tenha o numero maximo de livros alugados
-            System.out.println("Não é possível alugar o livro pois o cliente atingiu o limite de livros alugados simultaneamente.\n");
-            return;
-        }
-
-        Livro livro = Catalogo.buscaLivroPorId(idLivro); // encontra o livro desejado
-
-        if (livro.verificaDisponibilidade() == 0) { // Caso o livro nao esteja disponivel
-            System.out.println("Não é possível alugar o livro pois não há exemplares disponíveis.\n");
-            return;
-        }
-
-        Aluguel novoAluguel = new Aluguel(livro, dataAluguel, cliente); // cria um obj da classe Aluguel com os dados
-        alugueis.add(novoAluguel);
-        System.out.println("Livro alugado com sucesso!\n"); 
+    public static ArrayList<Cliente> getClientes() {
+        return clientes;
     }
 
-    // Devolve um livro
-    public static void devolverLivro(Aluguel aluguel) {
-        Scanner input = new Scanner(System.in);
+    public static ArrayList<Aluguel> getAlugueis() {
+        return alugueis;
+    }
+
+    /* Outros métodos */
+
+    public static void inicializaCatalogo() {
+        try {
+            Catalogo.leLivro("dados/livros.txt"); 
+            Catalogo.leAutor("dados/autores.txt");
+            Catalogo.leEditora("dados/editoras.txt");
+        } catch (IOException e) {
+            System.out.println("Houve um problema na inicialização do catálogo. Por favor, tente novamente.");
+        } 
+    }
+
+    public static void avaliarLivro(Livro livro, Integer nota) {
+        livro.avaliar(nota);
+        buscaAutor(livro.getIdAutor()).avaliar(nota);
+    }
+
+    public static void salvaCliente(String nome, String nacionalidade, Integer anoNascimento, String cpf){
+        Cliente clienteNovo = new Cliente(nome, nacionalidade, anoNascimento, cpf, true);
+        clientes.add(clienteNovo);
+    }
+
+    public static void removeCliente(Cliente cliente) {
+        clientes.remove(cliente);
+    }
+
+    public static void salvaAluguel(Livro livro, String dataAluguel, Cliente cliente) {
+        Aluguel novoAluguel = new Aluguel(livro, dataAluguel, cliente); // cria um obj da classe Aluguel com os dados
+        alugueis.add(novoAluguel);
+    }
+
+    public static void removeAluguel(Aluguel aluguel) {
         alugueis.remove(aluguel);
         int qtd = aluguel.getLivro().getQtdAlugados();
         aluguel.getLivro().setQtdAlugados(qtd-1);
+    }
 
-        System.out.println("Gostaria de avaliar o livro?\n");
-        String resposta = input.nextLine();
-        switch (resposta) {
-            case "Sim": 
-                System.out.println("Numa escala de 1 a 5, o quanto você gostou do livro?\n");
-                int nota = input.nextInt();
-                aluguel.getLivro().avaliar(nota);
-                break;
-            case "Não":
-                System.out.println("Obrigada por utilizar nosso serviço, volte sempre!\n"); 
-                break;
+    // verifica se o cliente pode alugar novos livros
+    public static Boolean verificaLimite(Cliente c) {
+        if (c.getQtdLivrosAlugados() == MAX_LIVROS) 
+            return false; // retorna falso se tiver o maximo
+        return true; // retorna verdadeiro se ainda houver limite disponivel
+    }
+
+    // verifica se ainda ha exemplares desse livro disponiveis para alugar
+    public static Boolean verificaDisponibilidade(Livro l) {
+        if (l.getQtdExemplares() == l.getQtdAlugados()) 
+            return false; // retorna falso caso o livro não esteja disponível
+        return true;
+    }
+
+
+    /* -------------------- MÉTODOS DE BUSCA -------------------- */
+
+    /* métodos para mostrar os livros, autores e editoras disponíveis */
+
+    // Mostra todos os livros em ordem alfabética
+    public static List<Livro> livrosCatalogo(){
+        return Catalogo.getLivros();
+    }
+
+    // Mostra os autores em ordem alfabética
+    public static List<Autor> autoresCatalogo(){
+        return Catalogo.getAutores();
+    }
+
+    // Mostra as editoras em ordem alfabética
+    public static List<Editora> editorasCatalogo(){
+        return Catalogo.getEditoras();
+    }
+
+    /* métodos buscarLivro: usados para encontrar uma lista de livros com as mesmas caracteristicas */
+
+    // retorna uma lista com os livros de um determinado autor em ordem alfabética
+    public static List<Livro> buscarLivros(Autor autor){
+        List<Livro> livros = new ArrayList<Livro>();
+        for (Livro l : Catalogo.getLivros()) {
+            if (l.getIdAutor() == autor.getId()) {
+                livros.add(l);
+            }
         }
-        input.close();
+        return livros;
     }
 
-    //TODO: mover para o menu
-    public static void recomendaLivros() {
-        //TODO: metodo pra mostrar o top 10
-        List<Livro> topDez = new ArrayList<Livro>();   
+    // retorna uma lista com os livros de uma determinada editora em ordem alfabética
+    public static List<Livro> buscarLivros(Editora editora){
+        List<Livro> livros = new ArrayList<Livro>();
+        for (Livro l : Catalogo.getLivros()) {
+            if (l.getIdEditora() == editora.getId()) {
+                livros.add(l);
+            }
+        }   
+        return livros;
     }
 
-    public static void busca() {
-        System.out.println("Pelo que deseja buscar?\n");
-        Scanner input = new Scanner(System.in);
-        String resposta = input.nextLine();
-        switch (resposta.toLowerCase()) {
-            case "livro": 
-                System.out.println("Insira o título do livro: ");
-                String str1 = input.nextLine();
-                Catalogo.buscaLivroPorTitulo(str1).toString(); // encontra e imprime os livros 
-                break;
-            case "autor":
-                System.out.println("Insira o nome do autor: \n");
-                String str = input.nextLine();
-                Catalogo.buscarLivros(Catalogo.buscaAutorPorNome(str)); // encontra e imprime os livros
-                break;
-            case "editora":
-                System.out.println("Insira o nome da editora: ");
-                String str3 = input.nextLine();
-                Catalogo.buscarLivros(Catalogo.buscaEditoraPorNome(str3)); // encontra e imprime os livros
-                break;
-            case "genero": 
-                System.out.println("Insira o gênero: \n");    
-                String str4 = input.nextLine();
-                Catalogo.buscarLivros(str4); // encontra e imprime os livros
-                break;
+    // retorna uma lista com os livros de um determinado genero em ordem alfabética
+    public static List<Livro> buscarLivros(String genero){
+        List<Livro> livros = new ArrayList<Livro>();
+        for (Livro l : Catalogo.getLivros()) {
+            if (genero == l.getNomeGenero()) {
+                livros.add(l);
+            }
         }
-        input.close();
+        return livros;
     }
 
-    public static void cadastrarCliente(){
-        Scanner teclado = new Scanner (System.in);
-        System.out.println("Digite o nome do novo cliente: ");
-        String nome = teclado.next();
-        System.out.println("Digite a nacionalidade do novo cliente: ");
-        String nacionalidade = teclado.next();
-        System.out.println("Digite o ano de nascimento do novo cliente: ");
-        Integer ano = teclado.nextInt();
-        System.out.println("Digite o cpf do novo cliente: ");
-        String cpf = teclado.next();
-        Cliente clienteNovo = new Cliente(nome, nacionalidade, ano, cpf, true);
-        teclado.close();
+    /* métodos para encontrar um objeto Livro, Autor ou Livraria a partir de seu nome ou id */
+
+    public static Livro buscaLivro(Integer id){
+        for(Livro l : Catalogo.getLivros()){
+            if(id == l.getId()){
+                return l;
+            }
+        }
+        return null;
+    }
+
+    public static Livro buscaLivro(String titulo){
+        for(Livro l : Catalogo.getLivros()) {
+            if(titulo.toLowerCase() == l.getTitulo().toLowerCase()){
+                return l;
+            }
+        }
+        return null;
+    }
+
+    public static Autor buscaAutor(Integer id){
+        for(Autor a : Catalogo.getAutores()){
+            if(id == a.getId()){
+                return a;
+            }
+        }
+        return null;
+    }
+
+    public static Autor buscaAutor(String nome){
+        for(Autor a : Catalogo.getAutores()){
+            if(nome.toLowerCase() == a.getNome().toLowerCase()){
+                return a;
+            }
+        }
+        return null;
+    }
+
+    public static Editora buscaEditora(Integer id){
+        for(Editora e : Catalogo.getEditoras())  {
+            if(id == e.getId()){
+                return e;
+            }
+        }
+        return null;
+    }
+
+    public static Editora buscaEditora(String nome){
+        for(Editora e : Catalogo.getEditoras()){
+            if(nome.toLowerCase() == e.getNome().toLowerCase()){
+                return e;
+            }
+        }
+        return null;
     }
 
 }

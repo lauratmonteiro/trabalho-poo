@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
@@ -28,141 +31,67 @@ public class Catalogo {
     }
 
     /* Outros métodos*/
-
-    // Mostra todos os livros em ordem alfabética
-    public static void listarLivros(){
-        System.out.println(getLivros());
-    }
-
-    // Mostra os autores em ordem alfabética
-    public static void listarAutores(){
-        System.out.println(getAutores());
-    }
-
-    // Mostra as editoras em ordem alfabética
-    public static void listarEditoras(){
-        System.out.println(getEditoras());
-    }
-
-    // Mostra os generos em ordem alfabética
-    public static void listarGeneros(){
-        System.out.println( "Autoajuda\n" + 
-                            "Drama\n" +
-                            "Ficção\n" +
-                            "Infantojuvenil\n" +
-                            "Jovem adulto\n" + 
-                            "Não ficção\n" + 
-                            "Policial\n" + 
-                            "Quadrinhos\n" +
-                            "Romance\n" +
-                            "Suspense\n" + 
-                            "Terror\n" );
-    }
-
-    // Mostra os livros de um determinado autor em ordem alfabética
-    public static void buscarLivros(Autor autor){
-        Collections.sort(livros);
-        for (Livro l : livros) {
-            if (l.getIdAutor() == autor.getId()) {
-                System.out.println(l);
-            }
-        }   
-    }
-
-    // Mostra os livros de uma determinada editora em ordem alfabética
-    public static void buscarLivros(Editora editora){
-        Collections.sort(livros);
-        for (Livro l : livros) {
-            if (l.getIdEditora() == editora.getId()) {
-                System.out.println(l);
-            }
-        }   
-    }
-
-    // Mostra os livros de um determinado genero em ordem alfabética
-    public static void buscarLivros(String genero){
-        Collections.sort(livros);
-        for (Livro l : livros) {
-            if (l.getNomeGenero() == genero) {
-                System.out.println(l);
-            }
-        }
-    }
     
-    public static Livro buscaLivroPorId(Integer id){
-        for(Livro l : livros){
-            if(id == l.getId()){
-                return l;
-            }
-        }
-        return null;
-    }
-
-    public static Livro buscaLivroPorTitulo(String titulo){
-        for(Livro l : livros){
-            if(titulo.toLowerCase() == l.getTitulo().toLowerCase()){
-                return l;
-            }
-        }
-        return null;
-    }
-
-    public static Autor buscaAutorPorId(Integer id){
-        for(Autor a : autores){
-            if(id == a.getId()){
-                return a;
-            }
-        }
-        return null;
-    }
-
-    public static Autor buscaAutorPorNome(String nome){
-        for(Autor a : autores){
-            if(nome.toLowerCase() == a.getNome().toLowerCase()){
-                return a;
-            }
-        }
-        return null;
-    }
-
-    public static Editora buscaEditoraPorNome(String nome){
-        for(Editora e : editoras){
-            if(nome.toLowerCase() == e.getNome().toLowerCase()){
-                return e;
-            }
-        }
-        return null;
-    }
-
     /* Métodos para ler os dados de livros, autores e editoras disponíveis */
 
-    public static void addLivro(Livro livro){
-        for (Livro l : livros){
-            if(livro.getTitulo() == l.getTitulo()){
-                if (livro.getIdAutor() == l.getIdAutor()) {
-                    return;
-                }
-            }
-        }
-        livros.add(livro);
-    } // TODO: metodo pra ler o livro do arquivo 
+    public static void leLivro(String caminhoArquivo) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(caminhoArquivo));
+        String linha = "";
 
-    public static void addAutor(Autor autor){
-        for(Autor a : autores){
-            if(autor.getNome() == a.getNome()){
-                return;
-            }
+        while(linha != null){
+            linha = br.readLine();
+            String[] dados = linha.split(";", 10);
+            Livro livro = new Livro(
+                    Integer.valueOf(dados[0]), // id
+                    dados[1], // titulo
+                    Integer.valueOf(dados[5]), // idAutor
+                    Integer.valueOf(dados[6]), // idEditora
+                    Genero.values()[Integer.valueOf(dados[2])], // genero
+                    Integer.valueOf(dados[7]), // anoPublicacao
+                    Integer.valueOf(dados[8]), // edicao
+                    Integer.valueOf(dados[3]), // numPaginas
+                    dados[4], // sinopse
+                    Double.valueOf(dados[9])); // avaliacao
+            livros.add(livro);
         }
-        autores.add(autor);
-    } //TODO: metodo pra ler o autor do arquivo
 
-    public static void addEditora(Editora editora){
-        for(Editora e : editoras){
-            if(editora.getNome() == e.getNome()){
-                return;
-            }
+        br.close();
+    }
+
+    public static void leAutor(String caminhoArquivo) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(caminhoArquivo));
+        String linha = "";
+
+        while(linha != null){
+            linha = br.readLine();
+            String[] dados = linha.split(";", 5);
+            Autor autor = new Autor(
+                    Integer.valueOf(dados[0]), // id
+                    dados[1], // nome
+                    dados[2], // nacionalidade
+                    Integer.valueOf(dados[3]), // ano de nascimento 
+                    Double.valueOf(dados[4])); // avaliacao
+            autores.add(autor);
         }
-        editoras.add(editora);
-    } //TODO: metodo pra ler a editora do arquivo
+
+        br.close();
+    }
+
+    public static void leEditora(String caminhoArquivo) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(caminhoArquivo));
+        String linha = "";
+
+        while(linha != null){
+            linha = br.readLine();
+            String[] dados = linha.split(";", 3);
+            Editora editora = new Editora(
+                    Integer.valueOf(dados[0]), // id
+                    dados[1], // nome
+                    dados[2]); // cnpj
+            editoras.add(editora);
+        }
+
+        br.close();
+    }
 
 }

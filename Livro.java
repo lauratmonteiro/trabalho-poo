@@ -5,10 +5,10 @@ public class Livro implements Avaliacao, Comparable<Livro> {
     private Integer id;
     private String titulo;
     private Integer idAutor;
-    private String idEditora;
+    private Integer idEditora;
     private Genero genero;
     private Integer anoPublicacao;
-    private String edicao;
+    private Integer edicao;
     private Integer numPaginas;
     private String sinopse;
     private Integer qtdExemplares;
@@ -18,7 +18,7 @@ public class Livro implements Avaliacao, Comparable<Livro> {
 
     /* Construtor */
 
-    public Livro(Integer id, String titulo, Integer idAutor, String idEditora, Genero genero, Integer anoPublicacao, String edicao, Integer numPaginas, String sinopse, Double avaliacao) {
+    public Livro(Integer id, String titulo, Integer idAutor, Integer idEditora, Genero genero, Integer anoPublicacao, Integer edicao, Integer numPaginas, String sinopse, Double avaliacao) {
         this.id = id;
         this.titulo = titulo;
         this.idAutor = idAutor;
@@ -75,7 +75,7 @@ public class Livro implements Avaliacao, Comparable<Livro> {
         return this.idAutor;
     }
 
-    public String getIdEditora() {
+    public Integer getIdEditora() {
         return this.idEditora;
     }
 
@@ -83,7 +83,7 @@ public class Livro implements Avaliacao, Comparable<Livro> {
         return this.anoPublicacao;
     }
 
-    public String getEdicao() {
+    public Integer getEdicao() {
         return this.edicao;
     }
 
@@ -113,7 +113,6 @@ public class Livro implements Avaliacao, Comparable<Livro> {
         }
         // Define a nova avaliação média
         avaliacao = (soma/this.avaliacoes.size());
-        Catalogo.buscaAutorPorId(this.idAutor).avaliar(avaliacao);
     }
 
     public Double getAvaliacao() {
@@ -122,21 +121,14 @@ public class Livro implements Avaliacao, Comparable<Livro> {
 
     /* Outros métodos */
 
-    // verifica se ainda ha exemplares desse livro disponiveis para alugar
-    public int verificaDisponibilidade() {
-        if (this.qtdExemplares > this.qtdAlugados) 
-            return 1;
-        return 0;
-    }
-
     @Override
     public String toString() {
-        return  "Titulo: " + this.titulo + " - " + this.id + '\n' +
+        return  "Titulo: " + this.titulo + " - ID: " + this.id + '\n' +
+                "Autor: " + Livraria.buscaAutor(this.getIdAutor()).getNome() + '\n' +
                 "Genero: " + this.getNomeGenero() + '\n' +
                 "Numero de paginas: " + this.numPaginas + '\n' +
                 "Sinopse: " + this.sinopse + '\n' +
                 "Ano de publicacao: " + this.anoPublicacao + " - " + this.edicao + "ª Edição\n";
-                
     }
 
     @Override
