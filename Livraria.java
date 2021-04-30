@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -19,6 +20,16 @@ public class Livraria { // controller
     }
 
     /* Outros métodos */
+
+    public static void inicializaCatalogo() {
+        try {
+            Catalogo.leLivro("dados/livros.txt"); 
+            Catalogo.leAutor("dados/autores.txt");
+            Catalogo.leEditora("dados/editoras.txt");
+        } catch (IOException e) {
+            System.out.println("Houve um problema na inicialização do catálogo. Por favor, tente novamente.");
+        } 
+    }
 
     public static void avaliarLivro(Livro livro, Integer nota) {
         livro.avaliar(nota);
@@ -46,17 +57,17 @@ public class Livraria { // controller
     }
 
     // verifica se o cliente pode alugar novos livros
-    public static int verificaLimite(Cliente c) {
+    public static Boolean verificaLimite(Cliente c) {
         if (c.getQtdLivrosAlugados() == MAX_LIVROS) 
-            return 0; // retorna falso se tiver o maximo
-        return 1; // retorna verdadeiro se ainda puder alugar
+            return false; // retorna falso se tiver o maximo
+        return true; // retorna verdadeiro se ainda houver limite disponivel
     }
 
     // verifica se ainda ha exemplares desse livro disponiveis para alugar
-    public static int verificaDisponibilidade(Livro l) {
+    public static Boolean verificaDisponibilidade(Livro l) {
         if (l.getQtdExemplares() == l.getQtdAlugados()) 
-            return 0; // retorna falso caso o livro não esteja disponível
-        return 1;
+            return false; // retorna falso caso o livro não esteja disponível
+        return true;
     }
 
 
@@ -152,7 +163,7 @@ public class Livraria { // controller
         return null;
     }
 
-    public static Autor buscaEditora(Integer id){
+    public static Editora buscaEditora(Integer id){
         for(Editora e : Catalogo.getEditoras())  {
             if(id == e.getId()){
                 return e;

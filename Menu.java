@@ -1,8 +1,10 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class Menu { // classe para interação com o usuário
 
-    private void mostraMenu() {
+    private static void mostraMenu() {
+        System.out.println("----------------------------------------");
         System.out.println("Escolha uma das opções abaixo: ");
         System.out.println("1 - Cadastrar novo cliente");
         System.out.println("2 - Ver clientes cadastrados");
@@ -10,7 +12,8 @@ public class Menu { // classe para interação com o usuário
         System.out.println("4 - Alugar um livro");
         System.out.println("5 - Devolver um livro");
         System.out.println("6 - Ver recomendações");
-        System.out.println("7 - Encerrar programa");
+        System.out.println("0 - Encerrar programa");
+        System.out.println("----------------------------------------");
     }
 
     // mostra uma lista enumerada com todos os clientes cadastrados (identificados pelo nome)
@@ -91,8 +94,8 @@ public class Menu { // classe para interação com o usuário
                             "11 - Terror" );
     }
 
-    public static void imprimeLista(List<T> lista) {
-        for(T elemento : lista){
+    public static void imprimeLista(List<?> lista) {
+        for(Object elemento : lista){
             System.out.println(elemento);
         }
     }
@@ -128,17 +131,17 @@ public class Menu { // classe para interação com o usuário
             case "autor":
                 System.out.println("Insira o nome do autor: \n");
                 String str = input.nextLine();
-                imprimeLista(Catalogo.buscarLivros(Catalogo.buscaAutorPorNome(str))); // encontra e imprime os livros
+                imprimeLista(Livraria.buscarLivros(Livraria.buscaAutor(str))); // encontra e imprime os livros
                 break; // lançar exceção pra quando não encontrar
             case "editora":
                 System.out.println("Insira o nome da editora: ");
                 String str3 = input.nextLine();
-                imprimeLista(Catalogo.buscarLivros(Catalogo.buscaEditoraPorNome(str3))); // encontra e imprime os livros
+                imprimeLista(Livraria.buscarLivros(Livraria.buscaEditora(str3))); // encontra e imprime os livros
                 break; // lançar exceção pra quando não encontrar
             case "genero": 
                 System.out.println("Insira o gênero: \n");    
                 String str4 = input.nextLine();
-                imprimeLista(Catalogo.buscarLivros(str4)); // encontra e imprime os livros
+                imprimeLista(Livraria.buscarLivros(str4)); // encontra e imprime os livros
                 break; // lançar exceção pra quando não encontrar
         }
         input.close();
@@ -162,26 +165,26 @@ public class Menu { // classe para interação com o usuário
             }
         }
 
-        if (verificaLimite(cliente)) { // Caso o cliente ja tenha o numero maximo de livros alugados
+        if (Livraria.verificaLimite(cliente)) { // Caso o cliente ja tenha o numero maximo de livros alugados
             System.out.println("Não é possível alugar o livro pois o cliente atingiu o limite de livros alugados simultaneamente.\n");
             return;
         }
 
         Livro livro = Livraria.buscaLivro(idLivro); // encontra o livro desejado
 
-        if (!verificaDisponibilidade(livro)) { // Caso o livro nao esteja disponivel
+        if (Livraria.verificaDisponibilidade(livro)) { // Caso o livro nao esteja disponivel
             System.out.println("Não é possível alugar o livro pois não há exemplares disponíveis.\n");
             return;
         }
 
-        salvaAluguel(livro, dataAluguel, cliente);
+        Livraria.salvaAluguel(livro, dataAluguel, cliente);
         System.out.println("Livro alugado com sucesso!\n"); 
     }
 
     // Devolve um livro
     public static void devolverLivro(Aluguel aluguel) {
         Scanner input = new Scanner(System.in);
-        removeAluguel(aluguel);
+        Livraria.removeAluguel(aluguel);
 
         System.out.println("Gostaria de avaliar o livro?\n");
         String resposta = input.nextLine();
@@ -189,7 +192,7 @@ public class Menu { // classe para interação com o usuário
             case "Sim": 
                 System.out.println("Numa escala de 1 a 5, o quanto você gostou do livro?\n");
                 int nota = input.nextInt();
-                avaliarLivro(livro, nota);
+                Livraria.avaliarLivro(aluguel.getLivro(), nota);
                 break;
             case "Não":
                 System.out.println("Obrigada por utilizar nosso serviço, volte sempre!\n"); 
@@ -203,6 +206,37 @@ public class Menu { // classe para interação com o usuário
     }
 
     public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
+
+        // le os dados dos arquivos
+        Livraria.inicializaCatalogo();
+
+        int option = -1; // inicializa a variavel option, usada para o usuário manipular o sistema
+        while(option != 0) {
+
+            mostraMenu();
+            
+            option = input.nextInt();
+            while (option != 1 && option != 2 && option != 3 && option != 4 && option != 5 && option != 6 && option != 0) { // se a entrada não for uma das opções
+                System.out.println("Impossível realizar esta ação. Por favor, escolha uma opção válida");
+                option = input.nextInt(); 
+            }
+            
+            // roda o programa
+            switch (option) {
+                case 0: break;
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+            }
+        }
+
+        input.close();
+        // se a opção de encerrar o programa for escolhida, encerra
 
     }
 }

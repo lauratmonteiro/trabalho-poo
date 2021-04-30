@@ -16,3 +16,18 @@
 16;Machado De Assis;Brasileiro;1839;4.16
 17;Victoria Aveyard;Americana;1990;3.97
 18;Stephen King;Americano;1947;4.04
+19;Fabien Vehlmann;França;1972;102;3.84;
+20;Dan Brown;Americano;1694;90;3.85;
+21;Kohei Horikoshi;Japonês;1986;3.60;
+22;Koyoharu Gotouge;Japonês;1989;3.05;
+23;Tana French;Irlandesa;1973;4.07;
+24;Arthur Conan Doyle;Britânico;1856;4.50;
+25;Douglas Adams;Britânico;1952;4.80;
+26;J.R.R. Tolkien;Britânico;1892;4.50;
+27;John Green;Americana;1977;5.0;
+28;Markus Zusak;Australiano;1975;4.50;
+29;Lucas De Sousa;Brasileiro;1982;3.20;
+30;R. J. Palacio;Britânica;1963;4.0;
+31;E.L. James;Britânica;1963;4.50; 
+32;John Fowles;Inglês;1926;4.30;
+33;E. Lockhart;Americana;1967;4.10;

@@ -8,7 +8,7 @@ public class Livro implements Avaliacao, Comparable<Livro> {
     private Integer idEditora;
     private Genero genero;
     private Integer anoPublicacao;
-    private String edicao;
+    private Integer edicao;
     private Integer numPaginas;
     private String sinopse;
     private Integer qtdExemplares;
@@ -18,7 +18,7 @@ public class Livro implements Avaliacao, Comparable<Livro> {
 
     /* Construtor */
 
-    public Livro(Integer id, String titulo, Integer idAutor, Integer idEditora, Genero genero, Integer anoPublicacao, String edicao, Integer numPaginas, String sinopse, Double avaliacao) {
+    public Livro(Integer id, String titulo, Integer idAutor, Integer idEditora, Genero genero, Integer anoPublicacao, Integer edicao, Integer numPaginas, String sinopse, Double avaliacao) {
         this.id = id;
         this.titulo = titulo;
         this.idAutor = idAutor;
@@ -83,7 +83,7 @@ public class Livro implements Avaliacao, Comparable<Livro> {
         return this.anoPublicacao;
     }
 
-    public String getEdicao() {
+    public Integer getEdicao() {
         return this.edicao;
     }
 
@@ -124,7 +124,7 @@ public class Livro implements Avaliacao, Comparable<Livro> {
     @Override
     public String toString() {
         return  "Titulo: " + this.titulo + " - ID: " + this.id + '\n' +
-                "Autor: " + Catalogo.buscaAutorPorId(this.getIdAutor()).getNome() + '\n' +
+                "Autor: " + Livraria.buscaAutor(this.getIdAutor()).getNome() + '\n' +
                 "Genero: " + this.getNomeGenero() + '\n' +
                 "Numero de paginas: " + this.numPaginas + '\n' +
                 "Sinopse: " + this.sinopse + '\n' +

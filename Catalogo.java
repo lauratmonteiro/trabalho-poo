@@ -35,18 +35,7 @@ public class Catalogo {
     
     /* Métodos para ler os dados de livros, autores e editoras disponíveis */
 
-    public static void addLivro(Livro livro){
-        for (Livro l : livros){
-            if(livro.getTitulo() == l.getTitulo()){
-                if (livro.getIdAutor() == l.getIdAutor()) {
-                    return;
-                }
-            }
-        }
-        livros.add(livro);
-    } // TODO: metodo pra ler o livro do arquivo
-
-    public void leLivro(String caminhoArquivo) throws IOException {
+    public static void leLivro(String caminhoArquivo) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(caminhoArquivo));
         String linha = "";
 
@@ -54,32 +43,23 @@ public class Catalogo {
             linha = br.readLine();
             String[] dados = linha.split(";", 10);
             Livro livro = new Livro(
-                    dados[0],
-                    Integer.valueOf(dados[1]),
-                    Genero.values()[Integer.valueOf(dados[2])],
-                    Integer.valueOf(dados[3]),
-                    dados[4],
-                    Integer.valueOf(dados[5]),
-                    Integer.valueOf(dados[6]),
-                    Integer.valueOf(dados[7]),
-                    dados[8],
-                    Double.valueOf(dados[9]));
+                    Integer.valueOf(dados[0]), // id
+                    dados[1], // titulo
+                    Integer.valueOf(dados[5]), // idAutor
+                    Integer.valueOf(dados[6]), // idEditora
+                    Genero.values()[Integer.valueOf(dados[2])], // genero
+                    Integer.valueOf(dados[7]), // anoPublicacao
+                    Integer.valueOf(dados[8]), // edicao
+                    Integer.valueOf(dados[3]), // numPaginas
+                    dados[4], // sinopse
+                    Double.valueOf(dados[9])); // avaliacao
             livros.add(livro);
         }
 
         br.close();
     }
 
-    public static void addAutor(Autor autor){
-        for(Autor a : autores){
-            if(autor.getNome() == a.getNome()){
-                return;
-            }
-        }
-        autores.add(autor);
-    }
-
-    public void leAutor(String caminhoArquivo) throws IOException {
+    public static void leAutor(String caminhoArquivo) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(caminhoArquivo));
         String linha = "";
 
@@ -87,27 +67,18 @@ public class Catalogo {
             linha = br.readLine();
             String[] dados = linha.split(";", 5);
             Autor autor = new Autor(
-                    Integer.valueOf(dados[0]),
-                    dados[1],
-                    dados[2],
-                    Integer.valueOf(dados[3]),
-                    Double.valueOf(dados[4]));
+                    Integer.valueOf(dados[0]), // id
+                    dados[1], // nome
+                    dados[2], // nacionalidade
+                    Integer.valueOf(dados[3]), // ano de nascimento 
+                    Double.valueOf(dados[4])); // avaliacao
             autores.add(autor);
         }
 
         br.close();
     }
 
-    public static void addEditora(Editora editora){
-        for(Editora e : editoras){
-            if(editora.getNome() == e.getNome()){
-                return;
-            }
-        }
-        editoras.add(editora);
-    }
-
-    public void leEditora(String caminhoArquivo) throws IOException {
+    public static void leEditora(String caminhoArquivo) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(caminhoArquivo));
         String linha = "";
 
@@ -115,9 +86,9 @@ public class Catalogo {
             linha = br.readLine();
             String[] dados = linha.split(";", 3);
             Editora editora = new Editora(
-                    Integer.valueOf(dados[0]),
-                    dados[1],
-                    dados[2]);
+                    Integer.valueOf(dados[0]), // id
+                    dados[1], // nome
+                    dados[2]); // cnpj
             editoras.add(editora);
         }
 
