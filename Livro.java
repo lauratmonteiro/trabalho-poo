@@ -5,7 +5,7 @@ public class Livro implements Avaliacao, Comparable<Livro> {
     private Integer id;
     private String titulo;
     private Integer idAutor;
-    private String idEditora;
+    private Integer idEditora;
     private Genero genero;
     private Integer anoPublicacao;
     private String edicao;
@@ -18,7 +18,7 @@ public class Livro implements Avaliacao, Comparable<Livro> {
 
     /* Construtor */
 
-    public Livro(Integer id, String titulo, Integer idAutor, String idEditora, Genero genero, Integer anoPublicacao, String edicao, Integer numPaginas, String sinopse, Double avaliacao) {
+    public Livro(Integer id, String titulo, Integer idAutor, Integer idEditora, Genero genero, Integer anoPublicacao, String edicao, Integer numPaginas, String sinopse, Double avaliacao) {
         this.id = id;
         this.titulo = titulo;
         this.idAutor = idAutor;
@@ -75,7 +75,7 @@ public class Livro implements Avaliacao, Comparable<Livro> {
         return this.idAutor;
     }
 
-    public String getIdEditora() {
+    public Integer getIdEditora() {
         return this.idEditora;
     }
 

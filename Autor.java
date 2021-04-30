@@ -8,9 +8,10 @@ public class Autor extends Pessoa implements Avaliacao, Comparable<Autor> {
 
     /* Construtor */
 
-    public Autor(String nome, String nacionalidade, Integer anoNascimento, Integer id) {
+    public Autor(Integer id, String nome, String nacionalidade, Integer anoNascimento, Double avaliacao) {
         super(nome, nacionalidade, anoNascimento);
         this.id = id;
+        this.avaliacao =  avaliacao;
     }
 
     /* Setters e getters */
