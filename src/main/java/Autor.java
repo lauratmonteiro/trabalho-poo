@@ -3,12 +3,12 @@ import java.util.ArrayList;
 public class Autor extends Pessoa implements Avaliacao, Comparable<Autor> {
 
     private Integer id;
-    private Double avaliacao;
+    public Double avaliacao;
     private ArrayList<Integer> avaliacoes = new ArrayList<Integer>();
 
     /* Construtor */
 
-    public Autor(Integer id, String nome, String nacionalidade, Integer anoNascimento, Double avaliacao) {
+    public Autor(Integer id, String nome, String nacionalidade, String anoNascimento, Double avaliacao) {
         super(nome, nacionalidade, anoNascimento);
         this.id = id;
         this.avaliacao =  avaliacao;
@@ -19,8 +19,16 @@ public class Autor extends Pessoa implements Avaliacao, Comparable<Autor> {
     public Integer getId(){
         return this.id;
     }
+    
+    public Double getAvaliacao() {
+        return avaliacao;
+    }
 
-    public void setAvaliacao(Integer avaliacao) {
+    public void setAvaliacao(Double avaliacao) {
+        this.avaliacao = avaliacao;
+    }
+    
+      public void setAvaliacao(Integer avaliacao) {
         // Adiciona a avaliação à lista de avaliações
         this.avaliacoes.add(avaliacao);
         // Calcula a nova avaliação média
@@ -31,7 +39,7 @@ public class Autor extends Pessoa implements Avaliacao, Comparable<Autor> {
         // Define a nova avaliação média
         avaliacao = (soma/this.avaliacoes.size());
     }
-
+      
     /* Outros métodos */
 
     @Override

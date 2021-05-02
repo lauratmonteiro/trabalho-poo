@@ -2,12 +2,12 @@ public class Pessoa {
 
     private String nome;
     private String nacionalidade;
-    private Integer anoNascimento;
+    private String anoNascimento;
 
     /* Construtor */
 
 
-    public Pessoa(String nome, String nacionalidade, Integer anoNascimento) {
+    public Pessoa(String nome, String nacionalidade, String anoNascimento) {
         this.nome = nome;
         this.nacionalidade = nacionalidade;
         this.anoNascimento = anoNascimento;
@@ -31,11 +31,11 @@ public class Pessoa {
         return this.nacionalidade;
     }
 
-    public void setAnoNascimento(Integer anoNascimento) {
+    public void setAnoNascimento(String anoNascimento) {
         this.anoNascimento = anoNascimento;
     }
 
-    public Integer getAnoNascimento() {
+    public String getAnoNascimento() {
         return this.anoNascimento;
     }
     

@@ -4,22 +4,7 @@ import java.util.List;
 
 public class Livraria { // controller
 
-    public static final int MAX_LIVROS = 5;
-    private static ArrayList<Aluguel> alugueis = new ArrayList<Aluguel>();
-    private static ArrayList<Cliente> clientes = new ArrayList<Cliente>();
-
-    /* getters */
-
-    public static ArrayList<Cliente> getClientes() {
-        return clientes;
-    }
-
-    public static ArrayList<Aluguel> getAlugueis() {
-        return alugueis;
-    }
-
-    /* Outros métodos */
-
+    /* inicializa os dados dos livros, autores e editoras */
     public static void inicializaCatalogo() {
         try {
             Catalogo.leLivro("dados/livros.txt"); 
@@ -29,19 +14,39 @@ public class Livraria { // controller
             System.out.println("Houve um problema na inicialização do catálogo. Por favor, tente novamente.");
         } 
     }
+    
+    /* métodos para mostrar os livros, autores e editoras disponíveis */
 
-    public static void avaliarLivro(Livro livro, Integer nota) {
+    // Mostra todos os livros em ordem alfabética
+    public static List<Livro> livrosCatalogo(){
+        return Catalogo.getLivros();
+    }
+
+    // Mostra os autores em ordem alfabética
+    public static List<Autor> autoresCatalogo(){
+        return Catalogo.getAutores();
+    }
+
+    // Mostra as editoras em ordem alfabética
+    public static List<Editora> editorasCatalogo(){
+        return Catalogo.getEditoras();
+    }
+    
+    
+    /* inicializa os dados dos clientes cadastrados no sistema */
+    public static void inicializaClientes(){
+        try {
+            ManipulaCliente.leCliente("dados/clientes.txt"); 
+        } catch (IOException e) {
+            System.out.println("Erro na leitura dos clientes cadastrados!");
+        } 
+    
+    }
+
+    /*-----------------------------------------------------------------------------------*/
+    /*public static void avaliarLivro(Livro livro, Integer nota) {
         livro.avaliar(nota);
         buscaAutor(livro.getIdAutor()).avaliar(nota);
-    }
-
-    public static void salvaCliente(String nome, String nacionalidade, Integer anoNascimento, String cpf){
-        Cliente clienteNovo = new Cliente(nome, nacionalidade, anoNascimento, cpf, true);
-        clientes.add(clienteNovo);
-    }
-
-    public static void removeCliente(Cliente cliente) {
-        clientes.remove(cliente);
     }
 
     public static void salvaAluguel(Livro livro, String dataAluguel, Cliente cliente) {
@@ -67,30 +72,17 @@ public class Livraria { // controller
         if (l.getQtdExemplares() == l.getQtdAlugados()) 
             return false; // retorna falso caso o livro não esteja disponível
         return true;
-    }
+    }*/
 
-
+    
+ 
     /* -------------------- MÉTODOS DE BUSCA -------------------- */
-
-    /* métodos para mostrar os livros, autores e editoras disponíveis */
-
-    // Mostra todos os livros em ordem alfabética
-    public static List<Livro> livrosCatalogo(){
-        return Catalogo.getLivros();
-    }
-
-    // Mostra os autores em ordem alfabética
-    public static List<Autor> autoresCatalogo(){
-        return Catalogo.getAutores();
-    }
-
-    // Mostra as editoras em ordem alfabética
-    public static List<Editora> editorasCatalogo(){
-        return Catalogo.getEditoras();
-    }
-
-    /* métodos buscarLivro: usados para encontrar uma lista de livros com as mesmas caracteristicas */
-
+    
+    
+    
+    
+  
+    
     // retorna uma lista com os livros de um determinado autor em ordem alfabética
     public static List<Livro> buscarLivros(Autor autor){
         List<Livro> livros = new ArrayList<Livro>();
@@ -116,8 +108,9 @@ public class Livraria { // controller
     // retorna uma lista com os livros de um determinado genero em ordem alfabética
     public static List<Livro> buscarLivros(String genero){
         List<Livro> livros = new ArrayList<Livro>();
+        
         for (Livro l : Catalogo.getLivros()) {
-            if (genero == l.getNomeGenero()) {
+            if (genero.toLowerCase().equals(l.getNomeGenero().toLowerCase())) {
                 livros.add(l);
             }
         }
@@ -125,7 +118,16 @@ public class Livraria { // controller
     }
 
     /* métodos para encontrar um objeto Livro, Autor ou Livraria a partir de seu nome ou id */
-
+    public static int buscaPosLivro(Integer id){
+        for(int  i = 0; i < Catalogo.getLivros().size(); i++){
+            if(id == Catalogo.getLivros().get(i).getId()){
+                return i; /*retorna a posição do livro*/
+            }
+        }
+        return -1; /*livro não encontrado*/
+    }
+    
+    /* métodos buscarLivro: usados para encontrar uma lista de livros com as mesmas caracteristicas */
     public static Livro buscaLivro(Integer id){
         for(Livro l : Catalogo.getLivros()){
             if(id == l.getId()){
@@ -137,8 +139,9 @@ public class Livraria { // controller
 
     public static Livro buscaLivro(String titulo){
         for(Livro l : Catalogo.getLivros()) {
-            if(titulo.toLowerCase() == l.getTitulo().toLowerCase()){
+            if(titulo.toLowerCase().equals(l.getTitulo().toLowerCase())){
                 return l;
+              
             }
         }
         return null;
@@ -146,7 +149,7 @@ public class Livraria { // controller
 
     public static Autor buscaAutor(Integer id){
         for(Autor a : Catalogo.getAutores()){
-            if(id == a.getId()){
+            if(id.equals(a.getId())){
                 return a;
             }
         }
@@ -155,7 +158,7 @@ public class Livraria { // controller
 
     public static Autor buscaAutor(String nome){
         for(Autor a : Catalogo.getAutores()){
-            if(nome.toLowerCase() == a.getNome().toLowerCase()){
+            if(nome.toLowerCase().equals(a.getNome().toLowerCase())){
                 return a;
             }
         }
@@ -164,7 +167,7 @@ public class Livraria { // controller
 
     public static Editora buscaEditora(Integer id){
         for(Editora e : Catalogo.getEditoras())  {
-            if(id == e.getId()){
+            if(id.equals(e.getId())){
                 return e;
             }
         }
@@ -173,11 +176,13 @@ public class Livraria { // controller
 
     public static Editora buscaEditora(String nome){
         for(Editora e : Catalogo.getEditoras()){
-            if(nome.toLowerCase() == e.getNome().toLowerCase()){
+            if(nome.toLowerCase().equals(e.getNome().toLowerCase())){
                 return e;
             }
         }
         return null;
     }
+
+    
 
 }

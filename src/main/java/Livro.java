@@ -8,17 +8,17 @@ public class Livro implements Avaliacao, Comparable<Livro> {
     private Integer idEditora;
     private Genero genero;
     private Integer anoPublicacao;
-    private Integer edicao;
+    private String edicao;
     private Integer numPaginas;
     private String sinopse;
     private Integer qtdExemplares;
     private Integer qtdAlugados;
-    private Double avaliacao; // media das avaliações dos leitores armazenadas em avaliacoes
+    private Double avaliacao ;// media das avaliações dos leitores armazenadas em avaliacoes
     private ArrayList<Integer> avaliacoes = new ArrayList<Integer>();
 
     /* Construtor */
 
-    public Livro(Integer id, String titulo, Integer idAutor, Integer idEditora, Genero genero, Integer anoPublicacao, Integer edicao, Integer numPaginas, String sinopse, Double avaliacao) {
+    public Livro(Integer id, String titulo, Integer idAutor, Integer idEditora, Genero genero, Integer anoPublicacao, String edicao, Integer numPaginas, String sinopse, Integer qtdExemplares, Integer qtdAlugados, Double avaliacao) {
         this.id = id;
         this.titulo = titulo;
         this.idAutor = idAutor;
@@ -28,6 +28,8 @@ public class Livro implements Avaliacao, Comparable<Livro> {
         this.edicao = edicao;
         this.numPaginas = numPaginas;
         this.sinopse = sinopse;
+        this.qtdExemplares = qtdExemplares;
+        this.qtdAlugados = qtdAlugados;
         this.avaliacao = avaliacao; // Inicializada com a nota do Goodreads (a partir da primeira avaliação, passa a ser a média das avaliações dos clientes)
     }
 
@@ -83,7 +85,7 @@ public class Livro implements Avaliacao, Comparable<Livro> {
         return this.anoPublicacao;
     }
 
-    public Integer getEdicao() {
+    public String getEdicao() {
         return this.edicao;
     }
 
@@ -130,12 +132,15 @@ public class Livro implements Avaliacao, Comparable<Livro> {
                 "Sinopse: " + this.sinopse + '\n' +
                 "Ano de publicacao: " + this.anoPublicacao + " - " + this.edicao + "ª Edição\n";
     }
+    
+  
 
     @Override
     public int compareTo(Livro outroLivro) {
         return this.titulo.compareTo(outroLivro.titulo);
     } // função pra ordenar os livros alfabeticamente
-
+    
+    
     @Override
     public void avaliar(Integer nota) {
         this.setAvaliacao(nota);
