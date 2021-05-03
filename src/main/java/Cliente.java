@@ -1,5 +1,5 @@
 public class Cliente extends Pessoa implements Comparable<Cliente>{ 
-    
+    /* Atributos */
     private String cpf;
     private Boolean assinante;
     private Integer qtdLivrosAlugados;

@@ -11,6 +11,8 @@ import java.util.Comparator;
  *
  * @author PC
  */
+
+/*Ordena os livros em ordem decrescente de avaliação */
 public class LivroComparator implements Comparator<Livro>{
     @Override
     public int compare(Livro livro, Livro outroLivro) {

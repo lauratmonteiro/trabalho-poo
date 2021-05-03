@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
 public class Livro implements Avaliacao, Comparable<Livro> {
-    
-    private Integer id;
-    private String titulo;
+    /* Atributos */
+    private  Integer id;
+    private  String titulo;
     private Integer idAutor;
     private Integer idEditora;
     private Genero genero;
@@ -106,8 +106,6 @@ public class Livro implements Avaliacao, Comparable<Livro> {
     }
 
     public void setAvaliacao(Integer avaliacao) {
-        // Adiciona a avaliação à lista de avaliações
-        avaliacoes.add(avaliacao);
         // Calcula a nova avaliação média
         Integer soma = 0;
         for (Integer i : this.avaliacoes) {
@@ -115,6 +113,9 @@ public class Livro implements Avaliacao, Comparable<Livro> {
         }
         // Define a nova avaliação média
         avaliacao = (soma/this.avaliacoes.size());
+        
+        // Adiciona a avaliação à lista de avaliações
+        avaliacoes.add(avaliacao);
     }
 
     public Double getAvaliacao() {
@@ -145,5 +146,6 @@ public class Livro implements Avaliacao, Comparable<Livro> {
     public void avaliar(Integer nota) {
         this.setAvaliacao(nota);
     }
-
+    
+   
 }

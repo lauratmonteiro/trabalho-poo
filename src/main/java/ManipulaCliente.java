@@ -1,9 +1,12 @@
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -20,7 +23,7 @@ import java.util.Scanner;
  * @author PC
  */
 public class ManipulaCliente {
-    
+  
     private static List<Cliente> clientes = new ArrayList<Cliente>();
    
     /* ordena clientes em ordem alfabética */
@@ -31,7 +34,7 @@ public class ManipulaCliente {
     
     /*lê os clientes cadastrados */
     public static void leCliente(String caminhoArquivo) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(caminhoArquivo));
+        BufferedReader br = new BufferedReader(new InputStreamReader (new FileInputStream(caminhoArquivo), "UTF-8"));
         String linha = "";
         linha = br.readLine();
         
@@ -90,16 +93,23 @@ public class ManipulaCliente {
         
     }
     
-    
-    /* public static void removeCliente(String caminhoArquivo) throws IOException { //SE DER TEMPO
-    
-    }*/
-    
+    /* incrementa o valor da quantidade de livros alugados pelo cliente */
     public static void incrementaqtdAlugados(String cpf){
         int pos = buscaCliente(cpf);
         for(int i = 0; i < clientes.size(); i++){
             if(pos == i){
                 Integer qtdAlugadosNovo = (clientes.get(i).getQtdLivrosAlugados())+1;
+                clientes.get(i).setQtdLivrosAlugados(qtdAlugadosNovo);
+            }
+        }
+    }
+    
+    /* decrementa o valor da quantidade de livros alugados pelo cliente */
+    public static void decrementaqtdAlugados(String cpf){
+        int pos = buscaCliente(cpf);
+        for(int i = 0; i < clientes.size(); i++){
+            if(pos == i){
+                Integer qtdAlugadosNovo = (clientes.get(i).getQtdLivrosAlugados())-1;
                 clientes.get(i).setQtdLivrosAlugados(qtdAlugadosNovo);
             }
         }
@@ -144,8 +154,11 @@ public class ManipulaCliente {
         return qtd;
     }
     
+    /*armazena alterações feitas no array clientes no arquivo clientes */
     public static void armazenaAlteraçõesCliente()  throws IOException {
-        BufferedWriter br = new BufferedWriter(new FileWriter("dados/clientes.txt"));
+        clientes = getClientes(); //para deixar o array ordenado antes de escrever as alterações
+        BufferedWriter br = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("dados/clientes.txt"),"UTF8"));
+          
         for(int i = 0; i < clientes.size(); i++){
             br.write(clientes.get(i).getNome());
             br.write(";");

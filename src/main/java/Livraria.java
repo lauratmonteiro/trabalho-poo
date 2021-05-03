@@ -15,7 +15,6 @@ public class Livraria { // controller
         } 
     }
     
-    /* métodos para mostrar os livros, autores e editoras disponíveis */
 
     // Mostra todos os livros em ordem alfabética
     public static List<Livro> livrosCatalogo(){
@@ -42,46 +41,19 @@ public class Livraria { // controller
         } 
     
     }
-
-    /*-----------------------------------------------------------------------------------*/
-    /*public static void avaliarLivro(Livro livro, Integer nota) {
-        livro.avaliar(nota);
-        buscaAutor(livro.getIdAutor()).avaliar(nota);
-    }
-
-    public static void salvaAluguel(Livro livro, String dataAluguel, Cliente cliente) {
-        Aluguel novoAluguel = new Aluguel(livro, dataAluguel, cliente); // cria um obj da classe Aluguel com os dados
-        alugueis.add(novoAluguel);
-    }
-
-    public static void removeAluguel(Aluguel aluguel) {
-        alugueis.remove(aluguel);
-        int qtd = aluguel.getLivro().getQtdAlugados();
-        aluguel.getLivro().setQtdAlugados(qtd-1);
-    }
-
-    // verifica se o cliente pode alugar novos livros
-    public static Boolean verificaLimite(Cliente c) {
-        if (c.getQtdLivrosAlugados() == MAX_LIVROS) 
-            return false; // retorna falso se tiver o maximo
-        return true; // retorna verdadeiro se ainda houver limite disponivel
-    }
-
-    // verifica se ainda ha exemplares desse livro disponiveis para alugar
-    public static Boolean verificaDisponibilidade(Livro l) {
-        if (l.getQtdExemplares() == l.getQtdAlugados()) 
-            return false; // retorna falso caso o livro não esteja disponível
-        return true;
-    }*/
-
     
- 
+    /* inicializa os dados dos alugueis cadastrados no sistema */
+    public static void inicializaAlugueis(){
+        try {
+           GerenciaAlugueis.leAlugueis("dados/alugueis.txt"); 
+        } catch (IOException e) {
+            System.out.println("Erro na leitura dos dados referentes às locações de livros da livraria.");
+        } 
+    
+    }
+    
+   
     /* -------------------- MÉTODOS DE BUSCA -------------------- */
-    
-    
-    
-    
-  
     
     // retorna uma lista com os livros de um determinado autor em ordem alfabética
     public static List<Livro> buscarLivros(Autor autor){

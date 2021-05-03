@@ -11,6 +11,8 @@ import java.util.Comparator;
  *
  * @author PC
  */
+
+/*Ordena os autores em ordem decrescente de avaliação */
 public class AutorComparator implements Comparator<Autor> {
     @Override
     public int compare(Autor autor, Autor outroAutor) {

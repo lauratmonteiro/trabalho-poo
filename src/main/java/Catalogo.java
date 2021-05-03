@@ -1,11 +1,15 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
+import java.util.Scanner;
 
 public class Catalogo {
 
@@ -17,7 +21,7 @@ public class Catalogo {
    
 
     /* getters */
-
+    
     public static List<Livro> getLivros() {
         Collections.sort(livros);
         return livros;
@@ -33,12 +37,11 @@ public class Catalogo {
         return editoras;
     }
     
-    /* Outros métodos*/
+    /*métodos*/
     
     /* Métodos para ler os dados de livros, autores e editoras disponíveis */
-
     public static void leLivro(String caminhoArquivo) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(caminhoArquivo));
+        BufferedReader br = new BufferedReader(new InputStreamReader (new FileInputStream(caminhoArquivo), "UTF-8"));
         String linha = "";
         linha = br.readLine();
         
@@ -68,7 +71,7 @@ public class Catalogo {
     }
 
     public static void leAutor(String caminhoArquivo) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(caminhoArquivo));
+       BufferedReader br = new BufferedReader(new InputStreamReader (new FileInputStream(caminhoArquivo), "UTF-8"));
         String linha = br.readLine();
         
         while(linha != null){
@@ -87,7 +90,7 @@ public class Catalogo {
     }
 
     public static void leEditora(String caminhoArquivo) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(caminhoArquivo));
+        BufferedReader br = new BufferedReader(new InputStreamReader (new FileInputStream(caminhoArquivo), "UTF-8"));
         String linha = "";
         linha = br.readLine();
         
@@ -104,6 +107,9 @@ public class Catalogo {
         br.close();
     }
     
+   
+    
+    /* incrementa o valor da quantidade de livros alugados de determinado livro */
     public static void incrementaqtdAlugados(Integer id){
         int pos = Livraria.buscaPosLivro(id);
         for(int i = 0; i < livros.size(); i++){
@@ -115,8 +121,137 @@ public class Catalogo {
     
     }
     
+    
+    /* decrementa o valor da quantidade de livros alugados de determinado livro */
+    public static void decrementaqtdAlugados(Integer id){
+        int pos = Livraria.buscaPosLivro(id);
+        for(int i = 0; i < livros.size(); i++){
+            if(pos == i){
+                Integer qtdAlugadosNovo = (livros.get(i).getQtdAlugados())-1;
+                livros.get(i).setQtdAlugados(qtdAlugadosNovo);
+            }
+        }
+    
+    }
+    /*adiciona novo livro ao catálogo*/
+    public static void adicionaNovoLivro() throws IOException{
+        Scanner teclado = new Scanner(System.in);
+        BufferedWriter br = new BufferedWriter(new FileWriter("dados/livros.txt",  true));
+        System.out.println("Digite o ID do novo livro: ");
+        br.write(Integer.toString(teclado.nextInt()));
+        br.write(";");
+        teclado.nextLine();
+        
+        System.out.println("Digite o título do novo livro: ");
+        br.write(teclado.nextLine());
+        br.write(";");
+        
+        System.out.println("Digite o ID do autor do novo livro: ");
+        br.write(Integer.toString(teclado.nextInt()));
+        br.write(";");
+        
+        System.out.println("Digite o ID da editora do novo livro: ");
+        br.write(Integer.toString(teclado.nextInt()));
+        br.write(";");
+            
+        System.out.println("Digite o gênero do novo livro: ");
+        System.out.println( "0 - Autoajuda\n" + 
+                            "1 - Drama\n" +
+                            "2 - Ficção\n" +
+                            "3 - Infantojuvenil\n" +
+                            "4 - Jovem adulto\n" + 
+                            "5 - Não ficção\n" + 
+                            "6 - Policial\n" + 
+                            "7 - Quadrinhos\n" +
+                            "8 - Romance\n" +
+                            "9 - Suspense\n" + 
+                            "10 - Terror" );
+        br.write(teclado.next());
+        br.write(";");
+        
+        System.out.println("Digite o ano de publicação do novo livro: ");
+        br.write(teclado.next());
+        br.write(";");
+        
+        System.out.println("Digite a edição do novo livro: ");
+        br.write(teclado.next());
+        br.write(";");
+        
+        System.out.println("Digite o número de páginas do novo livro: ");
+        br.write(Integer.toString(teclado.nextInt()));
+        teclado.nextLine();
+        br.write(";");
+        
+        System.out.println("Digite a sinopse do novo livro: ");
+        br.write(teclado.nextLine());
+        br.write(";");
+        
+        System.out.println("Digite a quantidade de exemplares do novo livro: ");
+        br.write(Integer.toString(teclado.nextInt()));
+        br.write(";");
+           
+        br.write('0'); //seta 0 na qtd de livros alugados
+        br.write(";");
+            
+        br.write('0'); //seta 0 na avaliação do livro novo
+            
+        br.newLine();
+        br.close();
+            
+    }
+    
+    /*adiciona nova editora ao catálogo*/
+    public static void adicionaNovaEditora() throws IOException{
+        Scanner teclado = new Scanner(System.in);
+        BufferedWriter br = new BufferedWriter(new FileWriter("dados/editoras.txt",  true));
+        System.out.println("Digite o ID da nova editora: ");
+        br.write(Integer.toString(teclado.nextInt()));
+        br.write(";");
+        teclado.nextLine();
+        
+        System.out.println("Digite o nome da nova editora: ");
+        br.write(teclado.nextLine());
+        br.write(";");
+        
+        System.out.println("Digite o CNPJ da nova editora: ");
+        br.write(teclado.next());
+        br.write(";");
+            
+        br.newLine();
+        br.close();
+    }  
+    
+    /*adiciona novo autor ao catálogo*/
+    public static void adicionaNovoAutor() throws IOException{
+        Scanner teclado = new Scanner(System.in);
+        BufferedWriter br = new BufferedWriter(new FileWriter("dados/autores.txt",  true));
+        System.out.println("Digite o ID do novo autor: ");
+        br.write(Integer.toString(teclado.nextInt()));
+        br.write(";");
+        teclado.nextLine();
+        
+        System.out.println("Digite o nome do novo autor: ");
+        br.write(teclado.nextLine());
+        br.write(";");
+        
+        System.out.println("Digite a nacionalidade do novo autor: ");
+        br.write(teclado.next());
+        br.write(";");
+        
+        System.out.println("Digite o ano de nascimento do novo autor: ");
+        br.write(teclado.next());
+        br.write(";");
+        
+        br.write('0'); //seta 0 avaliação do novo autor 
+   
+            
+        br.newLine();
+        br.close();
+    }  
+    
+    /* faz alterações no array de livros e depois armazena essas alterações no arquivo de livros */
     public static void armazenaAlteraçõesLivro() throws IOException{
-        BufferedWriter br = new BufferedWriter(new FileWriter("dados/livros.txt"));
+        BufferedWriter br = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("dados/livros.txt"),"UTF8"));
         for(int i = 0; i < livros.size(); i++){
             br.write(Integer.toString(livros.get(i).getId()));
             br.write(";");
@@ -130,49 +265,49 @@ public class Catalogo {
             br.write(Integer.toString(livros.get(i).getIdEditora()));
             br.write(";");
             
-            /* Gênero */
-            if(livros.get(i).getNomeGenero().equals("AUTOAJUDA")){
-                br.write(0);
+      
+            if(livros.get(i).getGenero().equals(Genero.AUTOAJUDA)){
+                br.write("0");
                 br.write(";");
             }
-            if(livros.get(i).getNomeGenero().equals("DRAMA")){
-                br.write(1);
+            if(livros.get(i).getGenero().equals(Genero.DRAMA)){
+                br.write("1");
                 br.write(";");
             }
-            if(livros.get(i).getNomeGenero().equals("FICCAO")){
-                br.write(2);
+            if(livros.get(i).getGenero().equals(Genero.FICCAO)){
+                br.write("2");
                 br.write(";");
             }
-            if(livros.get(i).getNomeGenero().equals("INFANTOJUVENIL")){
-                br.write(3);
+            if(livros.get(i).getGenero().equals(Genero.INFANTOJUVENIL)){
+                br.write("3");
                 br.write(";");
             }
-            if(livros.get(i).getNomeGenero().equals("JOVEM_ADULTO")){
-                br.write(4);
+            if(livros.get(i).getGenero().equals(Genero.JOVEM_ADULTO)){
+                br.write("4");
                 br.write(";");
             }
-            if(livros.get(i).getNomeGenero().equals("NAO_FICCAO")){
-                br.write(5);
+            if(livros.get(i).getGenero().equals(Genero.NAO_FICCAO)){
+                br.write("5");
                 br.write(";");
             }
-            if(livros.get(i).getNomeGenero().equals("POLICIAL")){
-                br.write(6);
+            if(livros.get(i).getGenero().equals(Genero.POLICIAL)){
+                br.write("6");
                 br.write(";");
             }
-            if(livros.get(i).getNomeGenero().equals("QUADRINHOS")){
-                br.write(7);
+            if(livros.get(i).getGenero().equals(Genero.QUADRINHOS)){
+                br.write("7");
                 br.write(";");
             }
-            if(livros.get(i).getNomeGenero().equals("ROMANCE")){
-                br.write(8);
+            if(livros.get(i).getGenero().equals(Genero.ROMANCE)){
+                br.write("8");
                 br.write(";");
             }
-            if(livros.get(i).getNomeGenero().equals("SUSPENSE")){
-                br.write(9);
+            if(livros.get(i).getGenero().equals(Genero.SUSPENSE)){
+                br.write("9");
                 br.write(";");
             }
-            if(livros.get(i).getNomeGenero().equals("TERROR")){
-                br.write(10);
+            if(livros.get(i).getGenero().equals(Genero.TERROR)){
+                br.write("10");
                 br.write(";");
             }
              
@@ -195,7 +330,7 @@ public class Catalogo {
             br.write(";");
             
             br.write(Double.toString(livros.get(i).getAvaliacao()));
-            br.write(";");
+            
             
             br.newLine();
             

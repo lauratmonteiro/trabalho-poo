@@ -1,5 +1,5 @@
 public class Editora implements Comparable<Editora> {
-    
+    /* Atributos */
     private Integer id;
     private String nome;
     private String cnpj;

@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 
 public class Autor extends Pessoa implements Avaliacao, Comparable<Autor> {
-
+    
+    /* Atributos */
     private Integer id;
     public Double avaliacao;
     private ArrayList<Integer> avaliacoes = new ArrayList<Integer>();
@@ -28,7 +29,7 @@ public class Autor extends Pessoa implements Avaliacao, Comparable<Autor> {
         this.avaliacao = avaliacao;
     }
     
-      public void setAvaliacao(Integer avaliacao) {
+    public void setAvaliacao(Integer avaliacao) {
         // Adiciona a avaliação à lista de avaliações
         this.avaliacoes.add(avaliacao);
         // Calcula a nova avaliação média
