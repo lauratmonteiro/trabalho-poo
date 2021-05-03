@@ -1,8 +1,14 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import jdk.internal.agent.resources.agent;
+import jdk.jshell.resources.l10n;
+
 import java.util.Collections;
 
 public class Catalogo {
@@ -30,8 +36,8 @@ public class Catalogo {
         return editoras;
     }
 
-    /* Outros métodos*/
-    
+    /* outros métodos */
+
     /* Métodos para ler os dados de livros, autores e editoras disponíveis */
 
     public static void leLivro(String caminhoArquivo) throws IOException {
@@ -56,6 +62,59 @@ public class Catalogo {
         }
 
         br.close();
+    }
+
+    // TESTAR
+    // salva os clientes no arquivo de dados
+    public static void escreveLivros() throws IOException {
+
+        try {
+            BufferedWriter br = new BufferedWriter(new FileWriter("dados/livros.txt", false));
+            br.write("");
+    
+            for (Livro l : Livraria.livrosCatalogo()) {
+                br.write(l.getId()); br.write(";");
+                br.write(l.getTitulo()); br.write(";");
+                br.write(l.getIdAutor()); br.write(";");
+                br.write(l.getIdEditora()); br.write(";");
+                br.write(String.valueOf(l.getGenero())); br.write(";");
+                br.write(l.getAnoPublicacao()); br.write(";");
+                br.write(l.getEdicao()); br.write(";");
+                br.write(l.getNumPaginas()); br.write(";");
+                br.write(l.getSinopse()); br.write(";");
+                br.write(String.valueOf(l.getAvaliacao())); br.write(";");
+            }
+    
+            br.close();
+
+        } catch (IOException e) {
+            throw new IOException("Arquivo não encontrado. Por favor, tente novamente.");
+        }
+
+    }
+
+        // TESTAR
+    // salva os clientes no arquivo de dados
+    public static void escreveAutores() throws IOException {
+
+        try {
+            BufferedWriter br = new BufferedWriter(new FileWriter("dados/autores.txt", false));
+            br.write("");
+    
+            for (Autor a : Livraria.autoresCatalogo()) {
+                br.write(a.getId()); br.write(";");
+                br.write(a.getNome()); br.write(";");
+                br.write(a.getNacionalidade()); br.write(";");
+                br.write(a.getAnoNascimento()); br.write(";");
+                br.write(String.valueOf(a.getAvaliacao())); br.write(";");
+            }
+    
+            br.close();
+
+        } catch (IOException e) {
+            throw new IOException("Arquivo não encontrado. Por favor, tente novamente.");
+        }
+        
     }
 
     public static void leAutor(String caminhoArquivo) throws IOException {

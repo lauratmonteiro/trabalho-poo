@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,35 +21,33 @@ public class Livraria { // controller
         return alugueis;
     }
 
-    /* Outros métodos */
+    /* métodos para inicializar e finalizar o programa */
 
-    public static void inicializaCatalogo() {
+    public static void inicializaPrograma() {
         try {
             Catalogo.leLivro("dados/livros.txt");
             Catalogo.leAutor("dados/autores.txt");
             Catalogo.leEditora("dados/editoras.txt");
-            leCliente("dados/cliente.txt");
+            leClientes("dados/clientes.txt");
+            leAlugueis("dados/alugueis.txt")
         } catch (IOException e) {
             System.out.println("Houve um problema na inicialização do catálogo. Por favor, tente novamente.");
         }
     }
 
-    public static void avaliarLivro(Livro livro, Integer nota) {
-        livro.avaliar(nota);
-        buscaAutor(livro.getIdAutor()).avaliar(nota);
+    //TODO: terminar
+    public static void finalizaPrograma() throws IOException {
+        escreveClientes();
+        escreveAlugueis();
+        Catalogo.escreveLivros();
+        Catalogo.escreveAutores();
     }
 
+    /* métodos para manipulação de arquivos */
 
-    public static void salvaCliente(String nome, String nacionalidade, Integer anoNascimento, String cpf) {
-        Cliente clienteNovo = new Cliente(nome, nacionalidade, anoNascimento, cpf, true);
-        clientes.add(clienteNovo);
-        armazenaCliente("dados/clientes.txt", clienteNovo);
-
-    }
-
-    /*lê os clientes cadastrados */
-    public static void leCliente(String caminhoArquivo) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader (new FileInputStream(caminhoArquivo), "UTF-8"));
+    // le o arquivo que contem os dados dos clientes 
+    public static void leClientes(String caminhoArquivo) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader (new FileInputStream(caminhoArquivo), "UTF-8")); //TODO: consertar isso aqui
         String linha = "";
         linha = br.readLine();
 
@@ -55,7 +56,7 @@ public class Livraria { // controller
             Cliente cliente = new Cliente(
                     dados[0], //nome
                     dados[1], //nacionalidade
-                    dados[2], //anoNascimento
+                    Integer.valueOf(dados[2]), //anoNascimento
                     dados[3], //cpf
                     Boolean.valueOf(dados[4]), //assinante
                     Integer.valueOf(dados[5])); //qtdLivrosAlugados
@@ -67,64 +68,165 @@ public class Livraria { // controller
 
     }
 
-    // TESTAR
-    /*armazena clientes novos no arquivo de dados*/
-    public static void armazenaCliente(String caminhoArquivo, Cliente cliente) throws IOException {
-        BufferedWriter br = new BufferedWriter(new FileWriter(caminhoArquivo, true));
+    // salva os clientes no arquivo de dados
+    public static void escreveClientes() throws IOException {
 
-        br.write(cliente.getNome());
-        br.write(";");
-
-        br.write(cliente.getNacionalidade());
-        br.write(";");
-
-        br.write(cliente.getAnoNascimento());
-        br.write(";");
-
-        br.write(cliente.getCpf());
-        br.write(";");
-
-        /* Quando o cliente faz o cadastro já obtêm a assinatura da livraria */
-        br.write("true");
-        br.write(";");
-
-        /* Ao se cadastrar a quantidade de livros alugados é nula */
-        br.write("0");
-
-        br.newLine();
-        br.close();
-
-    }
-
-    /* busca um determinado cliente pelo seu numero de cpf */
-    public static int buscaCliente(String cpfBuscado){
-        for(int i = 0; i < clientes.size(); i++){
-            if(cpfBuscado.equals(clientes.get(i).getCpf())){
-                return i; //posição do cliente no arquivo de dados dos clientes cadastrados
+        try {
+            BufferedWriter br = new BufferedWriter(new FileWriter("dados/clientes.txt", false));
+            br.write("");
+    
+            for (Cliente c : Livraria.getClientes()) {
+                armazenaCliente("dados/clientes.txt", c);
             }
+    
+            br.close();
+        } catch (IOException e) {
+            throw new IOException("Arquivo não encontrado. Por favor, tente novamente.");
         }
-        return - 1; //caso não encontre o cliente
-
     }
 
-    public static void removeCliente(Cliente cliente) {
-        clientes.remove(cliente);
+    // le o arquivo que contem os alugueis 
+    public static void leAlugueis(String caminhoArquivo) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader (new FileInputStream(caminhoArquivo), "UTF-8"));
+        String linha = "";
+        linha = br.readLine();
+
+        while(linha != null){
+            String[] dados = linha.split(";", 3);
+            Aluguel aluguel = new Aluguel(
+                    buscaLivro(Integer.valueOf(dados[0])), //id Livro
+                    dados[1], //data aluguel
+                    buscaCliente(dados[2]) //cpf Cliente
+            );
+            alugueis.add(aluguel);
+            linha = br.readLine();
+        }
+        br.close();
     }
+
+    // salva os clientes no arquivo de dados
+    public static void escreveAlugueis() throws IOException {
+
+        try {
+            BufferedWriter br = new BufferedWriter(new FileWriter("dados/clientes.txt", false));
+            br.write("");
+    
+            for (Aluguel a : Livraria.getAlugueis()) {
+                armazenaAluguel("dados/clientes.txt", a);
+            }
+
+            br.close();
+
+        } catch (IOException e) {
+            throw new IOException("Arquivo não encontrado. Por favor, tente novamente.");
+        }
+    }
+
+    /* métodos para manipular alugueis */
 
     public static void salvaAluguel(Livro livro, String dataAluguel, Cliente cliente) {
         Aluguel novoAluguel = new Aluguel(livro, dataAluguel, cliente); // cria um obj da classe Aluguel com os dados
-        int qtd = aluguel.getLivro().getQtdAlugados();
-        aluguel.getLivro().setQtdAlugados(qtd + 1);
+        int qtd = novoAluguel.getLivro().getQtdAlugados();
+        novoAluguel.getLivro().setQtdAlugados(qtd+1);
         cliente.setQtdLivrosAlugados(cliente.getQtdLivrosAlugados()+1);
         alugueis.add(novoAluguel);
     }
 
-    public static void removeAluguel(Aluguel aluguel, Cliente cliente) {
+    public static void armazenaAluguel(String caminhoArquivo, Aluguel aluguel) {
+ 
+        try {
+
+            BufferedWriter br = new BufferedWriter(new FileWriter(caminhoArquivo,  true));
+
+            br.write(aluguel.getLivro().getId());
+            br.write(";");            
+
+            br.write(aluguel.getDataAluguel());
+            br.write(";");          
+
+            br.write(aluguel.getCliente().getCpf());
+            br.write(";");            
+            
+            br.newLine();
+            br.close();
+
+        } catch (IOException e) {
+            e.getMessage();
+        }
+
+    }
+
+    public static void removeAluguel(Aluguel aluguel) {
         alugueis.remove(aluguel);
         int qtd = aluguel.getLivro().getQtdAlugados();
-        aluguel.getLivro().setQtdAlugados(qtd - 1);
+        aluguel.getLivro().setQtdAlugados(qtd-1);
+        aluguel.getCliente().setQtdLivrosAlugados(aluguel.getCliente().getQtdLivrosAlugados()-1);
+    }
 
-        cliente.setQtdLivrosAlugados(cliente.getQtdLivrosAlugados()-1);
+    /* métodos para manipular clientes */
+
+    // TESTAR
+    // cria e salva um novo cliente (será escrito no arquivo assim que o programa for encerrado)
+    public static void salvaCliente(String nome, String nacionalidade, Integer anoNascimento, String cpf) {
+        Cliente clienteNovo = new Cliente(nome, nacionalidade, anoNascimento, cpf, true, 0);
+        clientes.add(clienteNovo);
+    }
+
+    // TESTAR
+    // salva um cliete no arquivo de dados
+    public static void armazenaCliente(String caminhoArquivo, Cliente cliente) throws IOException {
+        try {
+            
+            BufferedWriter br = new BufferedWriter(new FileWriter(caminhoArquivo, true));
+
+            br.write(cliente.getNome());
+            br.write(";");
+    
+            br.write(cliente.getNacionalidade());
+            br.write(";");
+    
+            br.write(cliente.getAnoNascimento());
+            br.write(";");
+    
+            br.write(cliente.getCpf());
+            br.write(";");
+    
+            /* Quando o cliente faz o cadastro já obtêm a assinatura da livraria */
+            br.write("true");
+            br.write(";");
+    
+            /* Ao se cadastrar a quantidade de livros alugados é nula */
+            br.write("0");
+    
+            br.newLine();
+            br.close();
+
+        } catch (IOException e) {
+            throw new IOException("Arquivo não encontrado.");
+        }
+    }
+
+    // remove um cliente do array (será removido do arquivo assim que o programa for encerrado)
+    public static void removeCliente(Cliente cliente) {
+        clientes.remove(cliente);
+    }
+
+    // TESTAR
+    // busca um determinado cliente pelo seu cpf 
+    public static Cliente buscaCliente(String cpfBuscado){
+        for (Cliente c : clientes) {
+            if (cpfBuscado == c.getCpf()) {
+                return c;
+            }
+        }
+        return null; //caso não encontre o cliente
+    }
+
+    /* outros métodos */
+
+    public static void avaliarLivro(Livro livro, Integer nota) {
+        livro.avaliar(nota);
+        buscaAutor(livro.getIdAutor()).avaliar(nota);
     }
 
     // verifica se o cliente pode alugar novos livros

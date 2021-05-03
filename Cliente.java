@@ -6,10 +6,11 @@ public class Cliente extends Pessoa{ // Tem que implementar Avaliação, mas nã
 
     /* Construtor */
 
-    public Cliente (String nome, String nacionalidade, Integer anoNascimento, String cpf, Boolean assinante) {
+    public Cliente (String nome, String nacionalidade, Integer anoNascimento, String cpf, Boolean assinante, Integer qtdLivrosAlugados) {
         super(nome, nacionalidade, anoNascimento);
         this.cpf = cpf;
         this.assinante = assinante;
+        this.qtdLivrosAlugados = qtdLivrosAlugados;
     }
 
     /* Setters e getters */

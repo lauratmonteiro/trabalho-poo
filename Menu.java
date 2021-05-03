@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Menu { // classe para interação com o usuário
@@ -251,7 +252,24 @@ public class Menu { // classe para interação com o usuário
 
     // método para recomendar livros 
     public static void recomendaLivros() {
-        //TODO: metodo pra mostrar o top 10 
+        LivroComparator comparator = new LivroComparator() ;
+        List<Livro> livrosRecomendados = new ArrayList<Livro>();
+        livrosRecomendados  = Catalogo.getLivros();
+        Collections.sort(livrosRecomendados, comparator);
+        System.out.println("--------- TOP 10 livros recomendados ---------- ");
+        for(int i = 0; i < 10; i++) 
+            System.out.println(livrosRecomendados.get(i).getTitulo());
+    }
+
+    //método para recomendar autores
+    public static void recomendaAutores() {
+        AutorComparator comparator = new AutorComparator() ;
+        List<Autor> autoresRecomendados = new ArrayList<Autor>();
+        autoresRecomendados = Catalogo.getAutores();
+        Collections.sort(autoresRecomendados, comparator);
+        System.out.println("--------- TOP 10 autores recomendados ---------- ");
+        for(int i = 0; i < 10; i++) 
+            System.out.println(autoresRecomendados.get(i).getNome());
     }
 
     public static void main(String[] args) {
@@ -259,7 +277,7 @@ public class Menu { // classe para interação com o usuário
         Scanner input = new Scanner(System.in);
 
         // le os dados dos arquivos
-        Livraria.inicializaCatalogo();
+        Livraria.inicializaPrograma();
 
         int option = -1; // inicializa a variavel option, usada para o usuário manipular o sistema
         while(option != 0) {

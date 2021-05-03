@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Autor extends Pessoa implements Avaliacao, Comparable<Autor>, Comparator<Autor> {
+public class Autor extends Pessoa implements Avaliacao, Comparable<Autor>{
 
     private Integer id;
     private Double avaliacao;
@@ -20,16 +20,25 @@ public class Autor extends Pessoa implements Avaliacao, Comparable<Autor>, Compa
         return this.id;
     }
 
+    public Double getAvaliacao() {
+        return avaliacao;
+    }
+
     public void setAvaliacao(Integer avaliacao) {
-        // Adiciona a avaliação à lista de avaliações
-        this.avaliacoes.add(avaliacao);
-        // Calcula a nova avaliação média
-        Integer soma = 0;
-        for (Integer i : this.avaliacoes) {
-            soma += i;
+        try {
+            // Adiciona a avaliação à lista de avaliações
+            this.avaliacoes.add(avaliacao);
+            // Calcula a nova avaliação média
+            Integer soma = 0;
+            for (Integer i : this.avaliacoes) {
+                soma += i;
+            }
+            // Define a nova avaliação média
+            avaliacao = (soma/this.avaliacoes.size());
+        } catch (ArithmeticException e) {
+            e.getMessage();
         }
-        // Define a nova avaliação média
-        avaliacao = (soma/this.avaliacoes.size());
+        
     }
 
     /* Outros métodos */
@@ -49,12 +58,6 @@ public class Autor extends Pessoa implements Avaliacao, Comparable<Autor>, Compa
     @Override
     public void avaliar(Integer nota) {
         this.setAvaliacao(nota);
-    }
-
-    /*Ordena os autores em ordem decrescente de avaliação, feito pela Karina */
-    @Override
-    public int compare(Autor autor, Autor outroAutor) {
-        return compare(autor.getAvaliacao(), outroAutor.getAvaliacao());
     }
 
 }

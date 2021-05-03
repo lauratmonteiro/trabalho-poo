@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Livro implements Avaliacao, Comparable<Livro>, Comparator<Livro>{
     
@@ -104,15 +105,19 @@ public class Livro implements Avaliacao, Comparable<Livro>, Comparator<Livro>{
     }
 
     public void setAvaliacao(Integer avaliacao) {
-        // Adiciona a avaliação à lista de avaliações
-        avaliacoes.add(avaliacao);
-        // Calcula a nova avaliação média
-        Integer soma = 0;
-        for (Integer i : this.avaliacoes) {
-            soma += i;
+        try {
+            // Adiciona a avaliação à lista de avaliações
+            avaliacoes.add(avaliacao);
+            // Calcula a nova avaliação média
+            Integer soma = 0;
+            for (Integer i : this.avaliacoes) {
+                soma += i;
+            }
+            // Define a nova avaliação média
+            avaliacao = (soma/this.avaliacoes.size());
+        } catch (ArithmeticException e) {
+            e.getMessage();
         }
-        // Define a nova avaliação média
-        avaliacao = (soma/this.avaliacoes.size());
     }
 
     public Double getAvaliacao() {
@@ -143,7 +148,7 @@ public class Livro implements Avaliacao, Comparable<Livro>, Comparator<Livro>{
 
     @Override
     public int compare(Livro livro, Livro outroLivro) {
-        return compare(livro.getAvaliacao(), outroLivro.getAvaliacao());
+        return livro.getAvaliacao().compareTo(outroLivro.getAvaliacao());
     }
 
 }
