@@ -339,4 +339,29 @@ public class Catalogo {
     
     }
     
+     /* faz alterações no array de autores e depois armazena essas alterações no arquivo de autores */
+    static void armazenaAlteraçõesAutor() throws IOException {
+        BufferedWriter br = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("dados/autores.txt"),"UTF8"));
+        for(int i = 0; i < autores.size(); i++){
+            br.write(Integer.toString(autores.get(i).getId()));
+            br.write(";");
+
+            br.write(autores.get(i).getNome());
+            br.write(";");
+
+            br.write(autores.get(i).getNacionalidade());
+            br.write(";");
+            
+            br.write(autores.get(i).getAnoNascimento());
+            br.write(";");
+            
+            br.write(Double.toString(autores.get(i).getAvaliacao()));
+            
+            br.newLine();
+            
+        }
+        br.close();
+  
+    }
+    
 }

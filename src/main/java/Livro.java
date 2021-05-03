@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class Livro implements Avaliacao, Comparable<Livro> {
+
     /* Atributos */
     private  Integer id;
     private  String titulo;
@@ -13,7 +14,7 @@ public class Livro implements Avaliacao, Comparable<Livro> {
     private String sinopse;
     private Integer qtdExemplares;
     private Integer qtdAlugados;
-    private Double avaliacao ;// media das avaliações dos leitores armazenadas em avaliacoes
+    public Double avaliacao ;// media das avaliações dos leitores armazenadas em avaliacoes
     private ArrayList<Integer> avaliacoes = new ArrayList<Integer>();
 
     /* Construtor */
@@ -104,20 +105,11 @@ public class Livro implements Avaliacao, Comparable<Livro> {
     public Integer getQtdAlugados() {
         return this.qtdAlugados;
     }
-
-    public void setAvaliacao(Integer avaliacao) {
-        // Calcula a nova avaliação média
-        Integer soma = 0;
-        for (Integer i : this.avaliacoes) {
-            soma += i;
-        }
-        // Define a nova avaliação média
-        avaliacao = (soma/this.avaliacoes.size());
-        
-        // Adiciona a avaliação à lista de avaliações
-        avaliacoes.add(avaliacao);
+    
+    public void setAvaliacao(Double avaliacao) {
+        this.avaliacao = avaliacao;
     }
-
+    
     public Double getAvaliacao() {
         return this.avaliacao;
     }
@@ -144,8 +136,15 @@ public class Livro implements Avaliacao, Comparable<Livro> {
     
     @Override
     public void avaliar(Integer nota) {
-        this.setAvaliacao(nota);
+        avaliacoes.add(nota);
+        int soma = 0;
+        double mediaAvaliacoes = 0;
+        for(int i = 0; i < avaliacoes.size(); i++){
+            soma+= avaliacoes.get(i);
+        
+        }
+        mediaAvaliacoes = soma/avaliacoes.size();
+        this.setAvaliacao(mediaAvaliacoes );
     }
-    
-   
 }
+

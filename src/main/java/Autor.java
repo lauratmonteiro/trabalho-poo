@@ -28,18 +28,6 @@ public class Autor extends Pessoa implements Avaliacao, Comparable<Autor> {
     public void setAvaliacao(Double avaliacao) {
         this.avaliacao = avaliacao;
     }
-    
-    public void setAvaliacao(Integer avaliacao) {
-        // Adiciona a avaliação à lista de avaliações
-        this.avaliacoes.add(avaliacao);
-        // Calcula a nova avaliação média
-        Integer soma = 0;
-        for (Integer i : this.avaliacoes) {
-            soma += i;
-        }
-        // Define a nova avaliação média
-        avaliacao = (soma/this.avaliacoes.size());
-    }
       
     /* Outros métodos */
 
@@ -57,7 +45,16 @@ public class Autor extends Pessoa implements Avaliacao, Comparable<Autor> {
 
     @Override
     public void avaliar(Integer nota) {
-        this.setAvaliacao(nota);
+        avaliacoes.add(nota);
+        int soma = 0;
+        double mediaAvaliacoes = 0;
+        for(int i = 0; i < avaliacoes.size(); i++){
+            soma+= avaliacoes.get(i);
+        
+        }
+        mediaAvaliacoes = soma/avaliacoes.size();
+        this.setAvaliacao(mediaAvaliacoes );
     }
+    
     
 }

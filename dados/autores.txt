@@ -31,4 +31,3 @@
 31;E.L. James;Britânica;1963;4.50
 32;John Fowles;Inglês;1926;4.30
 33;E. Lockhart;Americana;1967;4.10
-34;Lara;Americana;1975;0

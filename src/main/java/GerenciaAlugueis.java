@@ -94,8 +94,6 @@ public class GerenciaAlugueis {
         Catalogo.incrementaqtdAlugados(idLivroAluguel);
         ManipulaCliente.armazenaAlteraçõesCliente();
         Catalogo.armazenaAlteraçõesLivro();
-        
-         
 
     
     }
@@ -135,9 +133,9 @@ public class GerenciaAlugueis {
         }
     
     }
-    
+   
     public static void avaliarLivro(Livro livro, Integer nota) {
-        livro.avaliar(nota); //adciona nota ao livro
+        livro.avaliar(nota); //adiciona nota ao livro
         Livraria.buscaAutor(livro.getIdAutor()).avaliar(nota); //atribui ao autor tbm
     }
     
@@ -164,10 +162,7 @@ public class GerenciaAlugueis {
         /*decrementa a quantidade alugados do livro */
         Catalogo.decrementaqtdAlugados(id);
         
-        /* grava alterações no arquivo clientes e livros */
-        ManipulaCliente.armazenaAlteraçõesCliente();
-        Catalogo.armazenaAlteraçõesLivro();
-        
+       
         /* setar avaliação */
         System.out.println("Gostaria de avaliar o livro? Digite Sim ou Não.\n");
         String resposta = input.next();
@@ -177,11 +172,18 @@ public class GerenciaAlugueis {
                 int nota = input.nextInt();
                 Livro livro = Livraria.buscaLivro(id);
                 avaliarLivro(livro,nota);
+                System.out.println("Avaliação feita com sucesso.Obrigada e volte sempre!");
                 break;
             case "Não":
                 System.out.println("Obrigada por utilizar nosso serviço, volte sempre!\n"); 
                 break;
         }
+        
+        /* grava alterações no arquivo clientes, livros e autor */
+        ManipulaCliente.armazenaAlteraçõesCliente();
+        Catalogo.armazenaAlteraçõesLivro();
+        Catalogo.armazenaAlteraçõesAutor();
+        
         input.close();
     }
     
