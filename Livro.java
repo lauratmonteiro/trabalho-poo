@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Livro implements Avaliacao, Comparable<Livro> {
+public class Livro implements Avaliacao, Comparable<Livro>, Comparator<Livro>{
     
     private Integer id;
     private String titulo;
@@ -139,6 +139,11 @@ public class Livro implements Avaliacao, Comparable<Livro> {
     @Override
     public void avaliar(Integer nota) {
         this.setAvaliacao(nota);
+    }
+
+    @Override
+    public int compare(Livro livro, Livro outroLivro) {
+        return compare(livro.getAvaliacao(), outroLivro.getAvaliacao());
     }
 
 }

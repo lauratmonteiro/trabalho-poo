@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Autor extends Pessoa implements Avaliacao, Comparable<Autor> {
+public class Autor extends Pessoa implements Avaliacao, Comparable<Autor>, Comparator<Autor> {
 
     private Integer id;
     private Double avaliacao;
@@ -50,5 +50,11 @@ public class Autor extends Pessoa implements Avaliacao, Comparable<Autor> {
     public void avaliar(Integer nota) {
         this.setAvaliacao(nota);
     }
-    
+
+    /*Ordena os autores em ordem decrescente de avaliação, feito pela Karina */
+    @Override
+    public int compare(Autor autor, Autor outroAutor) {
+        return compare(autor.getAvaliacao(), outroAutor.getAvaliacao());
+    }
+
 }
