@@ -28,16 +28,20 @@ public class Livraria { // controller
             leClientes("dados/clientes.txt");
             leAlugueis("dados/alugueis.txt");
         } catch (IOException e) {
-            System.out.println("Houve um problema na inicialização do catálogo. Por favor, tente novamente.");
+            System.out.println("Houve um problema na inicialização do programa. Por favor, tente novamente.");
         }
     }
 
     //TODO: terminar
-    public static void finalizaPrograma() throws IOException {
-        escreveClientes();
-        escreveAlugueis();
-        Catalogo.escreveLivros();
-        Catalogo.escreveAutores();
+    public static void finalizaPrograma() {
+        try {
+            escreveClientes();
+            escreveAlugueis();
+            Catalogo.escreveLivros();
+            Catalogo.escreveAutores();
+        } catch (IOException e) {
+            System.out.println("Houve um problema na finalização do programa.");
+        }
     }
 
     /* métodos para manipulação de arquivos */
@@ -179,7 +183,7 @@ public class Livraria { // controller
         pw.printf("true;");
 
         /* Ao se cadastrar a quantidade de livros alugados é nula */
-        pw.printf("0%n");
+        pw.printf("%1$s%n", cliente.getQtdLivrosAlugados());
 
         pw.flush();
     }

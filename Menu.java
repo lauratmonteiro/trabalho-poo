@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,7 +6,7 @@ import java.util.Scanner;
 public class Menu { // classe para interação com o usuário
 
     private static void mostraMenu() {
-        System.out.println("--------------------------------------------------");
+        System.out.println("\n--------------------------------------------------");
         System.out.println("Escolha uma das opções abaixo: ");
         System.out.println("1 - Cadastrar novo cliente");
         System.out.println("2 - Ver clientes cadastrados");
@@ -18,7 +17,7 @@ public class Menu { // classe para interação com o usuário
         System.out.println("7 - Ver livros disponiveis");
         System.out.println("8 - Ver autores disponiveis");
         System.out.println("0 - Encerrar programa");
-        System.out.println("--------------------------------------------------");
+        System.out.println("--------------------------------------------------\n");
     }
 
     /* MÉTODOS PARA MOSTRAR DADOS */
@@ -115,10 +114,10 @@ public class Menu { // classe para interação com o usuário
 
     // método para cadastrar um novo cliente
     public static void cadastrarCliente() throws IllegalArgumentException {
-        Scanner teclado = new Scanner (System.in);
+        Scanner teclado = new Scanner(System.in);
 
         System.out.print("Digite o nome do novo cliente: ");
-        String nome = teclado.next();
+        String nome = teclado.nextLine();
         System.out.print("Digite a nacionalidade do novo cliente: ");
         String nacionalidade = teclado.next();
         System.out.print("Digite o ano de nascimento do novo cliente: ");
@@ -270,9 +269,10 @@ public class Menu { // classe para interação com o usuário
         List<Livro> livrosRecomendados = new ArrayList<Livro>();
         livrosRecomendados  = Catalogo.getLivros();
         Collections.sort(livrosRecomendados, comparator);
-        System.out.println("--------- TOP 10 livros recomendados ---------- ");
+        System.out.println("--------------- TOP 10 livros recomendados ---------------");
         for(int i = 0; i < 10; i++) 
             System.out.println(livrosRecomendados.get(i).getTitulo());
+        System.out.println("--------------------------------------------------\n");
     }
 
     //método para recomendar autores
@@ -281,14 +281,13 @@ public class Menu { // classe para interação com o usuário
         List<Autor> autoresRecomendados = new ArrayList<Autor>();
         autoresRecomendados = Catalogo.getAutores();
         Collections.sort(autoresRecomendados, comparator);
-        System.out.println("--------- TOP 10 autores recomendados ---------- ");
+        System.out.println("--------------- TOP 10 autores recomendados ---------------");
         for(int i = 0; i < 10; i++) 
-            System.out.println(autoresRecomendados.get(i).getNome(
-
-            ));
+            System.out.println(autoresRecomendados.get(i).getNome());
+        System.out.println("--------------------------------------------------\n");
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         Scanner input = new Scanner(System.in);
 
@@ -321,7 +320,11 @@ public class Menu { // classe para interação com o usuário
                 case 2: 
                     listarClientes(); break;
                 case 3:
-                    busca();
+                    try {
+                        busca();
+                    } catch (BuscaSemSucessoException e) {
+                        e.getMessage();
+                    }
                 case 4:
                     try {
                         alugarLivro();
