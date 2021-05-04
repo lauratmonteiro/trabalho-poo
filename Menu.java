@@ -127,7 +127,7 @@ public class Menu { // classe para interação com o usuário
         String cpf = teclado.next();
 
         Livraria.salvaCliente(nome, nacionalidade, ano, cpf);
-        teclado.close();
+//        teclado.close();
 
     }
 

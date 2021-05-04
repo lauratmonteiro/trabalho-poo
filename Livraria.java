@@ -70,20 +70,21 @@ public class Livraria { // controller
     public static void escreveClientes() throws IOException {
 
         try {
-            BufferedWriter br = new BufferedWriter(new FileWriter("dados/clientes.txt", false));
-            br.write("");
-    
+            FileWriter fw = new FileWriter("dados/clientes.txt");
+
+//            fw.print("
+
             for (Cliente c : Livraria.getClientes()) {
-                armazenaCliente("dados/clientes.txt", c);
+                armazenaCliente(fw, c);
             }
-    
-            br.close();
+
+            fw.close();
         } catch (IOException e) {
             throw new IOException("Arquivo não encontrado. Por favor, tente novamente.");
         }
     }
 
-    // le o arquivo que contem os alugueis 
+    // le o arquivo que contem os alugueis
     public static void leAlugueis(String caminhoArquivo) throws IOException {
         InputStreamReader isr = new InputStreamReader(new FileInputStream(caminhoArquivo), "UTF-8");
         BufferedReader br = new BufferedReader(isr);
@@ -109,9 +110,9 @@ public class Livraria { // controller
         try {
             BufferedWriter br = new BufferedWriter(new FileWriter("dados/clientes.txt", false));
             br.write("");
-    
+
             for (Aluguel a : Livraria.getAlugueis()) {
-                armazenaAluguel("dados/clientes.txt", a);
+                armazenaAluguel("dados/alugueis.txt", a);
             }
 
             br.close();
@@ -132,19 +133,19 @@ public class Livraria { // controller
     }
 
     public static void armazenaAluguel(String caminhoArquivo, Aluguel aluguel) {
- 
+
         try {
 
             BufferedWriter br = new BufferedWriter(new FileWriter(caminhoArquivo,  true));
 
             br.write(aluguel.getLivro().getId());
-            br.write(";");            
+            br.write(";");
 
             br.write(aluguel.getDataAluguel());
-            br.write(";");          
+            br.write(";");
 
             br.write(aluguel.getCliente().getCpf());
-            
+
             br.newLine();
             br.close();
 
@@ -172,36 +173,28 @@ public class Livraria { // controller
 
     // TESTAR
     // salva um cliete no arquivo de dados
-    public static void armazenaCliente(String caminhoArquivo, Cliente cliente) throws IOException {
-        try {
-            
-            BufferedWriter br = new BufferedWriter(new FileWriter(caminhoArquivo, true));
+    public static void armazenaCliente(FileWriter fw, Cliente cliente) throws IOException {
 
-            br.write(cliente.getNome());
-            br.write(";");
-    
-            br.write(cliente.getNacionalidade());
-            br.write(";");
-    
-            br.write(cliente.getAnoNascimento());
-            br.write(";");
-    
-            br.write(cliente.getCpf());
-            br.write(";");
-    
-            /* Quando o cliente faz o cadastro já obtêm a assinatura da livraria */
-            br.write("true");
-            br.write(";");
-    
-            /* Ao se cadastrar a quantidade de livros alugados é nula */
-            br.write("0");
-    
-            br.newLine();
-            br.close();
+        PrintWriter pw = new PrintWriter(fw);
 
-        } catch (IOException e) {
-            throw new IOException("Arquivo não encontrado.");
-        }
+//            BufferedWriter br = new BufferedWriter(new FileWriter(caminhoArquivo, true));
+
+        pw.printf("%1$s;", cliente.getNome());
+
+        pw.printf("%1$s;", cliente.getNacionalidade());
+
+        pw.printf("%1$s;", cliente.getAnoNascimento());
+
+        pw.printf("%1$s;", cliente.getCpf());
+
+        /* Quando o cliente faz o cadastro já obtêm a assinatura da livraria */
+        pw.printf("true;");
+
+        /* Ao se cadastrar a quantidade de livros alugados é nula */
+        pw.printf("0%n");
+//            br.close();
+
+        pw.flush();
     }
 
     // remove um cliente do array (será removido do arquivo assim que o programa for encerrado)
