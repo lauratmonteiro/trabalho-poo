@@ -68,7 +68,7 @@ public class Menu { // classe para interação com o usuário
         System.out.println("--------------------------------------------------");
         System.out.println("Mostrando autores...\n");
         for (Autor a : Livraria.autoresCatalogo()) {
-            System.out.println(num + a.getNome());
+            System.out.println(num + " - " + a.getNome());
             num++;
         }
         System.out.println("--------------------------------------------------");
@@ -104,31 +104,6 @@ public class Menu { // classe para interação com o usuário
         System.out.println("--------------------------------------------------");
     }
 
-    /* MÉTODOS PARA VALIDAÇÃO DAS ENTRADAS */
-
-    // método usado quando a entrada deve ser uma string formada apenas por letras do alfabeto
-    public static void validaString(String valor) throws IllegalArgumentException {
-        String[] array = valor.split(""); // divide a string em um array onde cada elemento é um caractere
-        for (String s : array) {
-            int num = Character.getNumericValue(s.toLowerCase().charAt(0));
-            if (num < 97 || num > 122 || s == null || s == "") { // caso nao seja uma letra do alfabeto ou seja uma string vazia (null ou "")
-                throw new IllegalArgumentException("Entrada inválida! Por favor, tente novamente.");
-            }
-        }
-    }
-
-    public static void validaNumero(String valor) throws IllegalArgumentException {
-        String[] array = valor.split(""); // divide a string em um array onde cada elemento é um caractere
-        for (String s : array) {
-            List<Integer> numeros = new ArrayList<Integer>();
-            numeros.add(1); numeros.add(2); numeros.add(3); numeros.add(4); numeros.add(5);
-            numeros.add(6); numeros.add(7); numeros.add(8); numeros.add(9); numeros.add(0);  
-            if (s == null || s == "" || !numeros.contains(Integer.parseInt(s))) { // caso seja uma string vazia (null ou "") ou não seja um número de 0 a 9
-                throw new IllegalArgumentException("Entrada inválida! Por favor, tente novamente.");
-            }
-        }
-    }
-
     /* OUTROS MÉTODOS */
 
     // método genérico auxiliar para imprimir listas de objetos
@@ -144,21 +119,16 @@ public class Menu { // classe para interação com o usuário
 
         System.out.print("Digite o nome do novo cliente: ");
         String nome = teclado.next();
-        validaString(nome);
         System.out.print("Digite a nacionalidade do novo cliente: ");
         String nacionalidade = teclado.next();
-        validaString(nacionalidade);
         System.out.print("Digite o ano de nascimento do novo cliente: ");
         Integer ano = teclado.nextInt();
-        validaNumero(ano.toString());
         System.out.print("Digite o cpf do novo cliente (somente números): ");
         String cpf = teclado.next();
-        validaNumero(cpf.toString());
 
         Livraria.salvaCliente(nome, nacionalidade, ano, cpf);
         teclado.close();
 
-        //TODO: implementar validação
     }
 
     // método usado para realizar uma busca no catálogo
@@ -313,7 +283,9 @@ public class Menu { // classe para interação com o usuário
         Collections.sort(autoresRecomendados, comparator);
         System.out.println("--------- TOP 10 autores recomendados ---------- ");
         for(int i = 0; i < 10; i++) 
-            System.out.println(autoresRecomendados.get(i).getNome());
+            System.out.println(autoresRecomendados.get(i).getNome(
+
+            ));
     }
 
     public static void main(String[] args) throws IOException {
@@ -330,7 +302,7 @@ public class Menu { // classe para interação com o usuário
             
             option = input.nextInt();
             System.out.println("\n--------------------------------------------------\n"); // padrao: 50 '-'
-            while (option != 1 && option != 2 && option != 3 && option != 4 && option != 5 && option != 6 && option != 0) { // se a entrada não for uma das opções
+            while (option != 1 && option != 2 && option != 3 && option != 4 && option != 5 && option != 6 && option != 7 && option != 8 && option != 0) { // se a entrada não for uma das opções
                 System.out.println("Impossível realizar esta ação. Por favor, escolha uma opção válida");
                 option = input.nextInt(); 
             }

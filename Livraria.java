@@ -45,7 +45,7 @@ public class Livraria { // controller
     // le o arquivo que contem os dados dos clientes 
     public static void leClientes(String caminhoArquivo) throws IOException {
         InputStreamReader isr = new InputStreamReader(new FileInputStream(caminhoArquivo), "UTF-8");
-        BufferedReader br = new BufferedReader(isr); //TODO: consertar isso aqui
+        BufferedReader br = new BufferedReader(isr);
         String linha = "";
         linha = br.readLine();
 
@@ -144,7 +144,6 @@ public class Livraria { // controller
             br.write(";");          
 
             br.write(aluguel.getCliente().getCpf());
-            br.write(";");            
             
             br.newLine();
             br.close();

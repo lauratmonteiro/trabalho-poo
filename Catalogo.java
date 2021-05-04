@@ -37,7 +37,6 @@ public class Catalogo {
     public static void leLivro(String caminhoArquivo) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader (new FileInputStream(caminhoArquivo), "UTF-8"));
         String linha = br.readLine();
-        System.out.println(linha);
 
         while(linha != null){
             String[] dados = linha.split(";", 12);
@@ -79,7 +78,7 @@ public class Catalogo {
                 br.write(l.getEdicao()); br.write(";");
                 br.write(l.getNumPaginas()); br.write(";");
                 br.write(l.getSinopse()); br.write(";");
-                br.write(String.valueOf(l.getAvaliacao())); br.write(";");
+                br.write(String.valueOf(l.getAvaliacao()));
             }
     
             br.close();
@@ -103,7 +102,7 @@ public class Catalogo {
                 br.write(a.getNome()); br.write(";");
                 br.write(a.getNacionalidade()); br.write(";");
                 br.write(a.getAnoNascimento()); br.write(";");
-                br.write(String.valueOf(a.getAvaliacao())); br.write(";");
+                br.write(String.valueOf(a.getAvaliacao()));
             }
     
             br.close();
@@ -115,11 +114,10 @@ public class Catalogo {
     }
 
     public static void leAutor(String caminhoArquivo) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(caminhoArquivo));
-        String linha = "";
+        BufferedReader br = new BufferedReader(new InputStreamReader (new FileInputStream(caminhoArquivo), "UTF-8"));
+        String linha = br.readLine();
 
         while(linha != null){
-            linha = br.readLine();
             String[] dados = linha.split(";", 5);
             Autor autor = new Autor(
                     Integer.valueOf(dados[0]), // id
@@ -127,6 +125,7 @@ public class Catalogo {
                     dados[2], // nacionalidade
                     Integer.valueOf(dados[3]), // ano de nascimento 
                     Double.valueOf(dados[4])); // avaliacao
+            linha = br.readLine();
             autores.add(autor);
         }
 
@@ -134,16 +133,16 @@ public class Catalogo {
     }
 
     public static void leEditora(String caminhoArquivo) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(caminhoArquivo));
-        String linha = "";
+        BufferedReader br = new BufferedReader(new InputStreamReader (new FileInputStream(caminhoArquivo), "UTF-8"));        String linha = "";
+        linha = br.readLine();
 
         while(linha != null){
-            linha = br.readLine();
             String[] dados = linha.split(";", 3);
             Editora editora = new Editora(
                     Integer.valueOf(dados[0]), // id
                     dados[1], // nome
                     dados[2]); // cnpj
+            linha = br.readLine();
             editoras.add(editora);
         }
 
