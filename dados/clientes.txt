@@ -1,14 +1,18 @@
-Ana;Brasileira;2001;14789562414;true;1
-Caio;Brasileiro;1988;14562378954;true;1
-Camila;Espanhola;1973;12356978456;true;0
-Carla;Brasileira;1993;14754623589;true;1
-Carolina;14785245698;1983;Brasileira;true;0
-Cris;Brasileira;1985;14785247856;true;0
-Linda ;Chinesa;1981;14789652147;true;0
-Loara;Brasileira;1980;14785236956;true;0
-Luana;Brasileira;1995;14758623515;true;2
-Luanda;Peruana;1990;14755489567;true;0
-Lucas;Brasileiro;2000;147856952352;true;0
-Lucas;Brasileiro;1997;47852615489;true;0
-Luiz Vieira;Brasileiro;1998;15475625689;true;5
-Luiza;Brasileira;1997;14785236956;true;0
+Ana;14789562414;2001;Brasileira;true;3
+Caio;14562378954;1988;Brasileiro;true;1
+Camila;12356978456;1973;Espanhola;true;0
+Carla;14754623589;1993;Brasileira;true;1
+Carla;14785236945;1998;Brasileira;true;0
+Carolina;Brasileira;1983;14785245698;true;0
+Cris;14785247856;1985;Brasileira;true;0
+Fabio;14598763256;1985;Espanhol;true;0
+Linda ;14789652147;1981;Chinesa;true;0
+Loara;14785236956;1980;Brasileira;true;0
+Luana;14758623515;1995;Brasileira;true;2
+Luana;14523698756;1975;Brasileira;true;0
+Luanda;14755489567;1990;Peruana;true;0
+Lucas;147856952352;2000;Brasileiro;true;0
+Lucas;47852615489;1997;Brasileiro;true;0
+Luiz Vieira;15475625689;1998;Brasileiro;true;5
+Luiza;14785236956;1997;Brasileira;true;0
+Otavio;12587469856;1998;Brasileiro;true;0

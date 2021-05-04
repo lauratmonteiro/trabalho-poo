@@ -89,7 +89,7 @@ public class ManipulaCliente {
         
         br.newLine();
         br.close();
-        teclado.close();
+        //teclado.close();
         
     }
     

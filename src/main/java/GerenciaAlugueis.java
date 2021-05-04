@@ -87,7 +87,7 @@ public class GerenciaAlugueis {
         
         br.newLine();
         br.close();
-        teclado.close();
+        
         
         /* Faz alterações nos arquivos clientes e livros para as devidas alterações */
         ManipulaCliente.incrementaqtdAlugados(clienteAluguel);
@@ -184,14 +184,14 @@ public class GerenciaAlugueis {
         Catalogo.armazenaAlteraçõesLivro();
         Catalogo.armazenaAlteraçõesAutor();
         
-        input.close();
+        
     }
     
     /*  método para alugar um livro  */
     public static void alugarLivro() {
         Scanner teclado = new Scanner (System.in);
         System.out.println("Digite o cpf do cliente para verificar se a locação de livros está disponível: ");
-        String cpfCliente = teclado.nextLine();
+        String cpfCliente = teclado.next();
         int qtd = ManipulaCliente.buscaqtdAlugadosCliente(cpfCliente);
         if (qtd == GerenciaAlugueis.getMAX_LIVROS()) { // Caso o cliente ja tenha o numero maximo de livros alugados
             System.out.println("Não é possível alugar o livro pois o cliente atingiu o limite de livros alugados simultaneamente.\nEfetue as devoluções pendentes e volte a alugar conosco!");
@@ -205,7 +205,7 @@ public class GerenciaAlugueis {
                     System.out.println("Erro na realização do Aluguel. Tente novamente!");
             }
         }
-        teclado.close();
+       
     }
 
    

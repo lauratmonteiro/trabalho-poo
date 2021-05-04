@@ -93,7 +93,8 @@ public class Menu { // classe para interação com o usuário
                 } 
                 break; 
         }
-        teclado.close();
+        
+        
     }
    
 
@@ -115,6 +116,7 @@ public class Menu { // classe para interação com o usuário
         System.out.println("Digite sua escolha: ");
         
         escolha = teclado.nextInt();
+       
         
         
         if(escolha == 1){
@@ -122,6 +124,7 @@ public class Menu { // classe para interação com o usuário
             int opcao = 0;
             System.out.println("Digite a opção escolhida: ");
             opcao = teclado.nextInt();
+            teclado.nextLine();
 
             while(opcao != 0) {
                 System.out.println("\n--------------------------------------------------\n"); // padrao: 50 '-'
@@ -129,6 +132,7 @@ public class Menu { // classe para interação com o usuário
                     System.out.println("Impossível realizar esta ação. Por favor, escolha uma opção válida");
                     mostraMenuFuncionario();
                     opcao = teclado.nextInt();
+                    
                 }
                 // roda o programa
                 switch (opcao) {
@@ -180,9 +184,11 @@ public class Menu { // classe para interação com o usuário
                         }
                         break;
                 }
+                
                 mostraMenuFuncionario();
                 System.out.println("Digite a opção escolhida: ");
                 opcao = teclado.nextInt();
+                teclado.nextLine();
             }
         }
         if(escolha == 2){
@@ -190,6 +196,7 @@ public class Menu { // classe para interação com o usuário
             int opcao1 = 0;
             System.out.println("Digite a opção escolhida: ");
             opcao1 = teclado.nextInt();
+            teclado.nextLine();
 
             while(opcao1 != 0) {
                 System.out.println("\n--------------------------------------------------\n"); // padrao: 50 '-'
@@ -197,6 +204,7 @@ public class Menu { // classe para interação com o usuário
                     System.out.println("Impossível realizar esta ação. Por favor, escolha uma opção válida");
                     mostraMenuCliente();
                     opcao1 = teclado.nextInt();
+                    
                 }
                 // roda o programa
                 switch (opcao1) {
@@ -214,6 +222,8 @@ public class Menu { // classe para interação com o usuário
                 mostraMenuCliente();
                 System.out.println("Digite a opção escolhida: ");
                 opcao1 = teclado.nextInt();
+                teclado.nextLine();
+                
             }
         }
         
