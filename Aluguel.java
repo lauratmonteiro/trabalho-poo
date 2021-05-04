@@ -13,7 +13,6 @@ public class Aluguel{
 
         // incrementa a qtd de livros alugados no obj livro
         livro.setQtdAlugados(livro.getQtdAlugados() + 1);
-
     }
 
     /* getters e setters */

@@ -1,33 +1,33 @@
-1;Paulo Vieira;Brasileiro;1992;3.77
+14;Anne Frank;Alemã;1929;4.16
+24;Arthur Conan Doyle;Britânico;1856;4.5
 2;Brené Brown;Americana;1965;4.19
-3;Lori Gottlieb;Inglesa;1966;4.10
-4;Jane Austen;Inglesa;1775;4.13
+11;Charlie Donlea;Americano;1979;4.03
+20;Dan Brown;Americano;1694;3.85
+25;Douglas Adams;Britânico;1952;4.8
+33;E. Lockhart;Americana;1967;4.1
+31;E.L. James;Britânica;1963;4.5
 5;Emily Brontë;Britânica;1818;3.87
+19;Fabien Vehlmann;França;1972;3.84
+12;George Orwell;Britânico;1903;4.09
+26;J.R.R. Tolkien;Britânico;1892;4.5
+4;Jane Austen;Inglesa;1775;4.13
 6;Jenna Evans Welch;Italiana;1985;4.05
+32;John Fowles;Inglês;1926;4.3
+27;John Green;Americana;1977;5.0
 7;Jojo Moyes;Britânica;1969;4.1
 8;Julia Quinn;Americana;1970;3.94
-9;Stephenie Meyer;Americana;1973;3.66
-10;Rachael Lippincott;Americana;1994;4.19
-11;Charlie Donlea;Americano;1979;4.03
-12;George Orwell;Britânico;1903;4.09
 13;Kiera Cass;Americana;1981;4.03
-14;Anne Frank;Alemã;1929;4.16
-15;Marie Kondo;Japonesa;1984;3.86
-16;Machado De Assis;Brasileiro;1839;4.16
-17;Victoria Aveyard;Americana;1990;3.97
-18;Stephen King;Americano;1947;4.04
-19;Fabien Vehlmann;França;1972;3.84
-20;Dan Brown;Americano;1694;3.85
-21;Kohei Horikoshi;Japonês;1986;3.60
+21;Kohei Horikoshi;Japonês;1986;3.6
 22;Koyoharu Gotouge;Japonês;1989;3.05
-23;Tana French;Irlandesa;1973;4.07
-24;Arthur Conan Doyle;Britânico;1856;4.50
-25;Douglas Adams;Britânico;1952;4.80
-26;J.R.R. Tolkien;Britânico;1892;4.50
-27;John Green;Americana;1977;5.0
-28;Markus Zusak;Australiano;1975;4.50
-29;Lucas De Sousa;Brasileiro;1982;3.20
+3;Lori Gottlieb;Inglesa;1966;4.1
+29;Lucas De Sousa;Brasileiro;1982;3.2
+16;Machado De Assis;Brasileiro;1839;4.16
+15;Marie Kondo;Japonesa;1984;3.86
+28;Markus Zusak;Australiano;1975;4.5
+1;Paulo Vieira;Brasileiro;1992;3.77
 30;R. J. Palacio;Britânica;1963;4.0
-31;E.L. James;Britânica;1963;4.50
-32;John Fowles;Inglês;1926;4.30
-33;E. Lockhart;Americana;1967;4.10
+10;Rachael Lippincott;Americana;1994;4.19
+18;Stephen King;Americano;1947;4.04
+9;Stephenie Meyer;Americana;1973;3.66
+23;Tana French;Irlandesa;1973;4.07
+17;Victoria Aveyard;Americana;1990;3.97

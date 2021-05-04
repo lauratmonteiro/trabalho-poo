@@ -50,8 +50,8 @@ public class Catalogo {
                     Integer.valueOf(dados[6]), // edicao
                     Integer.valueOf(dados[7]), // numPaginas
                     dados[8], // sinopse
-                    Integer.valueOf(dados[9]),
-                    Integer.valueOf(dados[10]),
+                    Integer.valueOf(dados[9]), // qtdExemplares
+                    Integer.valueOf(dados[10]), // qtdAlugados
                     Double.valueOf(dados[11])); // avaliacao
             linha = br.readLine();
             livros.add(livro);
@@ -65,23 +65,26 @@ public class Catalogo {
     public static void escreveLivros() throws IOException {
 
         try {
-            BufferedWriter br = new BufferedWriter(new FileWriter("dados/livros.txt", false));
-            br.write("");
+            FileWriter fw = new FileWriter("dados/livros.txt");
+            PrintWriter pw = new PrintWriter(fw);
     
             for (Livro l : Livraria.livrosCatalogo()) {
-                br.write(l.getId()); br.write(";");
-                br.write(l.getTitulo()); br.write(";");
-                br.write(l.getIdAutor()); br.write(";");
-                br.write(l.getIdEditora()); br.write(";");
-                br.write(String.valueOf(l.getGenero())); br.write(";");
-                br.write(l.getAnoPublicacao()); br.write(";");
-                br.write(l.getEdicao()); br.write(";");
-                br.write(l.getNumPaginas()); br.write(";");
-                br.write(l.getSinopse()); br.write(";");
-                br.write(String.valueOf(l.getAvaliacao()));
+                pw.printf("%1$s;", l.getId());
+                pw.printf("%1$s;", l.getTitulo());
+                pw.printf("%1$s;", l.getIdAutor());
+                pw.printf("%1$s;", l.getIdEditora());
+                pw.printf("%1$s;", l.getGenero().ordinal());
+                pw.printf("%1$s;", l.getAnoPublicacao());
+                pw.printf("%1$s;", l.getEdicao());
+                pw.printf("%1$s;", l.getNumPaginas());
+                pw.printf("%1$s;", l.getSinopse());
+                pw.printf("%1$s;", l.getQtdExemplares());
+                pw.printf("%1$s;", l.getQtdAlugados());
+                pw.printf("%1$s%n", l.getAvaliacao());
+                pw.flush();
             }
-    
-            br.close();
+
+            fw.close();
 
         } catch (IOException e) {
             throw new IOException("Arquivo não encontrado. Por favor, tente novamente.");
@@ -94,18 +97,19 @@ public class Catalogo {
     public static void escreveAutores() throws IOException {
 
         try {
-            BufferedWriter br = new BufferedWriter(new FileWriter("dados/autores.txt", false));
-            br.write("");
+            FileWriter fw = new FileWriter("dados/autores.txt");
+            PrintWriter pw = new PrintWriter(fw);
     
             for (Autor a : Livraria.autoresCatalogo()) {
-                br.write(a.getId()); br.write(";");
-                br.write(a.getNome()); br.write(";");
-                br.write(a.getNacionalidade()); br.write(";");
-                br.write(a.getAnoNascimento()); br.write(";");
-                br.write(String.valueOf(a.getAvaliacao()));
+                pw.printf("%1$s;", a.getId());
+                pw.printf("%1$s;", a.getNome());
+                pw.printf("%1$s;", a.getNacionalidade());
+                pw.printf("%1$s;", a.getAnoNascimento());
+                pw.printf("%1$s%n", a.getAvaliacao());
+                pw.flush();
             }
     
-            br.close();
+            fw.close();
 
         } catch (IOException e) {
             throw new IOException("Arquivo não encontrado. Por favor, tente novamente.");

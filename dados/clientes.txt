@@ -1,14 +1,15 @@
-Ana;Brasileira;2001;14789562414;true;1
-Caio;Brasileiro;1988;14562378954;true;1
+Ana;Brasileira;2001;14789562414;true;0
+Caio;Brasileiro;1988;14562378954;true;0
 Camila;Espanhola;1973;12356978456;true;0
-Carla;Brasileira;1993;14754623589;true;1
+Carla;Brasileira;1993;14754623589;true;0
 Carolina;14785245698;1983;Brasileira;true;0
 Cris;Brasileira;1985;14785247856;true;0
 Linda ;Chinesa;1981;14789652147;true;0
 Loara;Brasileira;1980;14785236956;true;0
-Luana;Brasileira;1995;14758623515;true;2
+Luana;Brasileira;1995;14758623515;true;0
 Luanda;Peruana;1990;14755489567;true;0
 Lucas;Brasileiro;2000;147856952352;true;0
 Lucas;Brasileiro;1997;47852615489;true;0
-Luiz Vieira;Brasileiro;1998;15475625689;true;5
+Luiz Vieira;Brasileiro;1998;15475625689;true;0
 Luiza;Brasileira;1997;14785236956;true;0
+laura;br;2000;12345678900;true;0
