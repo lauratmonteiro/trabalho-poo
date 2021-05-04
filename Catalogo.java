@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 
 import java.util.Collections;
 
@@ -9,8 +8,8 @@ public class Catalogo {
     /* Atributos */
 
     private static ArrayList<Livro> livros = new ArrayList<Livro>();
-    private static List<Editora> editoras = new ArrayList<Editora>();
-    private static List<Autor> autores = new ArrayList<Autor>();
+    private static ArrayList<Editora> editoras = new ArrayList<Editora>();
+    private static ArrayList<Autor> autores = new ArrayList<Autor>();
 
     /* getters */
 
@@ -19,12 +18,12 @@ public class Catalogo {
         return livros;
     }
 
-    public static List<Autor> getAutores() {
+    public static ArrayList<Autor> getAutores() {
         Collections.sort(autores);
         return autores;
     }
 
-    public static List<Editora> getEditoras() {
+    public static ArrayList<Editora> getEditoras() {
         Collections.sort(editoras);
         return editoras;
     }

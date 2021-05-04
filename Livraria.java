@@ -247,8 +247,8 @@ public class Livraria { // controller
     /* métodos buscarLivro: usados para encontrar uma lista de livros com as mesmas caracteristicas */
 
     // retorna uma lista com os livros de um determinado autor em ordem alfabética
-    public static List<Livro> buscarLivros(Autor autor) {
-        List<Livro> livros = new ArrayList<Livro>();
+    public static ArrayList<Livro> buscarLivros(Autor autor) {
+        ArrayList<Livro> livros = new ArrayList<Livro>();
         for (Livro l : Catalogo.getLivros()) {
             if (l.getIdAutor() == autor.getId()) {
                 livros.add(l);
@@ -269,10 +269,10 @@ public class Livraria { // controller
     }
 
     // retorna uma lista com os livros de um determinado genero em ordem alfabética
-    public static List<Livro> buscarLivros(String genero) {
-        List<Livro> livros = new ArrayList<Livro>();
+    public static ArrayList<Livro> buscarLivros(String genero) {
+        ArrayList<Livro> livros = new ArrayList<Livro>();
         for (Livro l : Catalogo.getLivros()) {
-            if (genero == l.getNomeGenero()) {
+            if (genero.toLowerCase().equals(l.getNomeGenero().toLowerCase())){
                 livros.add(l);
             }
         }
@@ -292,7 +292,7 @@ public class Livraria { // controller
 
     public static Livro buscaLivro(String titulo) {
         for (Livro l : Catalogo.getLivros()) {
-            if (titulo.toLowerCase() == l.getTitulo().toLowerCase()) {
+            if (titulo.toLowerCase().equals(l.getTitulo().toLowerCase())) {
                 return l;
             }
         }
@@ -310,7 +310,7 @@ public class Livraria { // controller
 
     public static Autor buscaAutor(String nome) {
         for (Autor a : Catalogo.getAutores()) {
-            if (nome.toLowerCase() == a.getNome().toLowerCase()) {
+            if (nome.toLowerCase().equals(a.getNome().toLowerCase())) {
                 return a;
             }
         }
@@ -328,7 +328,7 @@ public class Livraria { // controller
 
     public static Editora buscaEditora(String nome) {
         for (Editora e : Catalogo.getEditoras()) {
-            if (nome.toLowerCase() == e.getNome().toLowerCase()) {
+            if (nome.toLowerCase().equals(e.getNome().toLowerCase())) {
                 return e;
             }
         }
