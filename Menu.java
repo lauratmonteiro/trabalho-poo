@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,6 +15,8 @@ public class Menu { // classe para interação com o usuário
         System.out.println("4 - Alugar um livro");
         System.out.println("5 - Devolver um livro");
         System.out.println("6 - Ver recomendações");
+        System.out.println("7 - Ver livros disponiveis");
+        System.out.println("8 - Ver autores disponiveis");
         System.out.println("0 - Encerrar programa");
         System.out.println("--------------------------------------------------");
     }
@@ -114,7 +117,7 @@ public class Menu { // classe para interação com o usuário
         }
     }
 
-    public static void validaNumero(String valor) {
+    public static void validaNumero(String valor) throws IllegalArgumentException {
         String[] array = valor.split(""); // divide a string em um array onde cada elemento é um caractere
         for (String s : array) {
             List<Integer> numeros = new ArrayList<Integer>();
@@ -175,37 +178,57 @@ public class Menu { // classe para interação com o usuário
             case 1: 
                 System.out.println("Insira o título do livro: ");
                 String str1 = input.nextLine();
+                if(Livraria.buscaLivro(str1) == null){
+                    throw new BuscaSemSucessoException("Busca sem resultado. Por favor, tente novamente.");
+                }
                 Livraria.buscaLivro(str1).toString(); // encontra e imprime o livro 
-                break; //TODO: lançar exceção pra quando não encontrar
+                break;
             case 2:
                 System.out.println("Insira o nome do autor: ");
                 String str = input.nextLine();
+                if(Livraria.buscarLivros(Livraria.buscaAutor(str)).isEmpty()){
+                    throw new BuscaSemSucessoException("Busca sem resultado. Por favor, tente novamente.");
+                }
                 imprimeLista(Livraria.buscarLivros(Livraria.buscaAutor(str))); // encontra e imprime os livros
-                break; //TODO: lançar exceção pra quando não encontrar
+                break;
             case 3:
                 System.out.println("Insira o nome da editora: ");
                 String str3 = input.nextLine();
+                if(Livraria.buscarLivros(Livraria.buscaEditora(str3)).isEmpty()){
+                    throw new BuscaSemSucessoException("Busca sem resultado. Por favor, tente novamente.");
+                }
                 imprimeLista(Livraria.buscarLivros(Livraria.buscaEditora(str3))); // encontra e imprime os livros
-                break; //TODO: lançar exceção pra quando não encontrar
+                break;
             case 4: 
                 System.out.println("Insira o gênero: ");    
                 String str4 = input.nextLine();
+                if(Livraria.buscarLivros(str4).isEmpty()){
+                    throw new BuscaSemSucessoException("Busca sem resultado. Por favor, tente novamente.");
+                }
                 imprimeLista(Livraria.buscarLivros(str4)); // encontra e imprime os livros
-                break; //TODO: lançar exceção pra quando não encontrar
+                break;
         }
         input.close();
     }
 
     // método para alugar um livro (cria um obj aluguel)
-    public static void alugarLivro(Integer idLivro, String dataAluguel, Cliente cliente) {
-        if (!cliente.getAssinante()) { // Caso o cliente não seja assinante
+    public static void alugarLivro() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Digite o CPF do cliente: ");
+        String cpf = input.nextLine();
+        Livraria.buscaCliente(cpf);
+
+        if(Livraria.buscaCliente(cpf) == null){
+            throw new BuscaSemSucessoException("Cliente não encontrado.");
+        }
+
+        if (!Livraria.buscaCliente(cpf).getAssinante()) { // Caso o cliente não seja assinante
             System.out.println("Não é possível alugar o livro pois o cliente não é assinante do serviço.\n");
-            System.out.println("Gostaria de assinar nosso serviço?\n");
-            Scanner input = new Scanner(System.in);
+            System.out.println("Gostaria de assinar nosso serviço? Digite Sim ou Não\n");
             String resposta = input.nextLine();
             switch (resposta) {
-                case "Sim": 
-                    cliente.comprarAssinatura();
+                case "Sim":
+                    Livraria.buscaCliente(cpf).comprarAssinatura();
                     System.out.println("Assinatura efetuada com sucesso!\n");
                     input.close(); break;
                 case "Não":
@@ -214,34 +237,55 @@ public class Menu { // classe para interação com o usuário
             }
         }
 
-        if (Livraria.verificaLimite(cliente)) { // Caso o cliente ja tenha o numero maximo de livros alugados
+        if (Livraria.verificaLimite(Livraria.buscaCliente(cpf))) { // Caso o cliente ja tenha o numero maximo de livros alugados
             System.out.println("Não é possível alugar o livro pois o cliente atingiu o limite de livros alugados simultaneamente.\n");
             return;
         }
 
-        Livro livro = Livraria.buscaLivro(idLivro); // encontra o livro desejado
+        System.out.println("Escolha um dos livros a seguir: ");
+        listarLivros();
+        Integer numLivro = input.nextInt();
 
-        if (Livraria.verificaDisponibilidade(livro)) { // Caso o livro nao esteja disponivel
+        while (numLivro-1 < 1 || numLivro-1 >Livraria.livrosCatalogo().size()) { // enquando nao for um livro valido
+            System.out.println("Livro não encontrado. Por favor, tente novamente.\n");
+            numLivro = input.nextInt();
+        }
+
+        Livraria.livrosCatalogo().get(numLivro-1);
+
+        if (Livraria.verificaDisponibilidade(Livraria.livrosCatalogo().get(numLivro-1))) { // Caso o livro nao esteja disponivel
             System.out.println("Não é possível alugar o livro pois não há exemplares disponíveis.\n");
             return;
         }
 
-        Livraria.salvaAluguel(livro, dataAluguel, cliente);
+        System.out.println("Digite a data do aluguel: ");
+        String data = input.nextLine();
+
+        Livraria.salvaAluguel(Livraria.livrosCatalogo().get(numLivro-1), data, Livraria.buscaCliente(cpf));
         System.out.println("Livro alugado com sucesso!\n"); 
     }
 
     // método para devolver um livro
-    public static void devolverLivro(Aluguel aluguel) {
+    public static void devolverLivro() {
         Scanner input = new Scanner(System.in);
-        Livraria.removeAluguel(aluguel);
+        System.out.println("Escolha um dos alugueis abaixo: ");
+        listarAlugueis();
+        Integer numAluguel = input.nextInt();
 
-        System.out.println("Gostaria de avaliar o livro?\n");
+        while (numAluguel-1 < 1 || numAluguel-1 >Livraria.getAlugueis().size()) { // enquando nao for um livro valido
+            System.out.println("Aluguel não encontrado. Por favor, tente novamente.\n");
+            numAluguel = input.nextInt();
+        }
+
+        Livraria.removeAluguel(Livraria.getAlugueis().get(numAluguel-1));
+
+        System.out.println("Gostaria de avaliar o livro? Digite Sim ou Não:\n");
         String resposta = input.nextLine();
         switch (resposta) {
             case "Sim": 
                 System.out.println("Numa escala de 1 a 5, o quanto você gostou do livro?\n");
                 int nota = input.nextInt();
-                Livraria.avaliarLivro(aluguel.getLivro(), nota);
+                Livraria.avaliarLivro(Livraria.getAlugueis().get(numAluguel-1).getLivro(), nota);
                 break;
             case "Não":
                 System.out.println("Obrigada por utilizar nosso serviço, volte sempre!\n"); 
@@ -272,7 +316,7 @@ public class Menu { // classe para interação com o usuário
             System.out.println(autoresRecomendados.get(i).getNome());
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         Scanner input = new Scanner(System.in);
 
@@ -306,36 +350,30 @@ public class Menu { // classe para interação com o usuário
                     listarClientes(); break;
                 case 3:
                     busca();
-                    // TODO: colocar um bloco try/catch aqui pra tratar quando o programa não encontrar nenhum resultado pra busca realizada (criar uma exception própria)
                 case 4:
-                    System.out.println("--------------------------------------------------");
-                    System.out.println("Qual dos clientes a seguir vai realizar o aluguel?");
-                    listarClientes();
-                    int cliente = input.nextInt();
-                    while (cliente-1 < 1 || cliente-1 >Livraria.getClientes().size()) { // enquando nao for um cliente valido
-                        System.out.println("Cliente não encontrado. Por favor, tente novamente.\n");
-                        cliente = input.nextInt();
+                    try {
+                        alugarLivro();
+                    }catch (BuscaSemSucessoException e){
+                        e.getMessage();
                     }
-                    System.out.println("Qual dos livros a seguir será alugado?");
-                    listarLivros();
-                    int livro = input.nextInt();
-                    while (livro-1 < 1 || livro-1 >Livraria.livrosCatalogo().size()) { // enquando nao for um livro valido
-                        System.out.println("Livro não encontrado. Por favor, tente novamente.\n");
-                        livro = input.nextInt();
-                    }
-                    System.out.println("Insira a data do aluguel (formato dd/mm/aaaa): ");
-                    String data = input.nextLine();
-                    
-                    //alugarLivro(Livraria.livrosCatalogo()[livro-1], data, Livraria.getClientes()[cliente-1]);
-                    //TODO: consertar linha acima
-
                     break;
                 case 5:
+                    devolverLivro();
+                    break;
                 case 6:
-                    recomendaLivros(); break;
+                    recomendaLivros();
+                    recomendaAutores();
+                    break;
+                case 7:
+                    listarLivros();
+                    break;
+                case 8:
+                    listarAutores();
+                    break;
             }
         }
 
+        Livraria.finalizaPrograma();
         input.close();
         // se a opção de encerrar o programa for escolhida, encerra
 

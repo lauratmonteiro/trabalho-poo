@@ -19,7 +19,8 @@ public class Livro implements Avaliacao, Comparable<Livro>, Comparator<Livro>{
 
     /* Construtor */
 
-    public Livro(Integer id, String titulo, Integer idAutor, Integer idEditora, Genero genero, Integer anoPublicacao, Integer edicao, Integer numPaginas, String sinopse, Double avaliacao) {
+    public Livro(Integer id, String titulo, Integer idAutor, Integer idEditora, Genero genero, Integer anoPublicacao,
+                 Integer edicao, Integer numPaginas, String sinopse, Integer qtdExemplares, Integer qtdAlugados, Double avaliacao) {
         this.id = id;
         this.titulo = titulo;
         this.idAutor = idAutor;
@@ -29,6 +30,8 @@ public class Livro implements Avaliacao, Comparable<Livro>, Comparator<Livro>{
         this.edicao = edicao;
         this.numPaginas = numPaginas;
         this.sinopse = sinopse;
+        this.qtdExemplares = qtdExemplares;
+        this.qtdAlugados = qtdAlugados;
         this.avaliacao = avaliacao; // Inicializada com a nota do Goodreads (a partir da primeira avaliação, passa a ser a média das avaliações dos clientes)
     }
 

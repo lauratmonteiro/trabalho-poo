@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +26,7 @@ public class Livraria { // controller
             Catalogo.leAutor("dados/autores.txt");
             Catalogo.leEditora("dados/editoras.txt");
             leClientes("dados/clientes.txt");
-            leAlugueis("dados/alugueis.txt")
+            leAlugueis("dados/alugueis.txt");
         } catch (IOException e) {
             System.out.println("Houve um problema na inicialização do catálogo. Por favor, tente novamente.");
         }
@@ -47,7 +44,8 @@ public class Livraria { // controller
 
     // le o arquivo que contem os dados dos clientes 
     public static void leClientes(String caminhoArquivo) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader (new FileInputStream(caminhoArquivo), "UTF-8")); //TODO: consertar isso aqui
+        InputStreamReader isr = new InputStreamReader(new FileInputStream(caminhoArquivo), "UTF-8");
+        BufferedReader br = new BufferedReader(isr); //TODO: consertar isso aqui
         String linha = "";
         linha = br.readLine();
 
@@ -87,7 +85,8 @@ public class Livraria { // controller
 
     // le o arquivo que contem os alugueis 
     public static void leAlugueis(String caminhoArquivo) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader (new FileInputStream(caminhoArquivo), "UTF-8"));
+        InputStreamReader isr = new InputStreamReader(new FileInputStream(caminhoArquivo), "UTF-8");
+        BufferedReader br = new BufferedReader(isr);
         String linha = "";
         linha = br.readLine();
 

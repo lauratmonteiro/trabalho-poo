@@ -1,13 +1,7 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-
-import jdk.internal.agent.resources.agent;
-import jdk.jshell.resources.l10n;
 
 import java.util.Collections;
 
@@ -41,23 +35,26 @@ public class Catalogo {
     /* Métodos para ler os dados de livros, autores e editoras disponíveis */
 
     public static void leLivro(String caminhoArquivo) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(caminhoArquivo));
-        String linha = "";
+        BufferedReader br = new BufferedReader(new InputStreamReader (new FileInputStream(caminhoArquivo), "UTF-8"));
+        String linha = br.readLine();
+        System.out.println(linha);
 
         while(linha != null){
-            linha = br.readLine();
-            String[] dados = linha.split(";", 10);
+            String[] dados = linha.split(";", 12);
             Livro livro = new Livro(
                     Integer.valueOf(dados[0]), // id
                     dados[1], // titulo
-                    Integer.valueOf(dados[5]), // idAutor
-                    Integer.valueOf(dados[6]), // idEditora
-                    Genero.values()[Integer.valueOf(dados[2])], // genero
-                    Integer.valueOf(dados[7]), // anoPublicacao
-                    Integer.valueOf(dados[8]), // edicao
-                    Integer.valueOf(dados[3]), // numPaginas
-                    dados[4], // sinopse
-                    Double.valueOf(dados[9])); // avaliacao
+                    Integer.valueOf(dados[2]), // idAutor
+                    Integer.valueOf(dados[3]), // idEditora
+                    Genero.values()[Integer.valueOf(dados[4])], // genero
+                    Integer.valueOf(dados[5]), // anoPublicacao
+                    Integer.valueOf(dados[6]), // edicao
+                    Integer.valueOf(dados[7]), // numPaginas
+                    dados[8], // sinopse
+                    Integer.valueOf(dados[9]),
+                    Integer.valueOf(dados[10]),
+                    Double.valueOf(dados[11])); // avaliacao
+            linha = br.readLine();
             livros.add(livro);
         }
 
