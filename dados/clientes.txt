@@ -13,3 +13,4 @@ Lucas;Brasileiro;1997;47852615489;true;0
 Luiz Vieira;Brasileiro;1998;15475625689;true;0
 Luiza;Brasileira;1997;14785236956;true;0
 laura;br;2000;12345678900;true;0
+guilherme;brasileiro;1995;98765432100;true;0

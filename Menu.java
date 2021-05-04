@@ -25,70 +25,84 @@ public class Menu { // classe para interação com o usuário
     // mostra uma lista enumerada com todos os clientes cadastrados (identificados pelo nome)
     public static void listarClientes() {
         int num = 1;
-        System.out.println("--------------------------------------------------");
-        System.out.println("Mostrando clientes...");
+        System.out.println("\n--------------------------------------------------");
+        System.out.println("Mostrando clientes...\n");
         for (Cliente c : Livraria.getClientes()) {
             System.out.println(num + " - " + c.getNome());
             num++;
         }
-        System.out.println("--------------------------------------------------");
+        System.out.println("--------------------------------------------------\n");
     }
 
     // mostra uma lista enumerada com todos os alugueis cadastrados
     public static void listarAlugueis() {
         int num = 1;
-        System.out.println("--------------------------------------------------");
-        System.out.println("Mostrando alugueis...");
+        System.out.println("\n--------------------------------------------------");
+        System.out.println("Mostrando alugueis...\n");
         for (Aluguel a : Livraria.getAlugueis()) {
             System.out.println("--- Aluguel nº " + num + " ---");
             System.out.println("Cliente: " + a.getCliente().getNome());
             System.out.println("Livro: " + a.getLivro().getTitulo());
             num++;
         }
-        System.out.println("--------------------------------------------------");
+        System.out.println("--------------------------------------------------\n");
     }  
 
     // mostra uma lista enumerada com todos os livros (com todas informações)
     public static void listarLivros() {
         int num = 1;
-        System.out.println("--------------------------------------------------");
+        System.out.println("\n--------------------------------------------------");
         System.out.println("Mostrando livros...\n");
         for (Livro l : Livraria.livrosCatalogo()) {
-            System.out.println("---------- Livro nº " + num + " ----------");
+            System.out.println("------------- Livro nº " + num + " -------------");
             System.out.println(l);
             num++;
         }
-        System.out.println("--------------------------------------------------");
+        System.out.println("--------------------------------------------------\n");
+    }
+
+    // mostra uma lista enumerada com todos os livros (com todas informações)
+    public static void listarLivrosParaAlugar() {
+        int num = 1;
+        System.out.println("\n--------------------------------------------------");
+        System.out.println("Mostrando livros...\n");
+        for (Livro l : Livraria.livrosCatalogo()) {
+            System.out.println("------------- Livro nº " + num + " -------------");
+            System.out.println( "Titulo: " + l.getTitulo() + " - ID: " + l.getId() + '\n' +
+                                "Autor: " + Livraria.buscaAutor(l.getIdAutor()).getNome() + '\n');
+            num++;
+        }
+        System.out.println("--------------------------------------------------\n");
     }
 
     // mostra uma lista enumerada com todos os autores (identificados pelo nome)
     public static void listarAutores() {
         int num = 1;
-        System.out.println("--------------------------------------------------");
+        System.out.println("\n--------------------------------------------------");
         System.out.println("Mostrando autores...\n");
         for (Autor a : Livraria.autoresCatalogo()) {
             System.out.println(num + " - " + a.getNome());
             num++;
         }
-        System.out.println("--------------------------------------------------");
+        System.out.println("--------------------------------------------------\n");
     }
 
     // mostra uma lista enumerada com todas os editoras(identificadas pelo nome)
     public static void listarEditoras() {
         int num = 1;
-        System.out.println("--------------------------------------------------");
+        System.out.println("\n--------------------------------------------------");
         System.out.println("Mostrando editoras...\n");
         for (Editora e : Livraria.editorasCatalogo()) {
             System.out.println(num + e.getNome());
             num++;
         }
-        System.out.println("--------------------------------------------------");
+        System.out.println("--------------------------------------------------\n");
     }
 
     // mostra uma lista numerada com todos os generos em ordem alfabética
     public static void listarGeneros(){
-        System.out.println("--------------------------------------------------");
-        System.out.println("Mostrando gêneros...");
+        System.out.println("\n--------------------------------------------------");
+        System.out.println("Mostrando gêneros...\n");
         System.out.println( "1 - Autoajuda\n" + 
                             "2 - Drama\n" +
                             "3 - Ficção\n" +
@@ -100,7 +114,7 @@ public class Menu { // classe para interação com o usuário
                             "9 - Romance\n" +
                             "10 - Suspense\n" + 
                             "11 - Terror" );
-        System.out.println("--------------------------------------------------");
+        System.out.println("--------------------------------------------------\n");
     }
 
     /* OUTROS MÉTODOS */
@@ -177,13 +191,12 @@ public class Menu { // classe para interação com o usuário
                 imprimeLista(Livraria.buscarLivros(str4)); // encontra e imprime os livros
                 break;
         }
-        input.close();
     }
 
     // método para alugar um livro (cria um obj aluguel)
     public static void alugarLivro() {
         Scanner input = new Scanner(System.in);
-        System.out.println("Digite o CPF do cliente: ");
+        System.out.print("Digite o CPF do cliente: ");
         String cpf = input.nextLine();
         Livraria.buscaCliente(cpf);
 
@@ -193,36 +206,37 @@ public class Menu { // classe para interação com o usuário
 
         if (!Livraria.buscaCliente(cpf).getAssinante()) { // Caso o cliente não seja assinante
             System.out.println("Não é possível alugar o livro pois o cliente não é assinante do serviço.\n");
-            System.out.println("Gostaria de assinar nosso serviço? Digite Sim ou Não\n");
+            System.out.println("Gostaria de assinar nosso serviço? Digite Sim ou Não.\n");
+            input = new Scanner(System.in);
             String resposta = input.nextLine();
-            switch (resposta) {
-                case "Sim":
+            switch (resposta.toLowerCase()) {
+                case "sim":
                     Livraria.buscaCliente(cpf).comprarAssinatura();
                     System.out.println("Assinatura efetuada com sucesso!\n");
-                    input.close(); break;
-                case "Não":
+                    break;
+                case "nao":
                     System.out.println("Obrigada por utilizar nosso serviço, volte sempre!\n"); 
-                    input.close(); return;
+                    return;
             }
         }
 
-        if (Livraria.verificaLimite(Livraria.buscaCliente(cpf))) { // Caso o cliente ja tenha o numero maximo de livros alugados
+        if (!Livraria.verificaLimite(Livraria.buscaCliente(cpf))) { // Caso o cliente ja tenha o numero maximo de livros alugados
             System.out.println("Não é possível alugar o livro pois o cliente atingiu o limite de livros alugados simultaneamente.\n");
             return;
         }
 
         System.out.println("Escolha um dos livros a seguir: ");
-        listarLivros();
+        listarLivrosParaAlugar();
         Integer numLivro = input.nextInt();
 
-        while (numLivro-1 < 1 || numLivro-1 >Livraria.livrosCatalogo().size()) { // enquando nao for um livro valido
+        while (numLivro-1 < 0 || numLivro-1 > Livraria.livrosCatalogo().size()) { // enquando nao for um livro valido
             System.out.println("Livro não encontrado. Por favor, tente novamente.\n");
             numLivro = input.nextInt();
         }
 
         Livraria.livrosCatalogo().get(numLivro-1);
 
-        if (Livraria.verificaDisponibilidade(Livraria.livrosCatalogo().get(numLivro-1))) { // Caso o livro nao esteja disponivel
+        if (!Livraria.verificaDisponibilidade(Livraria.livrosCatalogo().get(numLivro-1))) { // Caso o livro nao esteja disponivel
             System.out.println("Não é possível alugar o livro pois não há exemplares disponíveis.\n");
             return;
         }
@@ -248,7 +262,7 @@ public class Menu { // classe para interação com o usuário
 
         Livraria.removeAluguel(Livraria.getAlugueis().get(numAluguel-1));
 
-        System.out.println("Gostaria de avaliar o livro? Digite Sim ou Não:\n");
+        System.out.println("\nGostaria de avaliar o livro? Digite Sim ou Não.\n");
         String resposta = input.nextLine();
         switch (resposta) {
             case "Sim": 
@@ -260,7 +274,6 @@ public class Menu { // classe para interação com o usuário
                 System.out.println("Obrigada por utilizar nosso serviço, volte sempre!\n"); 
                 break;
         }
-        input.close();
     }
 
     // método para recomendar livros 

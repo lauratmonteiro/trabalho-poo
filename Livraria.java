@@ -32,7 +32,6 @@ public class Livraria { // controller
         }
     }
 
-    //TODO: terminar
     public static void finalizaPrograma() {
         try {
             escreveClientes();
