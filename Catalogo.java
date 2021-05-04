@@ -8,13 +8,13 @@ public class Catalogo {
 
     /* Atributos */
 
-    private static List<Livro> livros = new ArrayList<Livro>();
+    private static ArrayList<Livro> livros = new ArrayList<Livro>();
     private static List<Editora> editoras = new ArrayList<Editora>();
     private static List<Autor> autores = new ArrayList<Autor>();
 
     /* getters */
 
-    public static List<Livro> getLivros() {
+    public static ArrayList<Livro> getLivros() {
         Collections.sort(livros);
         return livros;
     }

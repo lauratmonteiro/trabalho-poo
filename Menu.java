@@ -127,7 +127,7 @@ public class Menu { // classe para interação com o usuário
     }
 
     // método para cadastrar um novo cliente
-    public static void cadastrarCliente() throws IllegalArgumentException {
+    public static void cadastrarCliente() {
         Scanner teclado = new Scanner(System.in);
 
         System.out.print("Digite o nome do novo cliente: ");
@@ -140,7 +140,6 @@ public class Menu { // classe para interação com o usuário
         String cpf = teclado.next();
 
         Livraria.salvaCliente(nome, nacionalidade, ano, cpf);
-//        teclado.close();
 
     }
 
@@ -152,7 +151,7 @@ public class Menu { // classe para interação com o usuário
                             "3 - Nome da editora\n" +
                             "4 - Gênero do livro\n");
         Scanner input = new Scanner(System.in);
-        int op = -1; op = input.nextInt();
+        int op = input.nextInt();
         while (op != 1 && op != 2 && op != 3 && op != 4) { // se a entrada não for uma das opções
             System.out.println("Impossível realizar esta ação. Por favor, escolha uma opção válida");
             op = input.nextInt();
@@ -198,7 +197,6 @@ public class Menu { // classe para interação com o usuário
         Scanner input = new Scanner(System.in);
         System.out.print("Digite o CPF do cliente: ");
         String cpf = input.nextLine();
-        Livraria.buscaCliente(cpf);
 
         if(Livraria.buscaCliente(cpf) == null){
             throw new BuscaSemSucessoException("Cliente não encontrado.");
@@ -206,7 +204,7 @@ public class Menu { // classe para interação com o usuário
 
         if (!Livraria.buscaCliente(cpf).getAssinante()) { // Caso o cliente não seja assinante
             System.out.println("Não é possível alugar o livro pois o cliente não é assinante do serviço.\n");
-            System.out.println("Gostaria de assinar nosso serviço? Digite Sim ou Não.\n");
+            System.out.println("Gostaria de assinar nosso serviço? Digite Sim ou Nao.\n");
             input = new Scanner(System.in);
             String resposta = input.nextLine();
             switch (resposta.toLowerCase()) {
@@ -241,7 +239,8 @@ public class Menu { // classe para interação com o usuário
             return;
         }
 
-        System.out.println("Digite a data do aluguel: ");
+        System.out.print("Digite a data do aluguel: ");
+        input = new Scanner(System.in);
         String data = input.nextLine();
 
         Livraria.salvaAluguel(Livraria.livrosCatalogo().get(numLivro-1), data, Livraria.buscaCliente(cpf));
@@ -255,25 +254,25 @@ public class Menu { // classe para interação com o usuário
         listarAlugueis();
         Integer numAluguel = input.nextInt();
 
-        while (numAluguel-1 < 1 || numAluguel-1 >Livraria.getAlugueis().size()) { // enquando nao for um livro valido
+        while (numAluguel-1 < 0 || numAluguel-1 >Livraria.getAlugueis().size()) { // enquando nao for um livro valido
             System.out.println("Aluguel não encontrado. Por favor, tente novamente.\n");
             numAluguel = input.nextInt();
         }
 
-        Livraria.removeAluguel(Livraria.getAlugueis().get(numAluguel-1));
-
-        System.out.println("\nGostaria de avaliar o livro? Digite Sim ou Não.\n");
+        System.out.println("\nGostaria de avaliar o livro? Digite Sim ou Nao.\n");
+        input = new Scanner(System.in);
         String resposta = input.nextLine();
-        switch (resposta) {
-            case "Sim": 
-                System.out.println("Numa escala de 1 a 5, o quanto você gostou do livro?\n");
+        switch (resposta.toLowerCase()) {
+            case "sim": 
+                System.out.println("\nNuma escala de 1 a 5, o quanto você gostou do livro?\n");
                 int nota = input.nextInt();
                 Livraria.avaliarLivro(Livraria.getAlugueis().get(numAluguel-1).getLivro(), nota);
                 break;
-            case "Não":
-                System.out.println("Obrigada por utilizar nosso serviço, volte sempre!\n"); 
+            case "nao": 
                 break;
         }
+        System.out.println("\nObrigada por utilizar nosso serviço, volte sempre!");
+        Livraria.removeAluguel(Livraria.getAlugueis().get(numAluguel-1));
     }
 
     // método para recomendar livros 
@@ -323,12 +322,8 @@ public class Menu { // classe para interação com o usuário
             switch (option) {
                 case 0: break;
                 case 1:
-                    try {
-                        cadastrarCliente();
-                        System.out.println("Cliente cadastrado com sucesso!\n");
-                    } catch (IllegalArgumentException e) {
-                        e.getMessage();
-                    }
+                    cadastrarCliente();
+                    System.out.println("Cliente cadastrado com sucesso!\n");
                     break;
                 case 2: 
                     listarClientes(); break;

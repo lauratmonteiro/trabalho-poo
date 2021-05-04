@@ -258,8 +258,8 @@ public class Livraria { // controller
     }
 
     // retorna uma lista com os livros de uma determinada editora em ordem alfabética
-    public static List<Livro> buscarLivros(Editora editora) {
-        List<Livro> livros = new ArrayList<Livro>();
+    public static ArrayList<Livro> buscarLivros(Editora editora) {
+        ArrayList<Livro> livros = new ArrayList<Livro>();
         for (Livro l : Catalogo.getLivros()) {
             if (l.getIdEditora() == editora.getId()) {
                 livros.add(l);
