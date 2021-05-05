@@ -159,7 +159,7 @@ public class Menu { // classe para interação com o usuário
         switch (op) {
             case 1: 
                 System.out.print("\nInsira o título do livro: ");
-                input = new Scanner(System.in);
+                input.nextLine(); // consumir buffer
                 String str1 = input.nextLine();
                 if(Livraria.buscaLivro(str1) == null){
                     throw new BuscaSemSucessoException("Busca sem resultado. Por favor, tente novamente.");
@@ -168,6 +168,7 @@ public class Menu { // classe para interação com o usuário
                 break;
             case 2: //TODO
                 System.out.println("Insira o nome do autor: ");
+                input.nextLine(); // consumir buffer
                 String str = input.nextLine();
                 if(Livraria.buscarLivros(Livraria.buscaAutor(str)) == null){
                     throw new BuscaSemSucessoException("Busca sem resultado. Por favor, tente novamente.");
@@ -176,6 +177,7 @@ public class Menu { // classe para interação com o usuário
                 break;
             case 3: //TODO
                 System.out.println("Insira o nome da editora: ");
+                input.nextLine(); // consumir buffer
                 String str3 = input.nextLine();
                 if(Livraria.buscarLivros(Livraria.buscaEditora(str3)).isEmpty()){
                     throw new BuscaSemSucessoException("Busca sem resultado. Por favor, tente novamente.");
@@ -253,7 +255,7 @@ public class Menu { // classe para interação com o usuário
         System.out.print("\nDigite a data do aluguel: ");
         input = new Scanner(System.in);
         String data = input.nextLine();
-
+        
         Livraria.salvaAluguel(Livraria.livrosCatalogo().get(numLivro-1), data, Livraria.buscaCliente(cpf));
         System.out.println("\nLivro alugado com sucesso!"); 
     }
@@ -342,14 +344,14 @@ public class Menu { // classe para interação com o usuário
                     try {
                         busca();
                     } catch (BuscaSemSucessoException e) {
-                        e.getMessage();
+                        System.out.println(e.getMessage());
                     }
                     break;
                 case 4:
                     try {
                         alugarLivro();
                     }catch (BuscaSemSucessoException e){
-                        e.getMessage();
+                        System.out.println(e.getMessage());
                     }
                     break;
                 case 5:

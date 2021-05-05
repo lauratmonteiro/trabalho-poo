@@ -248,6 +248,8 @@ public class Livraria { // controller
 
     // retorna uma lista com os livros de um determinado autor em ordem alfabética
     public static ArrayList<Livro> buscarLivros(Autor autor) {
+        if(autor == null) return null;
+
         ArrayList<Livro> livros = new ArrayList<Livro>();
         for (Livro l : Catalogo.getLivros()) {
             if (l.getIdAutor() == autor.getId()) {
@@ -259,6 +261,8 @@ public class Livraria { // controller
 
     // retorna uma lista com os livros de uma determinada editora em ordem alfabética
     public static ArrayList<Livro> buscarLivros(Editora editora) {
+        if(editora == null) return null;
+
         ArrayList<Livro> livros = new ArrayList<Livro>();
         for (Livro l : Catalogo.getLivros()) {
             if (l.getIdEditora() == editora.getId()) {
@@ -270,6 +274,8 @@ public class Livraria { // controller
 
     // retorna uma lista com os livros de um determinado genero em ordem alfabética
     public static ArrayList<Livro> buscarLivros(String genero) {
+        if(genero == null) return null;
+
         ArrayList<Livro> livros = new ArrayList<Livro>();
         for (Livro l : Catalogo.getLivros()) {
             if (genero.toLowerCase().equals(l.getNomeGenero().toLowerCase())){

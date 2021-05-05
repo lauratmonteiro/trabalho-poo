@@ -10,9 +10,6 @@ public class Aluguel{
         this.livro = livro;
         this.dataAluguel = dataAluguel;
         this.cliente = cliente;
-
-        // incrementa a qtd de livros alugados no obj livro
-        livro.setQtdAlugados(livro.getQtdAlugados() + 1);
     }
 
     /* getters e setters */
