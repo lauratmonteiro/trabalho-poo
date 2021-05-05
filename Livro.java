@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class Livro implements Avaliacao, Comparable<Livro>, Comparator<Livro>{
+public class Livro implements Avaliacao, Comparable<Livro>{
     
     private Integer id;
     private String titulo;
@@ -149,9 +149,5 @@ public class Livro implements Avaliacao, Comparable<Livro>, Comparator<Livro>{
         this.setAvaliacao(nota);
     }
 
-    @Override
-    public int compare(Livro livro, Livro outroLivro) {
-        return livro.getAvaliacao().compareTo(outroLivro.getAvaliacao());
-    }
 
 }

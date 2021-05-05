@@ -58,7 +58,6 @@ public class Catalogo {
         br.close();
     }
 
-    // TESTAR
     // salva os clientes no arquivo de dados
     public static void escreveLivros() throws IOException {
 
@@ -90,7 +89,6 @@ public class Catalogo {
 
     }
 
-        // TESTAR
     // salva os clientes no arquivo de dados
     public static void escreveAutores() throws IOException {
 
